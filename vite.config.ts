@@ -13,12 +13,11 @@ export default defineConfig({
   },
   plugins: [vue({})],
   build: {
-    minify: true,
-    outDir: 'dist',
     lib: {
       // Could also be a dictionary or array of multiple entry points
-      entry: ['src'],
-      name: 'DataGridBvue',
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'DataGridBVue',
+      fileName: 'datagrid-bvue',
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
