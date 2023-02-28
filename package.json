@@ -29,8 +29,8 @@
     }
   },
   "style": "./dist/style.css",
-  "typings": "./dist/datagrid-bvue.d.ts",
-  "types": "./dist/datagrid-bvue.d.ts",
+  "typings": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "bootstrap-vue": "^2.23.1",
     "dayjs": "^1.11.6",
