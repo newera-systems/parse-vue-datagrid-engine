@@ -4,7 +4,7 @@
   "description": "DataGrid based on bootstrap vue",
   "author": "NewEra Systems",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "engines": {
     "npm": "please-use-yarn"
   },
@@ -20,12 +20,11 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/datagrid-bvue.umd.cjs",
   "module": "./dist/datagrid-bvue.js",
   "exports": {
     ".": {
       "import": "./dist/datagrid-bvue.js",
-      "require": "./dist/datagrid-bvue.umd.cjs"
+      "require": "./dist/datagrid-bvue.umd.cjs",
     }
   },
   "style": "./dist/style.css",
