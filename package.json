@@ -16,20 +16,19 @@
     "test": "yarn test:unit",
     "preview": "vite preview"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/datagrid-bvue.umd.cjs",
+  "type": "module",
   "module": "./dist/datagrid-bvue.js",
   "exports": {
     ".": {
-      "import": "./dist/datagrid-bvue.js",
-      "require": "./dist/datagrid-bvue.umd.cjs"
+      "import": "./dist/datagrid-bvue.js"
     }
   },
   "style": "./dist/style.css",
   "typings": "./dist/index.d.ts",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "bootstrap-vue": "^2.23.1",
     "dayjs": "^1.11.6",
