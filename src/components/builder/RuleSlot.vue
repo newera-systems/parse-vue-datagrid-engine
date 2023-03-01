@@ -14,12 +14,12 @@
 </template>
 
 <script lang="ts">
-import { RuleDefinition, RuleSlotProps } from "query-builder-vue";
+import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
 
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
-  name: "ModalRuleCtrlSlot",
+  name: 'ModalRuleCtrlSlot',
   props: {
     ruleCtrl: {
       type: Object as PropType<RuleSlotProps>,
@@ -32,10 +32,8 @@ export default defineComponent({
   },
   computed: {
     ruleName(): string {
-      const name = this.rules.find(
-        (r) => r.identifier === this.ruleCtrl.ruleIdentifier
-      )?.name;
-      return name ? this.getTranslation(name) : "??";
+      const name = this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.name;
+      return name ? this.getTranslation(name) : '??';
     },
   },
   methods: {

@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="d-inline-flex"
-    @keyup.esc.stop="discardChanges"
-    @keyup.enter.stop="saveModification"
-  >
+  <div class="d-inline-flex" @keyup.esc.stop="discardChanges" @keyup.enter.stop="saveModification">
     <b-dropdown class="dropdown-language" variant="outline-primary">
       <template #button-content>
         <template v-if="selectedLang.code.length">
@@ -27,12 +23,7 @@
       </b-dropdown-item>
     </b-dropdown>
     <b-button-group class="ml-1">
-      <b-button
-        class="btn-icon"
-        size="sm"
-        variant="danger"
-        @click="discardChanges"
-      >
+      <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
         <BIconX size="16" variant="white" />
       </b-button>
       <b-button
@@ -49,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -57,9 +48,9 @@ import {
   BDropdownItem,
   BIconCheckSquare,
   BIconX,
-} from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
-import { LocaleInterface, LOCALES } from "@/fieldsData";
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
+import { LocaleInterface, LOCALES } from '@/fieldsData';
 
 export default defineComponent({
   components: {
@@ -90,14 +81,12 @@ export default defineComponent({
       isModified: false,
       valid: true,
       editValue: null as unknown as string,
-      locales: Array.from(LOCALES.values()).filter(
-        (locale: LocaleInterface) => locale.code.length
-      ),
+      locales: Array.from(LOCALES.values()).filter((locale: LocaleInterface) => locale.code.length),
     };
   },
   beforeMount() {
-    if (typeof this.rawValue !== "string") {
-      this.editValue = this.rawValue?.toString() ?? "";
+    if (typeof this.rawValue !== 'string') {
+      this.editValue = this.rawValue?.toString() ?? '';
     } else {
       this.editValue = String(this.rawValue);
     }
@@ -111,7 +100,7 @@ export default defineComponent({
         ) ?? {
           possibleLocales: [],
           name: this.editValue,
-          code: "xx",
+          code: 'xx',
           value: this.editValue,
         }
       );
@@ -122,14 +111,14 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
+      this.$emit('editionCanceled');
     },
   },
   watch: {

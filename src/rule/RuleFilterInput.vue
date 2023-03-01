@@ -10,11 +10,7 @@
       {{ getTranslation(definition.name) }}:
       <strong class="">{{ status }}</strong>
       <BIconChevronDown class="mx-1" />
-      <BIconXLg
-        v-show="!isEmpty"
-        class="text-danger mx-1 scale"
-        @click.prevent.stop="clearRule"
-      />
+      <BIconXLg v-show="!isEmpty" class="text-danger mx-1 scale" @click.prevent.stop="clearRule" />
     </b-button>
     <b-popover
       :show.sync="showPopup"
@@ -27,26 +23,26 @@
       <template #title>{{ getTranslation(definition.name) }}</template>
       <component :is="definition.component" v-model="editValue" />
       <b-button type="submit" variant="success" @click="updateRule">
-        {{ $t("update") }}
+        {{ $t('update') }}
       </b-button>
     </b-popover>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { RuleDefinition } from "query-builder-vue";
+import Vue, { defineComponent, PropType } from 'vue';
+import { RuleDefinition } from 'query-builder-vue';
 import {
   EngineRuleData,
   EngineSimpleRule,
   RegistrationGender,
   RegistrationLanguage,
   SimpleRuleType,
-} from "@/index";
-import { Money } from "ts-money";
-import { BButton, BIconChevronDown, BIconXLg, BPopover } from "bootstrap-vue";
-import VueI18n from "vue-i18n";
-import filterTranslate from "@/translation/filter";
+} from '@/index';
+import { Money } from 'ts-money';
+import { BButton, BIconChevronDown, BIconXLg, BPopover } from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
 
 export type RuleDataObject =
   | EngineRuleData<string, SimpleRuleType.Date>
@@ -60,7 +56,7 @@ export type RuleDataObject =
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "RuleFilterInput",
+  name: 'RuleFilterInput',
   i18n: new VueI18n(filterTranslate),
   components: {
     BIconChevronDown,
@@ -81,22 +77,20 @@ export default defineComponent({
   data() {
     return {
       editValue: null as unknown as RuleDataObject,
-      id: `button-modify-${this.definition.identifier}-${Math.random()
-        .toString(36)
-        .substr(2, 9)}`,
+      id: `button-modify-${this.definition.identifier}-${Math.random().toString(36).substr(2, 9)}`,
       showPopup: false,
     };
   },
   computed: {
     status(): string {
       if (this.value?.value) {
-        if (typeof this.value?.value.value !== "undefined") {
+        if (typeof this.value?.value.value !== 'undefined') {
           return `${this.getOperatorTranslation(this.value.value.operator)} "${
             this.value.value.value
           }"`;
         }
       }
-      return this.$t("all").toString() ?? "all";
+      return this.$t('all').toString() ?? 'all';
     },
     isEmpty(): boolean {
       if (this.value?.value) {
@@ -109,14 +103,14 @@ export default defineComponent({
   },
   methods: {
     clearRule() {
-      this.$emit("input", {
+      this.$emit('input', {
         identifier: this.definition.identifier,
         value: null,
       });
     },
     updateRule() {
       this.showPopup = false;
-      this.$emit("input", {
+      this.$emit('input', {
         identifier: this.definition.identifier,
         value: { ...this.editValue },
       } as EngineSimpleRule);

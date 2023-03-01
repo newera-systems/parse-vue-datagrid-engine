@@ -11,12 +11,7 @@
     />
     <b-input-group-append>
       <b-button-group>
-        <b-button
-          class="btn-icon"
-          size="sm"
-          variant="danger"
-          @click="discardChanges"
-        >
+        <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
           <BIconX size="16" variant="white" />
         </b-button>
         <b-button
@@ -34,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -44,10 +39,10 @@ import {
   BIconX,
   BInputGroup,
   BInputGroupAppend,
-} from "bootstrap-vue";
+} from 'bootstrap-vue';
 
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
-import { Money } from "ts-money";
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
+import { Money } from 'ts-money';
 
 export default defineComponent({
   components: {
@@ -80,29 +75,26 @@ export default defineComponent({
       editValue: null as number | null,
       amount: null as number | null,
       isModified: false,
-      currency: "CAD",
+      currency: 'CAD',
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.editValue = null;
     } else if (this.rawValue === null) {
       this.editValue = null;
-    } else if (typeof this.rawValue === "object") {
+    } else if (typeof this.rawValue === 'object') {
       this.editValue = this.rawValue.amount ?? null;
-      this.currency = this.rawValue.currency ?? "CAD";
+      this.currency = this.rawValue.currency ?? 'CAD';
     } else {
       this.editValue = Number(this.rawValue) ?? 0;
     }
     this.amount = this.editValue;
-    this.price = Money.fromInteger(
-      this.editValue as number,
-      this.currency
-    ).toString();
+    this.price = Money.fromInteger(this.editValue as number, this.currency).toString();
   },
   computed: {
     state(): boolean | null {
-      if (this.price === null || this.price.trim() === "") {
+      if (this.price === null || this.price.trim() === '') {
         return null;
       }
       return Number.parseFloat(this.price).toFixed(2) === this.price;
@@ -115,20 +107,20 @@ export default defineComponent({
       }
       let newValue: Money | Number | null = null;
       try {
-        if (typeof this.rawValue === "object" && this.editValue) {
+        if (typeof this.rawValue === 'object' && this.editValue) {
           newValue = Money.fromInteger(this.editValue, this.currency);
         } else {
           newValue = this.editValue;
         }
       } catch (e) {}
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
         newValue: newValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
+      this.$emit('editionCanceled');
     },
   },
   watch: {

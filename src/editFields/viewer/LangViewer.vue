@@ -1,11 +1,6 @@
 <template>
   <div class="d-cell-viewer-language">
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">{{ visibleData }}</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -26,15 +21,10 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import {
-  BIconDashCircle,
-  BIconLock,
-  BIconPen,
-  BIconQuestionOctagonFill,
-} from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem } from "@/index";
-import { LocaleInterface, LOCALES } from "@/fieldsData";
+import Vue, { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconLock, BIconPen, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
+import { LocaleInterface, LOCALES } from '@/fieldsData';
 
 export default defineComponent({
   components: {
@@ -73,14 +63,14 @@ export default defineComponent({
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = "undefined";
+      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = "null";
+      this.visibleData = 'null';
       this.isNull = true;
-    } else if (typeof this.rawValue !== "string") {
-      this.visibleData = this.rawValue?.toString() ?? "";
+    } else if (typeof this.rawValue !== 'string') {
+      this.visibleData = this.rawValue?.toString() ?? '';
       this.error = this.visibleData.length === 0;
     } else {
       this.visibleData = String(this.rawValue?.toString().trim());
@@ -94,7 +84,7 @@ export default defineComponent({
       ) ?? {
         possibleLocales: [],
         name: this.visibleData,
-        code: "xx",
+        code: 'xx',
         value: this.visibleData,
       };
     },

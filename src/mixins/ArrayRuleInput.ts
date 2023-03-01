@@ -1,12 +1,12 @@
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
-import { PropType } from "vue";
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { PropType } from 'vue';
 import {
   EngineRuleData,
   EngineSubOperators,
   MultiOperatorOptions,
   RegistrationLanguage,
   SimpleRuleType,
-} from "@/index";
+} from '@/index';
 
 export default {
   components: {
@@ -14,9 +14,7 @@ export default {
   },
   props: {
     value: {
-      type: Object as PropType<
-        EngineRuleData<Array<string>, SimpleRuleType.Array>
-      >,
+      type: Object as PropType<EngineRuleData<Array<string>, SimpleRuleType.Array>>,
       default(): {
         type: SimpleRuleType;
         value: [];
@@ -47,7 +45,7 @@ export default {
   },
   created(): void {
     // @ts-expect-error lang exist on component
-    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? "fr";
+    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? 'fr';
   },
   beforeMount(): void {
     // @ts-expect-error function exist on component
@@ -72,7 +70,7 @@ export default {
     },
     updateOutput(): void {
       // @ts-expect-error emit exist on component
-      this.$emit("input", {
+      this.$emit('input', {
         type: SimpleRuleType.Array,
         // @ts-expect-error content exist on component
         value: this.content,
@@ -84,15 +82,15 @@ export default {
   watch: {
     value: {
       deep: true,
-      handler: "update",
+      handler: 'update',
     },
     operator: {
       deep: true,
-      handler: "updateOutput",
+      handler: 'updateOutput',
     },
     content: {
       deep: true,
-      handler: "updateOutput",
+      handler: 'updateOutput',
     },
   },
 };

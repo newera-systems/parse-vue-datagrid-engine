@@ -1,11 +1,6 @@
 <template>
   <div>
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">{{ visibleData }}</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -23,9 +18,9 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem } from "@/index";
+import Vue, { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
 
 export default defineComponent({
   components: {
@@ -60,21 +55,21 @@ export default defineComponent({
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = "undefined";
+      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = "null";
+      this.visibleData = 'null';
       this.isNull = true;
-    } else if (typeof this.rawValue === "object") {
+    } else if (typeof this.rawValue === 'object') {
       if (Array.isArray(this.rawValue)) {
-        this.visibleData = "Tableau";
+        this.visibleData = 'Tableau';
       } else {
-        this.visibleData = this.rawValue?.toString() ?? "";
+        this.visibleData = this.rawValue?.toString() ?? '';
         this.error = this.visibleData.length === 0;
       }
-    } else if (typeof this.rawValue !== "string") {
-      this.visibleData = this.rawValue?.toString() ?? "";
+    } else if (typeof this.rawValue !== 'string') {
+      this.visibleData = this.rawValue?.toString() ?? '';
       this.error = this.visibleData.length === 0;
     } else {
       this.visibleData = String(this.rawValue?.toString());
@@ -83,9 +78,9 @@ export default defineComponent({
   methods: {
     truncateString(str: string, length: number) {
       if (str === null || str === undefined) {
-        return "";
+        return '';
       }
-      return str.length > length ? str.substring(0, length - 3) + "..." : str;
+      return str.length > length ? str.substring(0, length - 3) + '...' : str;
     },
   },
 });

@@ -2,14 +2,9 @@
   <div class="group-ctrl-slot">
     <b-button-toolbar aria-label="Rule creation toolbar">
       <BButtonGroup>
-        <BDropdown
-          :text="ruleName"
-          menu-class="dropdown-menu-rule-modal"
-          right
-          variant="primary"
-        >
+        <BDropdown :text="ruleName" menu-class="dropdown-menu-rule-modal" right variant="primary">
           <b-dropdown-header>
-            {{ $t("Rule.selectId") }}
+            {{ $t('Rule.selectId') }}
           </b-dropdown-header>
           <BDropdownItem
             v-for="rule in groupCtrl.rules"
@@ -42,8 +37,8 @@
   </div>
 </template>
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { GroupCtrlSlotProps } from "query-builder-vue";
+import Vue, { defineComponent, PropType } from 'vue';
+import { GroupCtrlSlotProps } from 'query-builder-vue';
 import {
   BButton,
   BButtonGroup,
@@ -53,13 +48,13 @@ import {
   BDropdownItem,
   BIconFolderPlus,
   BIconPlusSquare,
-} from "bootstrap-vue";
-import VueI18n from "vue-i18n";
-import modalTranslation from "@/translation/modal";
+} from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
+import modalTranslation from '@/translation/modal';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "ModalGroupCtrlSlot",
+  name: 'ModalGroupCtrlSlot',
   i18n: new VueI18n(modalTranslation),
   components: {
     BButton,
@@ -79,18 +74,16 @@ export default defineComponent({
   },
   data() {
     return {
-      selectedRule: "",
+      selectedRule: '',
       expanded: false,
     };
   },
   computed: {
     ruleName(): string {
-      if (this.selectedRule === "") {
-        return this.$t("Rule.selectId").toString() ?? "Select rule";
+      if (this.selectedRule === '') {
+        return this.$t('Rule.selectId').toString() ?? 'Select rule';
       }
-      const name = this.groupCtrl.rules.find(
-        (rule) => rule.identifier === this.selectedRule
-      )?.name;
+      const name = this.groupCtrl.rules.find(rule => rule.identifier === this.selectedRule)?.name;
       return name ? this.getTranslation(name) : this.selectedRule;
     },
   },
@@ -104,7 +97,7 @@ export default defineComponent({
         return;
       }
       this.groupCtrl.addRule(this.selectedRule);
-      this.selectedRule = "";
+      this.selectedRule = '';
     },
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin

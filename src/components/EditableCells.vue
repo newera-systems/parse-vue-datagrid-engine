@@ -28,27 +28,16 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, Component, PropType } from "vue";
-import {
-  BButton,
-  BIconLock,
-  BIconPen,
-  BIconPencilSquare,
-  BIconX,
-} from "bootstrap-vue";
-import {
-  DataGridModifiedCell,
-  FieldDefinitionWithExtra,
-  FieldType,
-  GridEntityItem,
-} from "@/index";
-import StringEditor from "@/editFields/editor/StringEditor.vue";
-import StringViewer from "@/editFields/viewer/StringViewer.vue";
-import ArrayViewer from "@/editFields/viewer/ArrayViewer.vue";
-import PointerViewer from "@/editFields/viewer/PointerViewer.vue";
+import Vue, { defineComponent, Component, PropType } from 'vue';
+import { BButton, BIconLock, BIconPen, BIconPencilSquare, BIconX } from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinitionWithExtra, FieldType, GridEntityItem } from '@/index';
+import StringEditor from '@/editFields/editor/StringEditor.vue';
+import StringViewer from '@/editFields/viewer/StringViewer.vue';
+import ArrayViewer from '@/editFields/viewer/ArrayViewer.vue';
+import PointerViewer from '@/editFields/viewer/PointerViewer.vue';
 
 export default defineComponent({
-  name: "EditableCells",
+  name: 'EditableCells',
   components: {
     BIconPencilSquare,
     BIconX,
@@ -78,21 +67,18 @@ export default defineComponent({
     },
   },
   created() {
-    this.buttonId = "edit-button-" + this.item.id + this.field.identifier;
+    this.buttonId = 'edit-button-' + this.item.id + this.field.identifier;
   },
   data() {
     return {
       modified: false,
       editMode: false,
-      buttonId: "edit-button",
+      buttonId: 'edit-button',
     };
   },
   computed: {
     writable(): boolean {
-      if (
-        this.field.type === FieldType.OtherEntity ||
-        this.field.type === FieldType.Array
-      ) {
+      if (this.field.type === FieldType.OtherEntity || this.field.type === FieldType.Array) {
         return false;
       }
       return this.field.config.canEdit ?? true;
@@ -124,7 +110,7 @@ export default defineComponent({
       this.modified = true;
       this.editMode = false;
       this.$nextTick(() => {
-        this.$emit("cellModified", modification);
+        this.$emit('cellModified', modification);
       });
     },
     _onCloseEdition() {

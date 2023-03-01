@@ -1,21 +1,19 @@
-import Vue, { defineComponent, PropType } from "vue";
-import Paginator from "@components/Paginator.vue";
+import Vue, { defineComponent, PropType } from 'vue';
+import Paginator from '@components/Paginator.vue';
 import {
   DataGridProviderFunction,
   DataGridProviderPromiseResult,
   FilterRuleInterface,
   GridEntityItem,
   ProviderContext,
-} from "@/index";
+} from '@/index';
 
 export default defineComponent({
   components: { Paginator },
   props: {
     items: {
       type: [Array, Function, Promise] as PropType<
-        | Array<GridEntityItem>
-        | DataGridProviderFunction
-        | DataGridProviderPromiseResult
+        Array<GridEntityItem> | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
       required: true,
     },

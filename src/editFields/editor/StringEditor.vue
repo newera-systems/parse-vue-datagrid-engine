@@ -1,18 +1,9 @@
 <template>
   <b-input-group class="d-cell-editor-string" @keyup.esc.stop="discardChanges">
-    <b-form-input
-      v-model="editValue"
-      placeholder="string"
-      @keyup.enter.stop="saveModification"
-    />
+    <b-form-input v-model="editValue" placeholder="string" @keyup.enter.stop="saveModification" />
     <b-input-group-append>
       <b-button-group>
-        <b-button
-          class="btn-icon"
-          size="sm"
-          variant="danger"
-          @click="discardChanges"
-        >
+        <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
           <BIconX size="16" variant="white" />
         </b-button>
         <b-button
@@ -30,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -39,8 +30,8 @@ import {
   BIconX,
   BInputGroup,
   BInputGroupAppend,
-} from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
 
 export default defineComponent({
   components: {
@@ -74,8 +65,8 @@ export default defineComponent({
     };
   },
   mounted() {
-    if (typeof this.rawValue !== "string") {
-      this.editValue = this.rawValue?.toString() ?? "";
+    if (typeof this.rawValue !== 'string') {
+      this.editValue = this.rawValue?.toString() ?? '';
     } else {
       this.editValue = String(this.rawValue);
     }
@@ -85,14 +76,14 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
+      this.$emit('editionCanceled');
     },
   },
   watch: {

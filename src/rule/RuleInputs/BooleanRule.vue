@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BFormGroup,
   BFormInput,
@@ -25,18 +25,18 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from "bootstrap-vue";
+} from 'bootstrap-vue';
 import {
   BooleanOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
   SimpleRuleType,
-} from "@/index";
-import fieldInput from "@/mixins/RuleFieldInput";
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+} from '@/index';
+import fieldInput from '@/mixins/RuleFieldInput';
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
 export default defineComponent({
-  name: "BooleanRule",
+  name: 'BooleanRule',
   mixins: [fieldInput],
   components: {
     BFormGroup,
@@ -68,8 +68,8 @@ export default defineComponent({
   computed: {
     options(): { value: boolean; text: string }[] {
       return [
-        { value: true, text: this.getTranslation("yes") },
-        { value: false, text: this.getTranslation("no") },
+        { value: true, text: this.getTranslation('yes') },
+        { value: false, text: this.getTranslation('no') },
       ];
     },
   },
@@ -81,7 +81,7 @@ export default defineComponent({
       }
     },
     updateOutput() {
-      this.$emit("input", {
+      this.$emit('input', {
         type: SimpleRuleType.Boolean,
         value: this.selected,
         operator: this.operator,

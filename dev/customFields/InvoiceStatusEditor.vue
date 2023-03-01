@@ -4,19 +4,9 @@
     @keyup.esc.stop="discardChanges"
     @keyup.enter.stop="saveModification"
   >
-    <b-form-select
-      v-model="editValue"
-      :options="list"
-      value-field="id"
-      text-field="label"
-    />
+    <b-form-select v-model="editValue" :options="list" value-field="id" text-field="label" />
     <b-button-group>
-      <b-button
-        class="btn-icon"
-        size="sm"
-        variant="danger"
-        @click="discardChanges"
-      >
+      <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
         <BIconX size="16" variant="white" />
       </b-button>
       <b-button
@@ -33,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -41,14 +31,10 @@ import {
   BFormSelect,
   BIconCheckSquare,
   BIconX,
-} from "bootstrap-vue";
-import {
-  DataGridModifiedCell,
-  FieldDefinitionWithExtra,
-  GridEntityItem,
-} from "../../src";
-import { InvoiceStatus } from "../customRule/InvoiceStatusRule.vue";
-import { InvoiceStatusIcons } from "./InvoiceStatusViewer.vue";
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinitionWithExtra, GridEntityItem } from '../../src';
+import { InvoiceStatus } from '../customRule/InvoiceStatusRule.vue';
+import { InvoiceStatusIcons } from './InvoiceStatusViewer.vue';
 
 export default defineComponent({
   components: {
@@ -81,16 +67,13 @@ export default defineComponent({
   },
   computed: {},
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.editValue = InvoiceStatus.NONE;
     } else if (this.rawValue === null) {
       this.editValue = InvoiceStatus.NONE;
     } else {
-      const managedList: InvoiceStatus[] = Object.values(
-        InvoiceStatusIcons
-      ).map((i) => i.id);
-      const val =
-        (this.rawValue?.trim() as InvoiceStatus) ?? InvoiceStatus.NONE;
+      const managedList: InvoiceStatus[] = Object.values(InvoiceStatusIcons).map(i => i.id);
+      const val = (this.rawValue?.trim() as InvoiceStatus) ?? InvoiceStatus.NONE;
       this.editValue = managedList.includes(val) ? val : InvoiceStatus.NONE;
     }
   },
@@ -99,14 +82,14 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
+      this.$emit('editionCanceled');
     },
   },
   watch: {

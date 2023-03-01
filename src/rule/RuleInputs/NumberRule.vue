@@ -4,36 +4,26 @@
       <b-input-group-prepend>
         <OperatorDropdown v-model="operator" :options="operatorList" />
       </b-input-group-prepend>
-      <b-form-input
-        v-model.number="content"
-        autocomplete="off"
-        trim
-        type="number"
-      />
+      <b-form-input v-model.number="content" autocomplete="off" trim type="number" />
     </b-input-group>
   </b-form-group>
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BFormGroup,
   BFormInput,
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from "bootstrap-vue";
-import {
-  EngineRuleData,
-  EngineSubOperators,
-  NumberOperatorOptions,
-  SimpleRuleType,
-} from "@/index";
-import fieldInput from "@/mixins/RuleFieldInput";
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+} from 'bootstrap-vue';
+import { EngineRuleData, EngineSubOperators, NumberOperatorOptions, SimpleRuleType } from '@/index';
+import fieldInput from '@/mixins/RuleFieldInput';
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
 export default defineComponent({
-  name: "NumberRule",
+  name: 'NumberRule',
   components: {
     BFormGroup,
     BInputGroup,
@@ -76,8 +66,8 @@ export default defineComponent({
       }
     },
     updateOutput() {
-      this.$emit("input", {
-        type: "number",
+      this.$emit('input', {
+        type: 'number',
         value: this.content,
         operator: this.operator,
       } as EngineRuleData<number, SimpleRuleType.Number>);
@@ -86,15 +76,15 @@ export default defineComponent({
   watch: {
     value: {
       deep: true,
-      handler: "update",
+      handler: 'update',
     },
     operator: {
       deep: true,
-      handler: "updateOutput",
+      handler: 'updateOutput',
     },
     content: {
       deep: true,
-      handler: "updateOutput",
+      handler: 'updateOutput',
     },
   },
 });

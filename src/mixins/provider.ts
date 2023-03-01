@@ -1,23 +1,21 @@
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   DataGridProviderFunction,
   DataGridProviderPromiseResult,
   FilterRuleInterface,
   GridEntityItem,
   ProviderContext,
-} from "@/index";
+} from '@/index';
 
 function isPromise(p: any) {
-  return typeof p === "object" && typeof p.then === "function";
+  return typeof p === 'object' && typeof p.then === 'function';
 }
 
 export default defineComponent({
   props: {
     items: {
       type: [Array, Function, Promise] as PropType<
-        | Array<GridEntityItem>
-        | DataGridProviderFunction
-        | DataGridProviderPromiseResult
+        Array<GridEntityItem> | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
       required: true,
     },
@@ -42,7 +40,7 @@ export default defineComponent({
   },
   computed: {
     hasProviderFunction(): boolean {
-      return typeof this.items === "function";
+      return typeof this.items === 'function';
     },
   },
   methods: {
@@ -50,7 +48,7 @@ export default defineComponent({
     _providerSetLocal(items: Array<GridEntityItem> | any) {
       if (isPromise(items)) {
         // function returned a promise need to wait before updating
-        (items as DataGridProviderPromiseResult).then((result) => {
+        (items as DataGridProviderPromiseResult).then(result => {
           this._providerSetLocal(result);
         });
         this.localItems = [];
@@ -65,11 +63,11 @@ export default defineComponent({
         this.localBusy = false;
       }
       this.cellKeyRemount++;
-      this.$emit("itemsRefreshed");
+      this.$emit('itemsRefreshed');
     },
     _checkIfIdFieldPresent(list: Array<any>) {
       const idIsPresent = list.every((item: any): boolean => {
-        return Object.keys(item).includes("id");
+        return Object.keys(item).includes('id');
       });
       if (!idIsPresent) {
         console.warn(`[DataGrid warn]: item doesn't have, id field`);
@@ -86,7 +84,7 @@ export default defineComponent({
         try {
           //promise
           if (isPromise(this.items)) {
-            (this.items as DataGridProviderPromiseResult).then((result) => {
+            (this.items as DataGridProviderPromiseResult).then(result => {
               this._providerSetLocal(result);
             });
           } else {
@@ -94,7 +92,7 @@ export default defineComponent({
             const provider = this.items as DataGridProviderFunction;
             const data = provider(this.context, this._providerSetLocal);
             if (isPromise(data)) {
-              (data as DataGridProviderPromiseResult).then((items) => {
+              (data as DataGridProviderPromiseResult).then(items => {
                 this._providerSetLocal(items);
               });
             } else if (Array.isArray(data)) {
@@ -112,7 +110,7 @@ export default defineComponent({
             }
           }
         } catch (e) {
-          console.error("DataGrid provider function error", e);
+          console.error('DataGrid provider function error', e);
         }
       });
     },

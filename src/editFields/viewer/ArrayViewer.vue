@@ -1,11 +1,6 @@
 <template>
   <div>
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">{{ visibleData }}</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -16,11 +11,7 @@
       <small class="pr-1">{{ visibleData }}</small>
       <BIconDashCircle variant="info" />
     </span>
-    <div
-      v-else
-      class="d-inline-flex align-items-center"
-      @dblclick.stop="_handleClick"
-    >
+    <div v-else class="d-inline-flex align-items-center" @dblclick.stop="_handleClick">
       <span class="mr-1">
         {{ visibleData }}
       </span>
@@ -31,13 +22,9 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, Component, PropType } from "vue";
-import {
-  BIconDashCircle,
-  BIconQuestionOctagonFill,
-  BIconStack,
-} from "bootstrap-vue";
-import { FieldDefinitionWithExtra, GridEntityItem } from "@/index";
+import Vue, { defineComponent, Component, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill, BIconStack } from 'bootstrap-vue';
+import { FieldDefinitionWithExtra, GridEntityItem } from '@/index';
 
 export default defineComponent({
   components: {
@@ -72,16 +59,16 @@ export default defineComponent({
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = "undefined";
+      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = "null";
+      this.visibleData = 'null';
       this.isNull = true;
     } else if (this.field.pointerName) {
       this.visibleData = this.field.pointerName;
     } else {
-      this.visibleData = this.$t("table").toString();
+      this.visibleData = this.$t('table').toString();
     }
     if (this.field.specialIcon) {
       this.icon = this.field.specialIcon;
@@ -89,9 +76,9 @@ export default defineComponent({
   },
   methods: {
     _handleClick() {
-      this.$emit("arrayOnClick:external");
+      this.$emit('arrayOnClick:external');
       this.$nextTick(() => {
-        if (typeof this.field.onClickExternalRoutine === "function") {
+        if (typeof this.field.onClickExternalRoutine === 'function') {
           this.field.onClickExternalRoutine(this.rawValue);
         }
       });

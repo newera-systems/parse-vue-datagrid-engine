@@ -1,11 +1,6 @@
 <template>
   <div class="d-cell-viewer-money">
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -25,10 +20,10 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem } from "@/index";
-import { Money } from "ts-money";
+import Vue, { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
+import { Money } from 'ts-money';
 
 export default defineComponent({
   components: {
@@ -58,17 +53,17 @@ export default defineComponent({
       visibleData: null as unknown as Money,
       isNull: false,
       error: false,
-      currency: "CAD",
+      currency: 'CAD',
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
     } else if (this.rawValue === null) {
       this.isNull = true;
-    } else if (typeof this.rawValue === "object") {
+    } else if (typeof this.rawValue === 'object') {
       this.visibleData = this.rawValue;
-      this.currency = this.rawValue.currency ?? "CAD";
+      this.currency = this.rawValue.currency ?? 'CAD';
     } else {
       const amount = Number(this.rawValue) ?? 0;
       this.visibleData = new Money(amount, this.currency);

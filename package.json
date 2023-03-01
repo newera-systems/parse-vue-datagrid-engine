@@ -24,7 +24,7 @@
   "exports": {
     ".": {
       "import": "./dist/datagrid-bvue.js",
-      "require": "./dist/datagrid-bvue.umd.cjs",
+      "require": "./dist/datagrid-bvue.umd.cjs"
     }
   },
   "style": "./dist/style.css",

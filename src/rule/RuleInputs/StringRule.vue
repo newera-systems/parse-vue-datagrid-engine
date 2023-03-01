@@ -10,25 +10,20 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BFormGroup,
   BFormInput,
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from "bootstrap-vue";
-import {
-  EngineRuleData,
-  EngineSubOperators,
-  SimpleRuleType,
-  StringOperatorOptions,
-} from "@/index";
-import fieldInput from "@/mixins/RuleFieldInput";
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+} from 'bootstrap-vue';
+import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/index';
+import fieldInput from '@/mixins/RuleFieldInput';
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
 export default defineComponent({
-  name: "StringRule",
+  name: 'StringRule',
   mixins: [fieldInput],
   components: {
     BFormGroup,
@@ -44,14 +39,14 @@ export default defineComponent({
       default: () =>
         ({
           type: SimpleRuleType.String,
-          value: "",
+          value: '',
           operator: EngineSubOperators.EqualTo,
         } as EngineRuleData<string, SimpleRuleType.String>),
     },
   },
   data() {
     return {
-      content: "",
+      content: '',
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
     };

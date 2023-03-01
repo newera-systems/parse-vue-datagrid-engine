@@ -8,7 +8,7 @@
       >
         <span class="text-muted">
           {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }}
-          {{ $t("entries") }}
+          {{ $t('entries') }}
         </span>
       </b-col>
       <!-- Pagination -->
@@ -40,17 +40,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from "vue";
-import {
-  BCol,
-  BIconChevronLeft,
-  BIconChevronRight,
-  BPagination,
-  BRow,
-} from "bootstrap-vue";
+import Vue, { defineComponent } from 'vue';
+import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
 
 export default defineComponent({
-  name: "DataGridPagePaginator",
+  name: 'DataGridPagePaginator',
   components: {
     BCol,
     BRow,
@@ -59,8 +53,8 @@ export default defineComponent({
     BPagination,
   },
   model: {
-    event: "change",
-    prop: "currentPage",
+    event: 'change',
+    prop: 'currentPage',
   },
   props: {
     currentPage: {
@@ -89,9 +83,7 @@ export default defineComponent({
   },
   computed: {
     startingIndex(): number {
-      return (
-        this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1)
-      );
+      return this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1);
     },
     endingIndex(): number {
       const maxEnd = this.currentPageNumber * this.perPageNumber;
@@ -111,7 +103,7 @@ export default defineComponent({
   watch: {
     currentPageNumber() {
       if (this.currentPageNumber !== this.currentPage) {
-        this.$emit("change", this.currentPageNumber);
+        this.$emit('change', this.currentPageNumber);
       }
     },
     currentPage() {

@@ -1,12 +1,12 @@
-import { QueryBuilderConfig, RuleDefinition } from "query-builder-vue";
-import { Component } from "vue";
-import StringRule from "@/rule/RuleInputs/StringRule.vue";
-import NumberRule from "@/rule/RuleInputs/NumberRule.vue";
-import MoneyRule from "@/rule/RuleInputs/MoneyRule.vue";
-import LangRule from "@/rule/RuleInputs/LangRule.vue";
-import DateRule from "@/rule/RuleInputs/DateRule.vue";
-import BooleanRule from "@/rule/RuleInputs/BooleanRule.vue";
-import { GroupOperator, RuleCompTypes } from "@/index";
+import { QueryBuilderConfig, RuleDefinition } from 'query-builder-vue';
+import { Component } from 'vue';
+import StringRule from '@/rule/RuleInputs/StringRule.vue';
+import NumberRule from '@/rule/RuleInputs/NumberRule.vue';
+import MoneyRule from '@/rule/RuleInputs/MoneyRule.vue';
+import LangRule from '@/rule/RuleInputs/LangRule.vue';
+import DateRule from '@/rule/RuleInputs/DateRule.vue';
+import BooleanRule from '@/rule/RuleInputs/BooleanRule.vue';
+import { GroupOperator, RuleCompTypes } from '@/index';
 
 export interface SchemaDefinition {
   identifier: string;
@@ -45,20 +45,20 @@ export class RuleEngineConfig {
     return {
       operators: [
         {
-          name: "AND",
+          name: 'AND',
           identifier: GroupOperator.AND,
         },
         {
-          name: "OR",
+          name: 'OR',
           identifier: GroupOperator.OR,
         },
       ],
       rules: this.rules,
-      colors: ["#6610f2", "#ff9f43", "#ffc107", "#ea5455"],
+      colors: ['#6610f2', '#ff9f43', '#ffc107', '#ea5455'],
       dragging: {
         animation: 300,
         disabled: this.draggable,
-        dragClass: "sortable-drag",
+        dragClass: 'sortable-drag',
       },
     };
   }

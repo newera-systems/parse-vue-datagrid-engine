@@ -11,12 +11,7 @@
     />
     <b-input-group-append>
       <b-button-group>
-        <b-button
-          class="btn-icon"
-          size="sm"
-          variant="danger"
-          @click="discardChanges"
-        >
+        <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
           <BIconX size="16" variant="white" />
         </b-button>
         <b-button
@@ -34,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -43,9 +38,9 @@ import {
   BIconX,
   BInputGroup,
   BInputGroupAppend,
-} from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
-import dayjs, { Dayjs } from "dayjs";
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
+import dayjs, { Dayjs } from 'dayjs';
 
 export default defineComponent({
   components: {
@@ -83,8 +78,8 @@ export default defineComponent({
   },
   mounted() {
     if (
-      typeof this.rawValue === "object" &&
-      Object.prototype.toString.call(this.rawValue) === "[object Date]"
+      typeof this.rawValue === 'object' &&
+      Object.prototype.toString.call(this.rawValue) === '[object Date]'
     ) {
       this.editValue = dayjs(this.rawValue).toDate();
     } else {
@@ -96,14 +91,14 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
+      this.$emit('editionCanceled');
     },
   },
   watch: {

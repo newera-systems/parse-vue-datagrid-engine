@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BFormGroup,
   BFormInput,
@@ -25,20 +25,20 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from "bootstrap-vue";
+} from 'bootstrap-vue';
 import {
   BooleanOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
   RegistrationLanguage,
   SimpleRuleType,
-} from "@/index";
-import fieldInput from "@/mixins/RuleFieldInput";
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
-import { LOCALES } from "@/fieldsData";
+} from '@/index';
+import fieldInput from '@/mixins/RuleFieldInput';
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { LOCALES } from '@/fieldsData';
 
 export default defineComponent({
-  name: "LangRule",
+  name: 'LangRule',
   mixins: [fieldInput],
   components: {
     BFormGroup,
@@ -51,9 +51,7 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: Object as PropType<
-        EngineRuleData<RegistrationLanguage, SimpleRuleType.String>
-      >,
+      type: Object as PropType<EngineRuleData<RegistrationLanguage, SimpleRuleType.String>>,
       default: () =>
         ({
           type: SimpleRuleType.String,
@@ -71,10 +69,10 @@ export default defineComponent({
   },
   computed: {
     langOptions(): Array<{ value: string; text: string }> {
-      const acceptedLanguages = ["fr", "en"] as string[];
+      const acceptedLanguages = ['fr', 'en'] as string[];
       return Array.from(LOCALES.values())
-        .filter((locale) => acceptedLanguages.includes(locale.value))
-        .map((locale) => ({
+        .filter(locale => acceptedLanguages.includes(locale.value))
+        .map(locale => ({
           value: locale.value,
           text: locale.name,
         }));
@@ -93,7 +91,7 @@ export default defineComponent({
       }
     },
     updateOutput() {
-      this.$emit("input", {
+      this.$emit('input', {
         type: SimpleRuleType.String,
         value: this.lang,
         operator: this.operator,

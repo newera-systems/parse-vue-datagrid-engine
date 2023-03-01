@@ -1,4 +1,4 @@
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   props: {
@@ -39,7 +39,7 @@ export default defineComponent({
       default: false,
     },
     headVariant: {
-      type: String as PropType<null | "light" | "dark">,
+      type: String as PropType<null | 'light' | 'dark'>,
       default: null,
     },
     noCollapse: {

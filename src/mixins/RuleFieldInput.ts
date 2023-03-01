@@ -1,11 +1,6 @@
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
-import { PropType, defineComponent } from "vue";
-import {
-  EngineRuleData,
-  EngineSubOperators,
-  SimpleRuleType,
-  StringOperatorOptions,
-} from "@/index";
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { PropType, defineComponent } from 'vue';
+import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/index';
 
 export default defineComponent({
   components: {
@@ -17,14 +12,14 @@ export default defineComponent({
       default: () =>
         ({
           type: SimpleRuleType.String,
-          value: "",
+          value: '',
           operator: EngineSubOperators.EqualTo,
         } as EngineRuleData<string, SimpleRuleType.String>),
     },
   },
   data() {
     return {
-      content: "" as string,
+      content: '' as string,
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
     };
@@ -40,12 +35,12 @@ export default defineComponent({
           this.operator = this.value.operator;
         }
       } catch (e) {
-        this.content = "";
+        this.content = '';
         this.operator = EngineSubOperators.EqualTo;
       }
     },
     updateOutput(): void {
-      this.$emit("input", {
+      this.$emit('input', {
         type: SimpleRuleType.String,
         value: this.content,
         operator: this.operator,
@@ -55,15 +50,15 @@ export default defineComponent({
   watch: {
     value: {
       deep: true,
-      handler: "update",
+      handler: 'update',
     },
     operator: {
       deep: true,
-      handler: "updateOutput",
+      handler: 'updateOutput',
     },
     content: {
       deep: true,
-      handler: "updateOutput",
+      handler: 'updateOutput',
     },
   },
 });

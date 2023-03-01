@@ -2,19 +2,8 @@
   <section>
     <h3 class="mb-1 p-2 d-flex align-items-center gap-2">
       <span class="text-primary text-capitalize mr-2"> {{ name }} </span>
-      <BIconUiChecks
-        :title="$t('grid')"
-        class="mr-2"
-        height="16"
-        variant="secondary"
-        width="16"
-      />
-      <BIconCircleFill
-        v-if="localBusy"
-        animation="throb"
-        title="loading"
-        variant="primary"
-      />
+      <BIconUiChecks :title="$t('grid')" class="mr-2" height="16" variant="secondary" width="16" />
+      <BIconCircleFill v-if="localBusy" animation="throb" title="loading" variant="primary" />
     </h3>
     <div>
       <div v-if="context.withFilter && hasARuleFilterSchema">
@@ -43,10 +32,7 @@
             :variant="context.withFilter ? `primary` : `outline-primary`"
             @click="context.withFilter = !context.withFilter"
           >
-            <BIconFunnel
-              :class="hasARuleInFilter ? 'text-danger' : ''"
-              width="24"
-            />
+            <BIconFunnel :class="hasARuleInFilter ? 'text-danger' : ''" width="24" />
           </b-button>
           <b-button
             id="RefreshButtonDataGrid"
@@ -86,11 +72,7 @@
       >
         <template #cell()="data">
           <template v-if="data.field.key === '#action'">
-            <slot
-              :index="data.index"
-              :item="localItems[data.index]"
-              name="action"
-            />
+            <slot :index="data.index" :item="localItems[data.index]" name="action" />
           </template>
           <template v-else-if="data.field.key === 'id'">
             <b-button
@@ -124,7 +106,7 @@
         target="data-grid-toolbox-button"
         triggers="focus"
       >
-        <template #title>{{ $t("DataGrid.configuration") }}</template>
+        <template #title>{{ $t('DataGrid.configuration') }}</template>
         <ToolbarConfig v-model="localFieldsDef" />
       </b-popover>
     </div>
@@ -132,8 +114,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, Component, PropType } from "vue";
-import Paginator from "@components/Paginator.vue";
+import Vue, { defineComponent, Component, PropType } from 'vue';
+import Paginator from '@components/Paginator.vue';
 import {
   BButton,
   BButtonGroup,
@@ -149,8 +131,8 @@ import {
   BPopover,
   BTable,
   BvTableFieldArray,
-} from "bootstrap-vue";
-import ToolbarConfig from "@components/ToolbarConfig.vue";
+} from 'bootstrap-vue';
+import ToolbarConfig from '@components/ToolbarConfig.vue';
 import {
   DataGridModifiedCell,
   DataGridProviderFunction,
@@ -163,19 +145,16 @@ import {
   GroupOperator,
   ModificationHandler,
   ProviderContext,
-} from "@/index";
-import provider from "@/mixins/provider";
-import paginatorMixin from "@/mixins/paginator";
-import EditableCells from "@components/EditableCells.vue";
-import fieldDetector from "@/mixins/fieldDetector";
-import tableStyling from "@/mixins/tableStyling";
-import {
-  editorComponentsList,
-  viewerComponentsList,
-} from "@/editFields/config";
-import RuleEngineFilter from "@components/RuleEngineFilter.vue";
-import tableTranslate from "@/translation/table";
-import VueI18n from "vue-i18n";
+} from '@/index';
+import provider from '@/mixins/provider';
+import paginatorMixin from '@/mixins/paginator';
+import EditableCells from '@components/EditableCells.vue';
+import fieldDetector from '@/mixins/fieldDetector';
+import tableStyling from '@/mixins/tableStyling';
+import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
+import RuleEngineFilter from '@components/RuleEngineFilter.vue';
+import tableTranslate from '@/translation/table';
+import VueI18n from 'vue-i18n';
 
 function defaultModificationHandler(data: DataGridModifiedCell) {
   const { item, field_key, newValue } = data;
@@ -184,7 +163,7 @@ function defaultModificationHandler(data: DataGridModifiedCell) {
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "DataGridTable",
+  name: 'DataGridTable',
   i18n: new VueI18n(tableTranslate),
   mixins: [provider, paginatorMixin, fieldDetector, tableStyling],
   components: {
@@ -210,17 +189,15 @@ export default defineComponent({
     name: {
       type: String,
       required: true,
-      default: () => "Entity name",
+      default: () => 'Entity name',
     },
     target: {
       type: String,
-      default: () => "",
+      default: () => '',
     },
     items: {
       type: [Array, Function, Promise] as PropType<
-        | Array<GridEntityItem>
-        | DataGridProviderFunction
-        | DataGridProviderPromiseResult
+        Array<GridEntityItem> | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
       required: true,
     },
@@ -245,8 +222,7 @@ export default defineComponent({
       localBusy: true,
       localItems: [] as Array<GridEntityItem>,
       localFieldsDef: [] as FieldDefinition[],
-      localModificationHandler:
-        defaultModificationHandler as ModificationHandler,
+      localModificationHandler: defaultModificationHandler as ModificationHandler,
       cellKeyRemount: 1,
       context: {
         currentPage: 1,
@@ -270,15 +246,14 @@ export default defineComponent({
     columns(): BvTableFieldArray {
       if (this.localFieldsDef.length) {
         return this.localFieldsDef
-          .filter((f) => {
-            if (f.identifier === "id" || f.identifier === "#action") {
+          .filter(f => {
+            if (f.identifier === 'id' || f.identifier === '#action') {
               return true;
             }
             return f.config.canView && f.config.canRead;
           })
-          .map((f) => {
-            const tableSortable =
-              f.config.canSort && f.type !== 'Pointer' && f.type !== 'Array'
+          .map(f => {
+            const tableSortable = f.config.canSort && f.type !== 'Pointer' && f.type !== 'Array';
             return {
               key: f.identifier,
               label: f.identifier === 'id' ? '#' : this.getTranslation(f.name),
@@ -291,13 +266,13 @@ export default defineComponent({
     filterableFields(): string[] {
       if (this.localFieldsDef.length) {
         return this.localFieldsDef
-          .filter((f) => {
+          .filter(f => {
             if (f.identifier === 'id' || f.identifier === '#action') {
-              return false
+              return false;
             }
-            return f.config.canView && f.config.canFilter
+            return f.config.canView && f.config.canFilter;
           })
-          .map((f) => f.identifier)
+          .map(f => f.identifier);
       }
       return [];
     },
@@ -324,7 +299,7 @@ export default defineComponent({
   },
   methods: {
     goToItemEditor(item: GridEntityItem) {
-      this.$emit("goToEditor", item);
+      this.$emit('goToEditor', item);
     },
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin
@@ -334,9 +309,7 @@ export default defineComponent({
       return key;
     },
     _getFieldDefinition(fieldId: string): FieldDefinition {
-      const index = this.localFieldsDef.findIndex(
-        (field) => field.identifier === fieldId
-      );
+      const index = this.localFieldsDef.findIndex(field => field.identifier === fieldId);
       if (index >= 0) {
         return this.localFieldsDef[index];
       }
@@ -358,13 +331,13 @@ export default defineComponent({
       item[field_key] = newValue;
     },
     _modificationHandlerUpdate() {
-      if (typeof this.modificationHandler === "function") {
+      if (typeof this.modificationHandler === 'function') {
         if (this.modificationHandler.length >= 1) {
           this.localModificationHandler = this.modificationHandler;
           return;
         }
         console.warn(
-          "[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style"
+          '[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style'
         );
       }
       this.localModificationHandler = this._defaultModificationHandler;
@@ -380,7 +353,7 @@ export default defineComponent({
     updateCell(modification: DataGridModifiedCell) {
       const p = this.localModificationHandler(modification);
       if (p) {
-        if (typeof p.then === "function") {
+        if (typeof p.then === 'function') {
           (p as Promise<void>).then(() => {
             this.$nextTick(() => {
               this._providerUpdate();
@@ -392,7 +365,7 @@ export default defineComponent({
           this._providerUpdate();
         });
       }
-      this.$emit("modified");
+      this.$emit('modified');
     },
   },
   watch: {

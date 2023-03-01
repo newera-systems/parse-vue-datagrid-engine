@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from 'vue';
 import {
   DataGridProviderFunction,
   DataGridProviderPromiseResult,
@@ -6,15 +6,13 @@ import {
   FieldDefinitionWithExtra,
   FieldType,
   GridEntityItem,
-} from "@/index";
+} from '@/index';
 
 export default defineComponent({
   props: {
     items: {
       type: [Array, Function, Promise] as PropType<
-        | Array<GridEntityItem>
-        | DataGridProviderFunction
-        | DataGridProviderPromiseResult
+        Array<GridEntityItem> | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
       required: true,
     },
@@ -41,24 +39,22 @@ export default defineComponent({
     _setLocalFieldsDefinition(definitions: FieldDefinition[]) {
       this._transformToValidDefinition(definitions);
       this._checkActionField(definitions);
-      this.localFieldsDef = definitions
+      this.localFieldsDef = definitions;
     },
     _checkActionField(fields: Array<any>) {
-       const found = fields.find((field) => field.identifier === "#action");
-       if (found){
-         found.config.canView = false;
-         found.config.canRead = true;
-         found.config.canEdit = false;
-         found.config.canFilter = false;
-         found.config.canSort = false;
-       }
+      const found = fields.find(field => field.identifier === '#action');
+      if (found) {
+        found.config.canView = false;
+        found.config.canRead = true;
+        found.config.canEdit = false;
+        found.config.canFilter = false;
+        found.config.canSort = false;
+      }
     },
     _transformToValidDefinition(fields: Array<any>) {
-      fields.forEach((fieldDef) => {
+      fields.forEach(fieldDef => {
         if (!fieldDef.config) {
-          console.warn(
-            `[DataGrid warn]: fields definition config missing,it will be generated`
-          );
+          console.warn(`[DataGrid warn]: fields definition config missing,it will be generated`);
           fieldDef.config = {
             canView: true,
             canRead: true,
@@ -68,25 +64,25 @@ export default defineComponent({
           };
           return;
         }
-        if (!Object.keys(fieldDef.config).includes("canView")) {
+        if (!Object.keys(fieldDef.config).includes('canView')) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canView value, it will be set to true`
           );
           fieldDef.config.canView = true;
         }
-        if (!Object.keys(fieldDef.config).includes("canRead")) {
+        if (!Object.keys(fieldDef.config).includes('canRead')) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canRead value, it will be set to true`
           );
           fieldDef.config.canRead = true;
         }
-        if (!Object.keys(fieldDef.config).includes("canEdit")) {
+        if (!Object.keys(fieldDef.config).includes('canEdit')) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canEdit value, it will be set to true`
           );
           fieldDef.config.canEdit = true;
         }
-        if (!Object.keys(fieldDef.config).includes("canFilter")) {
+        if (!Object.keys(fieldDef.config).includes('canFilter')) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canFilter value, it will be set to true`
           );
@@ -100,7 +96,7 @@ export default defineComponent({
         for (const [key, value] of Object.entries(this.localItems[0])) {
           const field: FieldDefinition = {
             identifier: key,
-            name: key.replaceAll("_", " "),
+            name: key.replaceAll('_', ' '),
             config: {
               canView: true,
               canEdit: true,
@@ -111,19 +107,17 @@ export default defineComponent({
             type: FieldType.String,
           };
           switch (typeof value) {
-            case "bigint":
-            case "number":
+            case 'bigint':
+            case 'number':
               field.type = FieldType.Number;
               break;
-            case "boolean":
+            case 'boolean':
               field.type = FieldType.Boolean;
               break;
-            case "symbol":
-            case "object":
+            case 'symbol':
+            case 'object':
               if (Array.isArray(value)) field.type = FieldType.Array;
-              else if (
-                Object.prototype.toString.call(value) === "[object Date]"
-              ) {
+              else if (Object.prototype.toString.call(value) === '[object Date]') {
                 field.type = FieldType.Date;
               } else field.type = FieldType.OtherEntity;
               break;

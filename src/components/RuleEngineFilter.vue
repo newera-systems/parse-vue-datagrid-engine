@@ -2,7 +2,7 @@
   <div class="mx-4">
     <h5 class="text-capitalize">{{ localValue.name }}</h5>
     <h6 v-if="error" class="p-4 bg-danger rounded text-center text-light">
-      {{ $t("Error.target") }}
+      {{ $t('Error.target') }}
     </h6>
     <div v-else class="d-flex flex-wrap">
       <RuleFilterInput
@@ -13,30 +13,28 @@
         @input="updateLocalRule"
       />
     </div>
-    <small class="font-weight-lighter" style="font-size: smaller">{{
-      $t("caseSensitive")
-    }}</small>
+    <small class="font-weight-lighter" style="font-size: smaller">{{ $t('caseSensitive') }}</small>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import RuleFilterInput from "@/rule/RuleFilterInput.vue";
+import Vue, { defineComponent, PropType } from 'vue';
+import RuleFilterInput from '@/rule/RuleFilterInput.vue';
 import {
   EngineRuleGroup,
   EngineSimpleRule,
   FilterRuleInterface,
   GroupOperator,
   RuleActions,
-} from "@/index";
-import { RuleEngineConfig } from "@/rule/RuleElementCreator";
-import { RuleDefinition } from "query-builder-vue";
-import VueI18n from "vue-i18n";
-import filterTranslate from "@/translation/filter";
+} from '@/index';
+import { RuleEngineConfig } from '@/rule/RuleElementCreator';
+import { RuleDefinition } from 'query-builder-vue';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "RuleEngineFilter",
+  name: 'RuleEngineFilter',
   i18n: new VueI18n(filterTranslate),
   components: {
     RuleFilterInput,
@@ -48,7 +46,7 @@ export default defineComponent({
     },
     visibleName: {
       type: String,
-      default: "",
+      default: '',
     },
     target: {
       type: String,
@@ -82,10 +80,10 @@ export default defineComponent({
     children(): Array<EngineSimpleRule> {
       const children: Array<EngineSimpleRule> = [];
       for (const rule of this.localValue.conditions.children) {
-        if ("identifier" in rule && rule.identifier) {
+        if ('identifier' in rule && rule.identifier) {
           children.push(rule);
         }
-        if ("operatorIdentifier" in rule && rule.operatorIdentifier) {
+        if ('operatorIdentifier' in rule && rule.operatorIdentifier) {
           children.push(...this.getSimpleRules(rule));
         }
       }
@@ -95,20 +93,18 @@ export default defineComponent({
       // @ts-expect-error DataGrid is  set by plugin config
       const engine: RuleEngineConfig = this.$DataGrid.ruleEngineConfigs[this.target];
       if (!engine) {
-        console.error("[DataGrid Filter] target rule config schema not found");
+        console.error('[DataGrid Filter] target rule config schema not found');
         this.error = true;
       } else {
-        return engine.rules.filter((r) => {
+        return engine.rules.filter(r => {
           return this.fieldList.includes(r.identifier);
         });
       }
       return [];
     },
     localConditions(): Array<EngineSimpleRule> {
-      return this.allowedRules.map((rule) => {
-        const found = this.children.find(
-          (c) => c.identifier === rule.identifier
-        );
+      return this.allowedRules.map(rule => {
+        const found = this.children.find(c => c.identifier === rule.identifier);
         if (found) {
           return found;
         }
@@ -124,10 +120,10 @@ export default defineComponent({
     getSimpleRules(rule: EngineRuleGroup): Array<EngineSimpleRule> {
       const children: Array<EngineSimpleRule> = [];
       for (const child of rule.children) {
-        if ("identifier" in child && child.identifier) {
+        if ('identifier' in child && child.identifier) {
           children.push(child);
         }
-        if ("operatorIdentifier" in child && child.operatorIdentifier) {
+        if ('operatorIdentifier' in child && child.operatorIdentifier) {
           children.push(...this.getSimpleRules(child));
         }
       }
@@ -136,7 +132,7 @@ export default defineComponent({
     // check if a rule is valid, and can be added to the customRule
     checkIfValidRule(rule: EngineSimpleRule): boolean {
       if (rule.value) {
-        if (typeof rule.value.value === "boolean") {
+        if (typeof rule.value.value === 'boolean') {
           return true;
         }
         return !!rule.value.value;
@@ -145,9 +141,7 @@ export default defineComponent({
     },
     //accessing local conditions array value
     _getLocalRule(identifier: string): EngineSimpleRule {
-      const found = this.localConditions.find(
-        (r) => r.identifier === identifier
-      );
+      const found = this.localConditions.find(r => r.identifier === identifier);
       if (found) {
         return found;
       } else {
@@ -166,7 +160,7 @@ export default defineComponent({
       const replaced: boolean[] = [];
       let index = 0;
       for (const rule of group.children) {
-        if ("identifier" in rule && rule.identifier) {
+        if ('identifier' in rule && rule.identifier) {
           if (rule.identifier === ruleToInsert.identifier && valid) {
             rule.value = ruleToInsert.value;
             replaced.push(true);
@@ -175,7 +169,7 @@ export default defineComponent({
             replaced.push(true);
           }
         }
-        if ("operatorIdentifier" in rule && rule.operatorIdentifier) {
+        if ('operatorIdentifier' in rule && rule.operatorIdentifier) {
           const found: boolean = this._setRuleInFilter(rule, ruleToInsert);
           replaced.push(found);
         }
@@ -186,11 +180,7 @@ export default defineComponent({
 
     updateLocalRule(rule: EngineSimpleRule) {
       const valid = this.checkIfValidRule(rule);
-      const replaced = this._setRuleInFilter(
-        this.localValue.conditions,
-        rule,
-        valid
-      );
+      const replaced = this._setRuleInFilter(this.localValue.conditions, rule, valid);
       if (!replaced && valid) {
         this.localValue.conditions.children.push(rule);
       }
@@ -223,7 +213,7 @@ export default defineComponent({
       handler(value: FilterRuleInterface) {
         const same = JSON.stringify(value) === JSON.stringify(this.value);
         if (!same) {
-          this.$emit("input", { ...value });
+          this.$emit('input', { ...value });
         }
       },
       deep: true,

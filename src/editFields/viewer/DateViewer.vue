@@ -1,11 +1,6 @@
 <template>
   <div class="d-cell-viewer-date">
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -22,11 +17,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem } from "@/index";
-import dayjs, { Dayjs } from "dayjs";
-import calendar from "dayjs/plugin/calendar";
+import Vue, { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
+import dayjs, { Dayjs } from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
 
 dayjs.extend(calendar);
 
@@ -63,7 +58,7 @@ export default defineComponent({
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
     } else if (this.rawValue === null) {
       this.isNull = true;

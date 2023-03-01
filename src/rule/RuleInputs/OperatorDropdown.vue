@@ -1,9 +1,5 @@
 <template>
-  <b-dropdown
-    :text="getOperatorTranslation(operator)"
-    right
-    variant="outline-primary"
-  >
+  <b-dropdown :text="getOperatorTranslation(operator)" right variant="outline-primary">
     <b-dropdown-item
       v-for="(op, index) of options"
       :key="`op-${index}`"
@@ -15,15 +11,15 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { BDropdown, BDropdownItem } from "bootstrap-vue";
-import { EngineSubOperators } from "@/index";
-import VueI18n from "vue-i18n";
-import filterTranslate from "@/translation/filter";
+import Vue, { defineComponent, PropType } from 'vue';
+import { BDropdown, BDropdownItem } from 'bootstrap-vue';
+import { EngineSubOperators } from '@/index';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "OperatorSelectorDropdown",
+  name: 'OperatorSelectorDropdown',
   i18n: new VueI18n(filterTranslate),
   components: {
     BDropdown,
@@ -53,7 +49,7 @@ export default defineComponent({
     },
     setOperation(index: number) {
       this.operator = this.options[index];
-      this.$emit("input", this.operator);
+      this.$emit('input', this.operator);
     },
     getTranslation(key: string, force = false): string {
       // @ts-expect-error DataGrid defined when using plugin

@@ -1,11 +1,6 @@
 <template>
   <div class="d-cell-viewer-number">
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">undefined|NaN</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -22,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem } from "@/index";
-import { Dayjs } from "dayjs";
+import Vue, { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
+import { Dayjs } from 'dayjs';
 
 export default defineComponent({
   components: {
@@ -60,11 +55,11 @@ export default defineComponent({
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
     } else if (this.rawValue === null) {
       this.isNull = true;
-    } else if (typeof this.rawValue !== "number") {
+    } else if (typeof this.rawValue !== 'number') {
       this.visibleData = Number(this.rawValue);
       this.error = isNaN(this.visibleData);
     } else {
