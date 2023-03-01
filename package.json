@@ -16,10 +16,10 @@
     "test": "yarn test:unit",
     "preview": "vite preview"
   },
-  "type": "module",
   "files": [
     "dist"
   ],
+  "main": "./dist/datagrid-bvue.umd.cjs",
   "module": "./dist/datagrid-bvue.js",
   "exports": {
     ".": {
