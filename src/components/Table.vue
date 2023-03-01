@@ -271,7 +271,7 @@ export default defineComponent({
       if (this.localFieldsDef.length) {
         return this.localFieldsDef
           .filter((f) => {
-            if (f.identifier === "id") {
+            if (f.identifier === "id" || f.identifier === "#action") {
               return true;
             }
             return f.config.canView && f.config.canRead;
@@ -292,7 +292,7 @@ export default defineComponent({
       if (this.localFieldsDef.length) {
         return this.localFieldsDef
           .filter((f) => {
-            if (f.identifier === 'id') {
+            if (f.identifier === 'id' || f.identifier === '#action') {
               return false
             }
             return f.config.canView && f.config.canFilter

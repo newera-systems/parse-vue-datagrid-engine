@@ -1,4 +1,4 @@
-import Vue, { defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import {
   DataGridProviderFunction,
   DataGridProviderPromiseResult,
@@ -39,8 +39,19 @@ export default defineComponent({
   },
   methods: {
     _setLocalFieldsDefinition(definitions: FieldDefinition[]) {
-      this._transformToValidDefinition(definitions)
+      this._transformToValidDefinition(definitions);
+      this._checkActionField(definitions);
       this.localFieldsDef = definitions
+    },
+    _checkActionField(fields: Array<any>) {
+       const found = fields.find((field) => field.identifier === "#action");
+       if (found){
+         found.config.canView = false;
+         found.config.canRead = true;
+         found.config.canEdit = false;
+         found.config.canFilter = false;
+         found.config.canSort = false;
+       }
     },
     _transformToValidDefinition(fields: Array<any>) {
       fields.forEach((fieldDef) => {
@@ -83,25 +94,6 @@ export default defineComponent({
         }
       });
     },
-    // _addActionField(fields: Array<any>) {
-    //    const found = fields.find((field) => field.identifier === "action");
-    //    if (!found) {
-    //      fields.push({
-    //        identifier: "#action",
-    //        name: "Action",
-    //        type: FieldType.String,
-    //        config: {
-    //          canView: false,
-    //          canRead: true,
-    //          canEdit: false,
-    //          canFilter: false,
-    //          canSort: false,
-    //        },
-    //      });
-    //    }else{
-    //      found.config.canView = false;
-    //    }
-    // },
     _constructAdaptedFields() {
       const fields: FieldDefinition[] = [];
       if (this.localItems.length) {
@@ -151,6 +143,9 @@ export default defineComponent({
       const constructedFields = this._constructAdaptedFields();
       this._setLocalFieldsDefinition(constructedFields);
     },
+  },
+  beforeMount() {
+    this._fieldsUpdate();
   },
   watch: {
     fields: {
