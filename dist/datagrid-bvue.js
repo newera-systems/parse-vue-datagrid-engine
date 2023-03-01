@@ -17821,7 +17821,11 @@ const r5 = e5.exports, n5 = Ee({
   },
   methods: {
     _setLocalFieldsDefinition(r) {
-      this._transformToValidDefinition(r), this.localFieldsDef = r;
+      this._transformToValidDefinition(r), this._checkActionField(r), this.localFieldsDef = r;
+    },
+    _checkActionField(r) {
+      const t = r.find((e) => e.identifier === "#action");
+      t && (t.config.canView = !1, t.config.canRead = !0, t.config.canEdit = !1, t.config.canFilter = !1, t.config.canSort = !1);
     },
     _transformToValidDefinition(r) {
       r.forEach((t) => {
@@ -17848,25 +17852,6 @@ const r5 = e5.exports, n5 = Ee({
         ), t.config.canFilter = !0);
       });
     },
-    // _addActionField(fields: Array<any>) {
-    //    const found = fields.find((field) => field.identifier === "action");
-    //    if (!found) {
-    //      fields.push({
-    //        identifier: "#action",
-    //        name: "Action",
-    //        type: FieldType.String,
-    //        config: {
-    //          canView: false,
-    //          canRead: true,
-    //          canEdit: false,
-    //          canFilter: false,
-    //          canSort: false,
-    //        },
-    //      });
-    //    }else{
-    //      found.config.canView = false;
-    //    }
-    // },
     _constructAdaptedFields() {
       const r = [];
       if (this.localItems.length)
@@ -17910,6 +17895,9 @@ const r5 = e5.exports, n5 = Ee({
       const r = this._constructAdaptedFields();
       this._setLocalFieldsDefinition(r);
     }
+  },
+  beforeMount() {
+    this._fieldsUpdate();
   },
   watch: {
     fields: {
@@ -24483,7 +24471,7 @@ const O3 = Ee({
       return Ps;
     },
     columns() {
-      return this.localFieldsDef.length ? this.localFieldsDef.filter((r) => r.identifier === "id" ? !0 : r.config.canView && r.config.canRead).map((r) => {
+      return this.localFieldsDef.length ? this.localFieldsDef.filter((r) => r.identifier === "id" || r.identifier === "#action" ? !0 : r.config.canView && r.config.canRead).map((r) => {
         const t = r.config.canSort && r.type !== "Pointer" && r.type !== "Array";
         return {
           key: r.identifier,
@@ -24493,7 +24481,7 @@ const O3 = Ee({
       }) : [];
     },
     filterableFields() {
-      return this.localFieldsDef.length ? this.localFieldsDef.filter((r) => r.identifier === "id" ? !1 : r.config.canView && r.config.canFilter).map((r) => r.identifier) : [];
+      return this.localFieldsDef.length ? this.localFieldsDef.filter((r) => r.identifier === "id" || r.identifier === "#action" ? !1 : r.config.canView && r.config.canFilter).map((r) => r.identifier) : [];
     },
     hasARuleFilterSchema() {
       try {
@@ -24620,7 +24608,7 @@ var S3 = function() {
   E3,
   !1,
   null,
-  "a36a79d4",
+  "857ff881",
   null,
   null
 );

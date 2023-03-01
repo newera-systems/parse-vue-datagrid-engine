@@ -119,6 +119,7 @@ declare const _default: import("vue").DefineComponent<{
     hasFieldsOption(): boolean;
 }, {
     _setLocalFieldsDefinition(definitions: FieldDefinition[]): void;
+    _checkActionField(fields: any[]): void;
     _transformToValidDefinition(fields: any[]): void;
     _constructAdaptedFields(): FieldDefinition[];
     _fieldsUpdate(): void;
