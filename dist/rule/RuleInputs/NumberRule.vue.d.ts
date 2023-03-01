@@ -1,5 +1,5 @@
-import { PropType } from "vue";
-import { EngineRuleData, EngineSubOperators, SimpleRuleType } from "@/index";
+import { PropType } from 'vue';
+import { EngineRuleData, EngineSubOperators, SimpleRuleType } from '@/index';
 declare const _default: import("vue").DefineComponent<{
     value: {
         type: PropType<EngineRuleData<number, SimpleRuleType.Number>>;

@@ -1,7 +1,7 @@
-import { PropType } from "vue";
-import { BModal, BvModalEvent } from "bootstrap-vue";
-import { EngineRuleGroup, EngineSimpleRule, FilterRuleInterface, RuleActions } from "@/index";
-import QueryBuilder, { RuleDefinition } from "query-builder-vue";
+import { PropType } from 'vue';
+import { BModal, BvModalEvent } from 'bootstrap-vue';
+import { EngineRuleGroup, EngineSimpleRule, FilterRuleInterface, RuleActions } from '@/index';
+import QueryBuilder, { RuleDefinition } from 'query-builder-vue';
 declare const _default: import("vue").DefineComponent<{
     rule: {
         type: PropType<FilterRuleInterface | null>;

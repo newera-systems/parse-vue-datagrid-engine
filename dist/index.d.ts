@@ -1,20 +1,20 @@
-import { Component } from "vue";
-import { PluginObject } from "vue/types/plugin";
-import DataGridTable from "./components/Table.vue";
-import { editorComponentsList, viewerComponentsList } from "@/editFields/config";
-import { RuleEngineConfig, SchemaList } from "@/rule/RuleElementCreator";
-import StringViewer from "@/editFields/viewer/StringViewer.vue";
-import StringEditor from "@/editFields/editor/StringEditor.vue";
-import NumberEditor from "@/editFields/editor/NumberEditor.vue";
-import NumberViewer from "@/editFields/viewer/NumberViewer.vue";
-import BooleanViewer from "@/editFields/viewer/BooleanViewer.vue";
-import BooleanEditor from "@/editFields/editor/BooleanEditor.vue";
-import BooleanRule from "@/rule/RuleInputs/BooleanRule.vue";
-import NumberRule from "@/rule/RuleInputs/NumberRule.vue";
-import StringRule from "@/rule/RuleInputs/StringRule.vue";
-import ArrayInputMixin from "@/mixins/ArrayRuleInput";
-import FieldInputMixin from "@/mixins/RuleFieldInput";
-import { Money } from "ts-money";
+import { Component } from 'vue';
+import { PluginObject } from 'vue/types/plugin';
+import DataGridTable from './components/Table.vue';
+import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
+import { RuleEngineConfig, SchemaList } from '@/rule/RuleElementCreator';
+import StringViewer from '@/editFields/viewer/StringViewer.vue';
+import StringEditor from '@/editFields/editor/StringEditor.vue';
+import NumberEditor from '@/editFields/editor/NumberEditor.vue';
+import NumberViewer from '@/editFields/viewer/NumberViewer.vue';
+import BooleanViewer from '@/editFields/viewer/BooleanViewer.vue';
+import BooleanEditor from '@/editFields/editor/BooleanEditor.vue';
+import BooleanRule from '@/rule/RuleInputs/BooleanRule.vue';
+import NumberRule from '@/rule/RuleInputs/NumberRule.vue';
+import StringRule from '@/rule/RuleInputs/StringRule.vue';
+import ArrayInputMixin from '@/mixins/ArrayRuleInput';
+import FieldInputMixin from '@/mixins/RuleFieldInput';
+import { Money } from 'ts-money';
 export interface GridFieldOptions {
     canView: boolean;
     canEdit: boolean;
@@ -52,7 +52,7 @@ export interface FieldDefinitionWithExtra extends FieldDefinition {
     specialIcon?: Component;
     onClickExternalRoutine?: (data: any) => Promise<void>;
     pointerName?: string;
-    lang?: "fr" | "en";
+    lang?: 'fr' | 'en';
 }
 export interface ProviderContext {
     currentPage: number;
@@ -155,7 +155,7 @@ export declare enum GroupOperator {
     OR = "OR"
 }
 export interface DataGridOptions {
-    lang?: "fr" | "en";
+    lang?: 'fr' | 'en';
     i18n?: boolean;
     projectName?: string;
     customFieldTypes?: Array<{
@@ -169,7 +169,7 @@ export interface DataGridOptions {
     ruleSchemas: SchemaList;
 }
 export interface IDataGridPrototype {
-    lang: "fr" | "en";
+    lang: 'fr' | 'en';
     i18n?: boolean;
     projectName: string;
     dateFormat: string;

@@ -1,5 +1,5 @@
-import { RuleDefinition, RuleSlotProps } from "query-builder-vue";
-import { PropType } from "vue";
+import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
+import { PropType } from 'vue';
 declare const _default: import("vue").DefineComponent<{
     ruleCtrl: {
         type: PropType<RuleSlotProps>;

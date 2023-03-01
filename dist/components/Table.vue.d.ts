@@ -1,6 +1,6 @@
-import { Component, PropType } from "vue";
-import { BvTableFieldArray } from "bootstrap-vue";
-import { DataGridModifiedCell, DataGridProviderFunction, DataGridProviderPromiseResult, FieldDefinition, FieldDefinitionWithExtra, FieldType, GridEntityItem, GroupOperator, ModificationHandler, ProviderContext } from "@/index";
+import { Component, PropType } from 'vue';
+import { BvTableFieldArray } from 'bootstrap-vue';
+import { DataGridModifiedCell, DataGridProviderFunction, DataGridProviderPromiseResult, FieldDefinition, FieldDefinitionWithExtra, FieldType, GridEntityItem, GroupOperator, ModificationHandler, ProviderContext } from '@/index';
 declare const _default: import("vue").DefineComponent<{
     name: {
         type: StringConstructor;

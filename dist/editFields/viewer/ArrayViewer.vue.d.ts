@@ -1,5 +1,5 @@
-import { Component, PropType } from "vue";
-import { FieldDefinitionWithExtra, GridEntityItem } from "@/index";
+import { Component, PropType } from 'vue';
+import { FieldDefinitionWithExtra, GridEntityItem } from '@/index';
 declare const _default: import("vue").DefineComponent<{
     item: {
         type: PropType<GridEntityItem>;

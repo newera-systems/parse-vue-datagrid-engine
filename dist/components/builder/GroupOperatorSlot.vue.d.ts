@@ -1,5 +1,5 @@
-import { PropType } from "vue";
-import { GroupOperatorSlotProps } from "query-builder-vue";
+import { PropType } from 'vue';
+import { GroupOperatorSlotProps } from 'query-builder-vue';
 declare const _default: import("vue").DefineComponent<{
     groupOperator: {
         type: PropType<GroupOperatorSlotProps>;

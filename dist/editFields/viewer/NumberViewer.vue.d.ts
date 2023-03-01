@@ -1,6 +1,6 @@
-import { PropType } from "vue";
-import { FieldDefinition, GridEntityItem } from "@/index";
-import { Dayjs } from "dayjs";
+import { PropType } from 'vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
+import { Dayjs } from 'dayjs';
 declare const _default: import("vue").DefineComponent<{
     item: {
         type: PropType<GridEntityItem>;

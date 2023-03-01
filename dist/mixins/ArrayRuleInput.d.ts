@@ -1,5 +1,5 @@
-import { PropType } from "vue";
-import { EngineRuleData, EngineSubOperators, RegistrationLanguage, SimpleRuleType } from "@/index";
+import { PropType } from 'vue';
+import { EngineRuleData, EngineSubOperators, RegistrationLanguage, SimpleRuleType } from '@/index';
 declare const _default: {
     components: {
         OperatorDropdown: import("vue").DefineComponent<{

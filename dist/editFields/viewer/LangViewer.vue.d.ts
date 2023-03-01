@@ -1,6 +1,6 @@
-import { PropType } from "vue";
-import { FieldDefinition, GridEntityItem } from "@/index";
-import { LocaleInterface } from "@/fieldsData";
+import { PropType } from 'vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
+import { LocaleInterface } from '@/fieldsData';
 declare const _default: import("vue").DefineComponent<{
     item: {
         type: PropType<GridEntityItem>;

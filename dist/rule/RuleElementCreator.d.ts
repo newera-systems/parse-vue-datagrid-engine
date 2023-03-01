@@ -1,6 +1,6 @@
-import { QueryBuilderConfig, RuleDefinition } from "query-builder-vue";
-import { Component } from "vue";
-import { RuleCompTypes } from "@/index";
+import { QueryBuilderConfig, RuleDefinition } from 'query-builder-vue';
+import { Component } from 'vue';
+import { RuleCompTypes } from '@/index';
 export interface SchemaDefinition {
     identifier: string;
     name: string;

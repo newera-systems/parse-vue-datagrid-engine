@@ -1,6 +1,6 @@
-import { PropType } from "vue";
-import { FieldDefinition } from "@/index";
-import VueI18n from "vue-i18n";
+import { PropType } from 'vue';
+import { FieldDefinition } from '@/index';
+import VueI18n from 'vue-i18n';
 declare const _default: import("vue").DefineComponent<{
     value: {
         type: PropType<FieldDefinition[]>;

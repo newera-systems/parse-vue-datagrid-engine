@@ -1,7 +1,7 @@
-import { PropType } from "vue";
-import { RuleDefinition } from "query-builder-vue";
-import { EngineRuleData, EngineSimpleRule, RegistrationGender, RegistrationLanguage, SimpleRuleType } from "@/index";
-import { Money } from "ts-money";
+import { PropType } from 'vue';
+import { RuleDefinition } from 'query-builder-vue';
+import { EngineRuleData, EngineSimpleRule, RegistrationGender, RegistrationLanguage, SimpleRuleType } from '@/index';
+import { Money } from 'ts-money';
 export type RuleDataObject = EngineRuleData<string, SimpleRuleType.Date> | EngineRuleData<string, SimpleRuleType.Day> | EngineRuleData<string, SimpleRuleType.String> | EngineRuleData<number, SimpleRuleType.Number> | EngineRuleData<Array<string>, SimpleRuleType.Array> | EngineRuleData<Money, SimpleRuleType.Money> | EngineRuleData<RegistrationGender, SimpleRuleType.String> | EngineRuleData<RegistrationLanguage, SimpleRuleType.String>;
 declare const _default: import("vue").DefineComponent<{
     definition: {

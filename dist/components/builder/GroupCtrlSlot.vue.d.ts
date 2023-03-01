@@ -1,5 +1,5 @@
-import { PropType } from "vue";
-import { GroupCtrlSlotProps } from "query-builder-vue";
+import { PropType } from 'vue';
+import { GroupCtrlSlotProps } from 'query-builder-vue';
 declare const _default: import("vue").DefineComponent<{
     groupCtrl: {
         type: PropType<GroupCtrlSlotProps>;

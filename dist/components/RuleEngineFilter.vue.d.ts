@@ -1,6 +1,6 @@
-import { PropType } from "vue";
-import { EngineRuleGroup, EngineSimpleRule, FilterRuleInterface, GroupOperator } from "@/index";
-import { RuleDefinition } from "query-builder-vue";
+import { PropType } from 'vue';
+import { EngineRuleGroup, EngineSimpleRule, FilterRuleInterface, GroupOperator } from '@/index';
+import { RuleDefinition } from 'query-builder-vue';
 declare const _default: import("vue").DefineComponent<{
     value: {
         type: PropType<FilterRuleInterface | null>;

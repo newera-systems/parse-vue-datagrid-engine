@@ -1,5 +1,5 @@
-import { PropType } from "vue";
-import { DataGridProviderFunction, DataGridProviderPromiseResult, FieldDefinition, FieldDefinitionWithExtra, GridEntityItem } from "@/index";
+import { PropType } from 'vue';
+import { DataGridProviderFunction, DataGridProviderPromiseResult, FieldDefinition, FieldDefinitionWithExtra, GridEntityItem } from '@/index';
 declare const _default: import("vue").DefineComponent<{
     items: {
         type: PropType<GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult>;
