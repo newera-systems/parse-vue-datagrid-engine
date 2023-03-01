@@ -26,17 +26,17 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BIconDashCircle,
   BIconLock,
   BIconPen,
   BIconQuestionOctagonFill,
-} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
-import {LocaleInterface, LOCALES} from '@/fieldsData'
+} from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem } from "@/index";
+import { LocaleInterface, LOCALES } from "@/fieldsData";
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -70,22 +70,22 @@ export default Vue.extend({
       lang: Array.from(LOCALES.values())[0],
       error: false,
       isNull: false,
-    }
+    };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = 'undefined'
+    if (typeof this.rawValue === "undefined") {
+      this.error = true;
+      this.visibleData = "undefined";
     } else if (this.rawValue === null) {
-      this.visibleData = 'null'
-      this.isNull = true
-    } else if (typeof this.rawValue !== 'string') {
-      this.visibleData = this.rawValue?.toString() ?? ''
-      this.error = this.visibleData.length === 0
+      this.visibleData = "null";
+      this.isNull = true;
+    } else if (typeof this.rawValue !== "string") {
+      this.visibleData = this.rawValue?.toString() ?? "";
+      this.error = this.visibleData.length === 0;
     } else {
-      this.visibleData = String(this.rawValue?.toString().trim())
+      this.visibleData = String(this.rawValue?.toString().trim());
     }
-    this.setLang()
+    this.setLang();
   },
   methods: {
     setLang() {
@@ -94,12 +94,12 @@ export default Vue.extend({
       ) ?? {
         possibleLocales: [],
         name: this.visibleData,
-        code: 'xx',
+        code: "xx",
         value: this.visibleData,
-      }
+      };
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

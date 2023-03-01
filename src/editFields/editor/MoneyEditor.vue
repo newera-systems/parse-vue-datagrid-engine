@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BButton,
   BButtonGroup,
@@ -44,12 +44,12 @@ import {
   BIconX,
   BInputGroup,
   BInputGroupAppend,
-} from 'bootstrap-vue'
+} from "bootstrap-vue";
 
-import {DataGridModifiedCell, FieldDefinition, GridEntityItem} from '@/index'
-import {Money} from 'ts-money'
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
+import { Money } from "ts-money";
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconCheckSquare,
     BIconX,
@@ -80,55 +80,55 @@ export default Vue.extend({
       editValue: null as number | null,
       amount: null as number | null,
       isModified: false,
-      currency: 'CAD',
-    }
+      currency: "CAD",
+    };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
-      this.editValue = null
+    if (typeof this.rawValue === "undefined") {
+      this.editValue = null;
     } else if (this.rawValue === null) {
-      this.editValue = null
-    } else if (typeof this.rawValue === 'object') {
-      this.editValue = this.rawValue.amount ?? null
-      this.currency = this.rawValue.currency ?? 'CAD'
+      this.editValue = null;
+    } else if (typeof this.rawValue === "object") {
+      this.editValue = this.rawValue.amount ?? null;
+      this.currency = this.rawValue.currency ?? "CAD";
     } else {
-      this.editValue = Number(this.rawValue) ?? 0
+      this.editValue = Number(this.rawValue) ?? 0;
     }
-    this.amount = this.editValue
+    this.amount = this.editValue;
     this.price = Money.fromInteger(
       this.editValue as number,
       this.currency
-    ).toString()
+    ).toString();
   },
   computed: {
     state(): boolean | null {
-      if (this.price === null || this.price.trim() === '') {
-        return null
+      if (this.price === null || this.price.trim() === "") {
+        return null;
       }
-      return Number.parseFloat(this.price).toFixed(2) === this.price
+      return Number.parseFloat(this.price).toFixed(2) === this.price;
     },
   },
   methods: {
     saveModification() {
       if (!this.isModified || this.state === false) {
-        return
+        return;
       }
-      let newValue: Money | Number | null = null
+      let newValue: Money | Number | null = null;
       try {
-        if (typeof this.rawValue === 'object' && this.editValue) {
-          newValue = Money.fromInteger(this.editValue, this.currency)
+        if (typeof this.rawValue === "object" && this.editValue) {
+          newValue = Money.fromInteger(this.editValue, this.currency);
         } else {
-          newValue = this.editValue
+          newValue = this.editValue;
         }
       } catch (e) {}
-      this.$emit('editionSave', {
+      this.$emit("editionSave", {
         item: this.item,
         field_key: this.field.identifier,
         newValue: newValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit("editionCanceled");
     },
   },
   watch: {
@@ -138,17 +138,17 @@ export default Vue.extend({
           this.editValue = Money.fromDecimal(
             Number.parseFloat(this.price),
             this.currency
-          ).getAmount()
+          ).getAmount();
         }
       } catch (e) {
-        this.amount = null
+        this.amount = null;
       }
     },
     editValue(newVal) {
-      this.isModified = newVal !== this.amount
+      this.isModified = newVal !== this.amount;
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

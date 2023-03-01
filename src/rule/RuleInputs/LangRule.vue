@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BFormGroup,
   BFormInput,
@@ -25,19 +25,20 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from 'bootstrap-vue'
+} from "bootstrap-vue";
 import {
   BooleanOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
   RegistrationLanguage,
   SimpleRuleType,
-} from '@/index'
-import fieldInput from '@/mixins/RuleFieldInput'
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue'
-import {LOCALES} from '@/fieldsData'
+} from "@/index";
+import fieldInput from "@/mixins/RuleFieldInput";
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+import { LOCALES } from "@/fieldsData";
 
-export default Vue.extend({
+export default defineComponent({
+  name: "LangRule",
   mixins: [fieldInput],
   components: {
     BFormGroup,
@@ -53,13 +54,12 @@ export default Vue.extend({
       type: Object as PropType<
         EngineRuleData<RegistrationLanguage, SimpleRuleType.String>
       >,
-      default() {
-        return {
+      default: () =>
+        ({
           type: SimpleRuleType.String,
           value: RegistrationLanguage.NONE,
           operator: EngineSubOperators.EqualTo,
-        }
-      },
+        } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>),
     },
   },
   data() {
@@ -67,45 +67,45 @@ export default Vue.extend({
       lang: RegistrationLanguage.NONE,
       operator: EngineSubOperators.EqualTo,
       operatorList: BooleanOperatorOptions,
-    }
+    };
   },
   computed: {
-    langOptions(): Array<{value: string; text: string}> {
-      const acceptedLanguages = ['fr', 'en'] as string[]
+    langOptions(): Array<{ value: string; text: string }> {
+      const acceptedLanguages = ["fr", "en"] as string[];
       return Array.from(LOCALES.values())
         .filter((locale) => acceptedLanguages.includes(locale.value))
         .map((locale) => ({
           value: locale.value,
           text: locale.name,
-        }))
+        }));
     },
   },
   methods: {
     update() {
       try {
         if (this.value) {
-          this.lang = this.value.value
-          this.operator = this.value.operator
+          this.lang = this.value.value;
+          this.operator = this.value.operator;
         }
       } catch (e) {
-        this.lang = RegistrationLanguage.NONE
-        this.operator = EngineSubOperators.EqualTo
+        this.lang = RegistrationLanguage.NONE;
+        this.operator = EngineSubOperators.EqualTo;
       }
     },
     updateOutput() {
-      this.$emit('input', {
+      this.$emit("input", {
         type: SimpleRuleType.String,
         value: this.lang,
         operator: this.operator,
-      } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>)
+      } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>);
     },
   },
   watch: {
     lang() {
-      this.updateOutput()
+      this.updateOutput();
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

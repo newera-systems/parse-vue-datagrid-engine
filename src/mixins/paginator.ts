@@ -1,15 +1,15 @@
-import Vue, {PropType} from 'vue'
-import Paginator from '@components/Paginator.vue'
+import Vue, { defineComponent, PropType } from "vue";
+import Paginator from "@components/Paginator.vue";
 import {
   DataGridProviderFunction,
   DataGridProviderPromiseResult,
   FilterRuleInterface,
   GridEntityItem,
   ProviderContext,
-} from '@/index'
+} from "@/index";
 
-export default Vue.extend({
-  components: {Paginator},
+export default defineComponent({
+  components: { Paginator },
   props: {
     items: {
       type: [Array, Function, Promise] as PropType<
@@ -37,22 +37,22 @@ export default Vue.extend({
       perPageOptions: [5, 10, 25, 50, 100],
       localItems: [] as Array<GridEntityItem>,
       localEntries: 0,
-    }
+    };
   },
   methods: {
     onFiltered(filteredItems: Array<any>): void {
-      this.localEntries = filteredItems.length
-      this.context.currentPage = 1
+      this.localEntries = filteredItems.length;
+      this.context.currentPage = 1;
     },
   },
   computed: {
     paginatedItems(): Array<GridEntityItem> {
       if (Array.isArray(this.items)) {
-        const begin = (this.context.currentPage - 1) * this.context.perPage
-        const end = this.context.currentPage * this.context.perPage
-        return this.localItems.slice(begin, end)
+        const begin = (this.context.currentPage - 1) * this.context.perPage;
+        const end = this.context.currentPage * this.context.perPage;
+        return this.localItems.slice(begin, end);
       }
-      return this.localItems.slice(0, this.context.perPage)
+      return this.localItems.slice(0, this.context.perPage);
     },
   },
   watch: {
@@ -60,11 +60,11 @@ export default Vue.extend({
       deep: true,
       handler(newValue: Array<GridEntityItem>) {
         if (this.paginationEntries > 0 && !Array.isArray(this.items)) {
-          this.localEntries = this.paginationEntries
+          this.localEntries = this.paginationEntries;
         } else {
-          this.localEntries = newValue.length ?? 0
+          this.localEntries = newValue.length ?? 0;
         }
       },
     },
   },
-})
+});

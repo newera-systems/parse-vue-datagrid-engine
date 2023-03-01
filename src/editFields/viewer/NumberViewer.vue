@@ -22,12 +22,12 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BIconDashCircle, BIconQuestionOctagonFill} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
-import {Dayjs} from 'dayjs'
+import Vue, { defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem } from "@/index";
+import { Dayjs } from "dayjs";
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -57,21 +57,21 @@ export default Vue.extend({
       visibleData: null as unknown as number,
       error: false,
       isNull: false,
-    }
+    };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
-      this.error = true
+    if (typeof this.rawValue === "undefined") {
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.isNull = true
-    } else if (typeof this.rawValue !== 'number') {
-      this.visibleData = Number(this.rawValue)
-      this.error = isNaN(this.visibleData)
+      this.isNull = true;
+    } else if (typeof this.rawValue !== "number") {
+      this.visibleData = Number(this.rawValue);
+      this.error = isNaN(this.visibleData);
     } else {
-      this.visibleData = Number(this.rawValue)
+      this.visibleData = Number(this.rawValue);
     }
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

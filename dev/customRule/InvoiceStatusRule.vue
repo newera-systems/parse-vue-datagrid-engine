@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from "vue";
 
 import {
   EngineSubOperators,
   StringOperatorOptions,
   FieldInputMixin,
-} from '../../src'
+} from "../../src";
 import {
   BFormGroup,
   BFormInput,
@@ -24,16 +24,16 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from 'bootstrap-vue'
+} from "bootstrap-vue";
 
 export enum InvoiceStatus {
-  NONE = '',
-  AWAITING_PAYMENT = 'awaiting_payment',
-  COMPLETED = 'completed',
-  CANCELLED_REFUNDED = 'cancelled_refunded',
+  NONE = "",
+  AWAITING_PAYMENT = "awaiting_payment",
+  COMPLETED = "completed",
+  CANCELLED_REFUNDED = "cancelled_refunded",
 }
 
-export default Vue.extend({
+export default defineComponent({
   mixins: [FieldInputMixin],
   components: {
     BFormGroup,
@@ -45,13 +45,13 @@ export default Vue.extend({
   },
   data() {
     return {
-      content: '',
+      content: "",
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
       options: Object.values(InvoiceStatus),
-    }
+    };
   },
-})
+});
 </script>
 
 <style lang="scss" scoped></style>

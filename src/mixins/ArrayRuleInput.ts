@@ -1,12 +1,12 @@
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue'
-import {PropType} from 'vue'
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+import { PropType } from "vue";
 import {
   EngineRuleData,
   EngineSubOperators,
   MultiOperatorOptions,
   RegistrationLanguage,
   SimpleRuleType,
-} from '@/index'
+} from "@/index";
 
 export default {
   components: {
@@ -18,24 +18,24 @@ export default {
         EngineRuleData<Array<string>, SimpleRuleType.Array>
       >,
       default(): {
-        type: SimpleRuleType
-        value: []
-        operator: EngineSubOperators
+        type: SimpleRuleType;
+        value: [];
+        operator: EngineSubOperators;
       } {
         return {
           type: SimpleRuleType.Array,
           value: [],
           operator: EngineSubOperators.Contains,
-        }
+        };
       },
     },
   },
   data(): {
-    content: string[]
-    lang: RegistrationLanguage
-    operator: EngineSubOperators
-    operatorList: EngineSubOperators[]
-    options: []
+    content: string[];
+    lang: RegistrationLanguage;
+    operator: EngineSubOperators;
+    operatorList: EngineSubOperators[];
+    options: [];
   } {
     return {
       content: [] as string[],
@@ -43,15 +43,15 @@ export default {
       operator: EngineSubOperators.Contains,
       operatorList: MultiOperatorOptions,
       options: [],
-    }
+    };
   },
   created(): void {
     // @ts-expect-error lang exist on component
-    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? 'fr'
+    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? "fr";
   },
   beforeMount(): void {
     // @ts-expect-error function exist on component
-    this.update()
+    this.update();
   },
   methods: {
     update(): void {
@@ -59,40 +59,40 @@ export default {
         // @ts-expect-error value exist on component
         if (this.value) {
           // @ts-expect-error value exist on component
-          this.content = this.value.value
+          this.content = this.value.value;
           // @ts-expect-error value exist on component
-          this.operator = this.value.operator
+          this.operator = this.value.operator;
         }
       } catch (e) {
         // @ts-expect-error content exist on component
-        this.content = []
+        this.content = [];
         // @ts-expect-error operator exist on component
-        this.operator = EngineSubOperators.Contains
+        this.operator = EngineSubOperators.Contains;
       }
     },
     updateOutput(): void {
       // @ts-expect-error emit exist on component
-      this.$emit('input', {
+      this.$emit("input", {
         type: SimpleRuleType.Array,
         // @ts-expect-error content exist on component
         value: this.content,
         // @ts-expect-error operator exist on component
         operator: this.operator,
-      } as EngineRuleData<string, SimpleRuleType.Array>)
+      } as EngineRuleData<string, SimpleRuleType.Array>);
     },
   },
   watch: {
     value: {
       deep: true,
-      handler: 'update',
+      handler: "update",
     },
     operator: {
       deep: true,
-      handler: 'updateOutput',
+      handler: "updateOutput",
     },
     content: {
       deep: true,
-      handler: 'updateOutput',
+      handler: "updateOutput",
     },
   },
-}
+};

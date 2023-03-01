@@ -28,27 +28,27 @@
 </template>
 
 <script lang="ts">
-import Vue, {Component, PropType} from 'vue'
+import Vue, { defineComponent, Component, PropType } from "vue";
 import {
   BButton,
   BIconLock,
   BIconPen,
   BIconPencilSquare,
   BIconX,
-} from 'bootstrap-vue'
+} from "bootstrap-vue";
 import {
   DataGridModifiedCell,
   FieldDefinitionWithExtra,
   FieldType,
   GridEntityItem,
-} from '@/index'
-import StringEditor from '@/editFields/editor/StringEditor.vue'
-import StringViewer from '@/editFields/viewer/StringViewer.vue'
-import ArrayViewer from '@/editFields/viewer/ArrayViewer.vue'
-import PointerViewer from '@/editFields/viewer/PointerViewer.vue'
+} from "@/index";
+import StringEditor from "@/editFields/editor/StringEditor.vue";
+import StringViewer from "@/editFields/viewer/StringViewer.vue";
+import ArrayViewer from "@/editFields/viewer/ArrayViewer.vue";
+import PointerViewer from "@/editFields/viewer/PointerViewer.vue";
 
-export default Vue.extend({
-  name: 'EditableCells',
+export default defineComponent({
+  name: "EditableCells",
   components: {
     BIconPencilSquare,
     BIconX,
@@ -78,14 +78,14 @@ export default Vue.extend({
     },
   },
   created() {
-    this.buttonId = 'edit-button-' + this.item.id + this.field.identifier
+    this.buttonId = "edit-button-" + this.item.id + this.field.identifier;
   },
   data() {
     return {
       modified: false,
       editMode: false,
-      buttonId: 'edit-button',
-    }
+      buttonId: "edit-button",
+    };
   },
   computed: {
     writable(): boolean {
@@ -93,46 +93,46 @@ export default Vue.extend({
         this.field.type === FieldType.OtherEntity ||
         this.field.type === FieldType.Array
       ) {
-        return false
+        return false;
       }
-      return this.field.config.canEdit ?? true
+      return this.field.config.canEdit ?? true;
     },
     viewerComponent(): Component | string {
       if (this.viewerConfig[this.field.type]) {
-        return this.viewerConfig[this.field.type]
+        return this.viewerConfig[this.field.type];
       } else if (this.field.type === FieldType.Array) {
-        return ArrayViewer
+        return ArrayViewer;
       } else if (this.field.type === FieldType.OtherEntity) {
-        return PointerViewer
+        return PointerViewer;
       }
-      return StringViewer
+      return StringViewer;
     },
     editorComponent(): Component | string {
       if (this.editorConfig[this.field.type]) {
-        return this.editorConfig[this.field.type]
+        return this.editorConfig[this.field.type];
       }
-      return StringEditor
+      return StringEditor;
     },
   },
   methods: {
     _startEdition() {
       if (this.writable) {
-        this.editMode = true
+        this.editMode = true;
       }
     },
     _prepareCellModification(modification: DataGridModifiedCell) {
-      this.modified = true
-      this.editMode = false
+      this.modified = true;
+      this.editMode = false;
       this.$nextTick(() => {
-        this.$emit('cellModified', modification)
-      })
+        this.$emit("cellModified", modification);
+      });
     },
     _onCloseEdition() {
-      this.editMode = false
+      this.editMode = false;
     },
     saveModification() {},
   },
-})
+});
 </script>
 <style scoped>
 .writable {

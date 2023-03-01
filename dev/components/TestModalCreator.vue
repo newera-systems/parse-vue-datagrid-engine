@@ -9,7 +9,7 @@
         class="btn btn-primary ml-4"
         @click="
           () => {
-            useEditor = !useEditor
+            useEditor = !useEditor;
           }
         "
       >
@@ -24,11 +24,11 @@
       target="Invoice"
       @edited="
         (filterEdited) => {
-          filterBuild = filterEdited
+          filterBuild = filterEdited;
         }
       "
     >
-      <template v-slot:editor="{value, onEditorInput}">
+      <template v-slot:editor="{ value, onEditorInput }">
         <div class="form-group">
           <label for="">Custom editor</label>
           <input
@@ -44,24 +44,24 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import {FilterRuleInterface} from '../../src'
+import Vue, { defineComponent } from "vue";
+import { FilterRuleInterface } from "../../src";
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
-      title: 'Rule Creation Modal Tester',
+      title: "Rule Creation Modal Tester",
       filterBuild: null as unknown as FilterRuleInterface,
       modalVisible: false,
       useEditor: false,
-    }
+    };
   },
   methods: {
     toggleModal() {
-      this.$refs.mod.toggleModal()
+      this.$refs.mod.toggleModal();
     },
   },
-})
+});
 </script>
 
 <style scoped></style>

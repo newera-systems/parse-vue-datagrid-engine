@@ -23,7 +23,7 @@
           :field-list="filterableFields"
           :target="target"
           :visible-name="name"
-          operator="AND"
+          :operator="GroupOperator.AND"
         />
       </div>
       <b-button-toolbar class="mb-2 mx-2" justify>
@@ -124,7 +124,7 @@
         target="data-grid-toolbox-button"
         triggers="focus"
       >
-        <template #title>{{ $t('DataGrid.configuration') }}</template>
+        <template #title>{{ $t("DataGrid.configuration") }}</template>
         <ToolbarConfig v-model="localFieldsDef" />
       </b-popover>
     </div>
@@ -132,8 +132,8 @@
 </template>
 
 <script lang="ts">
-import Vue, {Component, PropType} from 'vue'
-import Paginator from '@components/Paginator.vue'
+import Vue, { defineComponent, Component, PropType } from "vue";
+import Paginator from "@components/Paginator.vue";
 import {
   BButton,
   BButtonGroup,
@@ -149,8 +149,8 @@ import {
   BPopover,
   BTable,
   BvTableFieldArray,
-} from 'bootstrap-vue'
-import ToolbarConfig from '@components/ToolbarConfig.vue'
+} from "bootstrap-vue";
+import ToolbarConfig from "@components/ToolbarConfig.vue";
 import {
   DataGridModifiedCell,
   DataGridProviderFunction,
@@ -160,27 +160,31 @@ import {
   FieldType,
   FilterRuleInterface,
   GridEntityItem,
+  GroupOperator,
   ModificationHandler,
   ProviderContext,
-} from '@/index'
-import provider from '@/mixins/provider'
-import paginatorMixin from '@/mixins/paginator'
-import EditableCells from '@components/EditableCells.vue'
-import fieldDetector from '@/mixins/fieldDetector'
-import tableStyling from '@/mixins/tableStyling'
-import {editorComponentsList, viewerComponentsList} from '@/editFields/config'
-import RuleEngineFilter from '@components/RuleEngineFilter.vue'
-import tableTranslate from '@/translation/table'
-import VueI18n from 'vue-i18n'
+} from "@/index";
+import provider from "@/mixins/provider";
+import paginatorMixin from "@/mixins/paginator";
+import EditableCells from "@components/EditableCells.vue";
+import fieldDetector from "@/mixins/fieldDetector";
+import tableStyling from "@/mixins/tableStyling";
+import {
+  editorComponentsList,
+  viewerComponentsList,
+} from "@/editFields/config";
+import RuleEngineFilter from "@components/RuleEngineFilter.vue";
+import tableTranslate from "@/translation/table";
+import VueI18n from "vue-i18n";
 
 function defaultModificationHandler(data: DataGridModifiedCell) {
-  const {item, field_key, newValue} = data
-  item[field_key] = newValue
+  const { item, field_key, newValue } = data;
+  item[field_key] = newValue;
 }
 
-Vue.use(VueI18n)
-export default Vue.extend({
-  name: 'DataGridTable',
+Vue.use(VueI18n);
+export default defineComponent({
+  name: "DataGridTable",
   i18n: new VueI18n(tableTranslate),
   mixins: [provider, paginatorMixin, fieldDetector, tableStyling],
   components: {
@@ -206,11 +210,11 @@ export default Vue.extend({
     name: {
       type: String,
       required: true,
-      default: () => 'Entity name',
+      default: () => "Entity name",
     },
     target: {
       type: String,
-      default: () => '',
+      default: () => "",
     },
     items: {
       type: [Array, Function, Promise] as PropType<
@@ -223,10 +227,6 @@ export default Vue.extend({
     paginationEntries: {
       type: Number,
       default: 0,
-    },
-    fields: {
-      type: Array as PropType<FieldDefinitionWithExtra[]>,
-      default: () => [],
     },
     modificationHandler: {
       type: Function as PropType<ModificationHandler>,
@@ -258,20 +258,23 @@ export default Vue.extend({
       } as ProviderContext,
       perPageOptions: [5, 10, 25, 50, 100],
       localEntries: 0,
-    }
+    };
   },
   mounted() {
-    this._modificationHandlerUpdate()
+    this._modificationHandlerUpdate();
   },
   computed: {
+    GroupOperator() {
+      return GroupOperator;
+    },
     columns(): BvTableFieldArray {
       if (this.localFieldsDef.length) {
         return this.localFieldsDef
           .filter((f) => {
-            if (f.identifier === 'id') {
-              return true
+            if (f.identifier === "id") {
+              return true;
             }
-            return f.config.canView && f.config.canRead
+            return f.config.canView && f.config.canRead;
           })
           .map((f) => {
             const tableSortable =
@@ -280,10 +283,10 @@ export default Vue.extend({
               key: f.identifier,
               label: f.identifier === 'id' ? '#' : this.getTranslation(f.name),
               sortable: tableSortable,
-            }
-          })
+            };
+          });
       }
-      return []
+      return [];
     },
     filterableFields(): string[] {
       if (this.localFieldsDef.length) {
@@ -296,7 +299,7 @@ export default Vue.extend({
           })
           .map((f) => f.identifier)
       }
-      return []
+      return [];
     },
     hasARuleFilterSchema(): boolean {
       try {
@@ -304,38 +307,38 @@ export default Vue.extend({
           const availableRuleTargets = Object.keys(
             // @ts-expect-error DataGrid defined when using plugin
             this.$DataGrid.ruleEngineConfigs
-          )
-          return availableRuleTargets.includes(this.target)
+          );
+          return availableRuleTargets.includes(this.target);
         }
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-      return false
+      return false;
     },
     hasARuleInFilter(): boolean {
       if (!this.context.FilterRule) {
-        return false
+        return false;
       }
-      return this.context.FilterRule.conditions.children.length > 0
+      return this.context.FilterRule.conditions.children.length > 0;
     },
   },
   methods: {
     goToItemEditor(item: GridEntityItem) {
-      this.$emit('goToEditor', item)
+      this.$emit("goToEditor", item);
     },
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin
       if (this?.$DataGrid?.i18n) {
-        return this.$t(key).toString() ?? key
+        return this.$t(key).toString() ?? key;
       }
-      return key
+      return key;
     },
     _getFieldDefinition(fieldId: string): FieldDefinition {
       const index = this.localFieldsDef.findIndex(
         (field) => field.identifier === fieldId
-      )
+      );
       if (index >= 0) {
-        return this.localFieldsDef[index]
+        return this.localFieldsDef[index];
       }
       return {
         identifier: fieldId,
@@ -348,68 +351,65 @@ export default Vue.extend({
           canSort: false,
         },
         type: FieldType.String,
-      }
+      };
     },
     _defaultModificationHandler(data: DataGridModifiedCell) {
-      const {item, field_key, newValue} = data
-      item[field_key] = newValue
+      const { item, field_key, newValue } = data;
+      item[field_key] = newValue;
     },
     _modificationHandlerUpdate() {
-      if (typeof this.modificationHandler === 'function') {
+      if (typeof this.modificationHandler === "function") {
         if (this.modificationHandler.length >= 1) {
-          this.localModificationHandler = this.modificationHandler
-          return
+          this.localModificationHandler = this.modificationHandler;
+          return;
         }
         console.warn(
-          '[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style'
-        )
+          "[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style"
+        );
       }
-      this.localModificationHandler = this._defaultModificationHandler
+      this.localModificationHandler = this._defaultModificationHandler;
     },
     // when the provider is a function, we need to call it to update the data
     _updatedContext() {
       if (!this.hasProviderFunction) {
-        return
+        return;
       } else {
-        // @ts-expect-error
-        this._providerUpdate()
+        this._providerUpdate();
       }
     },
     updateCell(modification: DataGridModifiedCell) {
-      const p = this.localModificationHandler(modification)
+      const p = this.localModificationHandler(modification);
       if (p) {
-        if (typeof p.then === 'function') {
-          ;(p as Promise<void>).then(() => {
+        if (typeof p.then === "function") {
+          (p as Promise<void>).then(() => {
             this.$nextTick(() => {
-              // @ts-expect-error
-              this._providerUpdate()
-            })
-          })
+              this._providerUpdate();
+            });
+          });
         }
       } else {
         this.$nextTick(() => {
-          // @ts-expect-error
-          this._providerUpdate()
-        })
+          this._providerUpdate();
+        });
       }
-      this.$emit('modified')
+      this.$emit("modified");
     },
   },
   watch: {
     modificationHandler: {
       deep: true,
       handler() {
-        this.$nextTick(this._modificationHandlerUpdate)
+        this.$nextTick(this._modificationHandlerUpdate);
       },
     },
     context: {
       deep: true,
       handler() {
-        this._updatedContext()
+        this._updatedContext();
       },
     },
   },
-})
+});
 </script>
 
 <style scoped>

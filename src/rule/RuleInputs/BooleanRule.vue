@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BFormGroup,
   BFormInput,
@@ -25,17 +25,18 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from 'bootstrap-vue'
+} from "bootstrap-vue";
 import {
   BooleanOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
   SimpleRuleType,
-} from '@/index'
-import fieldInput from '@/mixins/RuleFieldInput'
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue'
+} from "@/index";
+import fieldInput from "@/mixins/RuleFieldInput";
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 
-export default Vue.extend({
+export default defineComponent({
+  name: "BooleanRule",
   mixins: [fieldInput],
   components: {
     BFormGroup,
@@ -49,13 +50,12 @@ export default Vue.extend({
   props: {
     value: {
       type: Object as PropType<EngineRuleData<boolean, SimpleRuleType.Boolean>>,
-      default() {
-        return {
+      default: () =>
+        ({
           type: SimpleRuleType.Boolean,
           value: true,
           operator: EngineSubOperators.EqualTo,
-        }
-      },
+        } as EngineRuleData<boolean, SimpleRuleType.Boolean>),
     },
   },
   data() {
@@ -63,44 +63,44 @@ export default Vue.extend({
       selected: true,
       operator: EngineSubOperators.EqualTo,
       operatorList: BooleanOperatorOptions,
-    }
+    };
   },
   computed: {
-    options(): {value: boolean; text: string}[] {
+    options(): { value: boolean; text: string }[] {
       return [
-        {value: true, text: this.getTranslation('yes')},
-        {value: false, text: this.getTranslation('no')},
-      ]
+        { value: true, text: this.getTranslation("yes") },
+        { value: false, text: this.getTranslation("no") },
+      ];
     },
   },
   methods: {
     update() {
       if (this.value) {
-        this.selected = this.value.value ?? true
-        this.operator = this.value.operator ?? EngineSubOperators.EqualTo
+        this.selected = this.value.value ?? true;
+        this.operator = this.value.operator ?? EngineSubOperators.EqualTo;
       }
     },
     updateOutput() {
-      this.$emit('input', {
+      this.$emit("input", {
         type: SimpleRuleType.Boolean,
         value: this.selected,
         operator: this.operator,
-      } as EngineRuleData<boolean, SimpleRuleType.Boolean>)
+      } as EngineRuleData<boolean, SimpleRuleType.Boolean>);
     },
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin
       if (this?.$DataGrid?.i18n) {
-        return this.$t(key).toString() ?? key
+        return this.$t(key).toString() ?? key;
       }
-      return key
+      return key;
     },
   },
   watch: {
     selected() {
-      this.updateOutput()
+      this.updateOutput();
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

@@ -25,12 +25,12 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BIconDashCircle, BIconQuestionOctagonFill} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
-import {Money} from 'ts-money'
+import Vue, { defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem } from "@/index";
+import { Money } from "ts-money";
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -58,23 +58,23 @@ export default Vue.extend({
       visibleData: null as unknown as Money,
       isNull: false,
       error: false,
-      currency: 'CAD',
-    }
+      currency: "CAD",
+    };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
-      this.error = true
+    if (typeof this.rawValue === "undefined") {
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.isNull = true
-    } else if (typeof this.rawValue === 'object') {
-      this.visibleData = this.rawValue
-      this.currency = this.rawValue.currency ?? 'CAD'
+      this.isNull = true;
+    } else if (typeof this.rawValue === "object") {
+      this.visibleData = this.rawValue;
+      this.currency = this.rawValue.currency ?? "CAD";
     } else {
-      const amount = Number(this.rawValue) ?? 0
-      this.visibleData = new Money(amount, this.currency)
+      const amount = Number(this.rawValue) ?? 0;
+      this.visibleData = new Money(amount, this.currency);
     }
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

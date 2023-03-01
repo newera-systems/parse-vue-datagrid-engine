@@ -1,6 +1,6 @@
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     striped: {
       type: Boolean,
@@ -39,7 +39,7 @@ export default Vue.extend({
       default: false,
     },
     headVariant: {
-      type: String as PropType<null | 'light' | 'dark'>,
+      type: String as PropType<null | "light" | "dark">,
       default: null,
     },
     noCollapse: {
@@ -52,4 +52,4 @@ export default Vue.extend({
     },
   },
   methods: {},
-})
+});

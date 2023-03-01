@@ -16,7 +16,7 @@
         :key="localeObj.code"
         @click="
           () => {
-            editValue = localeObj.value
+            editValue = localeObj.value;
           }
         "
       >
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BButton,
   BButtonGroup,
@@ -57,11 +57,11 @@ import {
   BDropdownItem,
   BIconCheckSquare,
   BIconX,
-} from 'bootstrap-vue'
-import {DataGridModifiedCell, FieldDefinition, GridEntityItem} from '@/index'
-import {LocaleInterface, LOCALES} from '@/fieldsData'
+} from "bootstrap-vue";
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
+import { LocaleInterface, LOCALES } from "@/fieldsData";
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconCheckSquare,
     BIconX,
@@ -93,51 +93,51 @@ export default Vue.extend({
       locales: Array.from(LOCALES.values()).filter(
         (locale: LocaleInterface) => locale.code.length
       ),
-    }
+    };
   },
   beforeMount() {
-    if (typeof this.rawValue !== 'string') {
-      this.editValue = this.rawValue?.toString() ?? ''
+    if (typeof this.rawValue !== "string") {
+      this.editValue = this.rawValue?.toString() ?? "";
     } else {
-      this.editValue = String(this.rawValue)
+      this.editValue = String(this.rawValue);
     }
   },
   computed: {
     selectedLang(): LocaleInterface {
-      const list = Array.from(LOCALES.values())
+      const list = Array.from(LOCALES.values());
       return (
         list.find((locale: LocaleInterface) =>
           locale.possibleLocales.includes(this.editValue.trim().toLowerCase())
         ) ?? {
           possibleLocales: [],
           name: this.editValue,
-          code: 'xx',
+          code: "xx",
           value: this.editValue,
         }
-      )
+      );
     },
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
-        return
+        return;
       }
-      this.$emit('editionSave', {
+      this.$emit("editionSave", {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit("editionCanceled");
     },
   },
   watch: {
     editValue(newVal, oldValue) {
-      this.isModified = newVal !== this.rawValue
+      this.isModified = newVal !== this.rawValue;
     },
   },
-})
+});
 </script>
 
 <style lang="scss"></style>

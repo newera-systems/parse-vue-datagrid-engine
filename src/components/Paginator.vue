@@ -8,7 +8,7 @@
       >
         <span class="text-muted">
           {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }}
-          {{ $t('entries') }}
+          {{ $t("entries") }}
         </span>
       </b-col>
       <!-- Pagination -->
@@ -40,17 +40,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from "vue";
 import {
   BCol,
   BIconChevronLeft,
   BIconChevronRight,
   BPagination,
   BRow,
-} from 'bootstrap-vue'
+} from "bootstrap-vue";
 
-export default Vue.extend({
-  name: 'DataGridPagePaginator',
+export default defineComponent({
+  name: "DataGridPagePaginator",
   components: {
     BCol,
     BRow,
@@ -59,8 +59,8 @@ export default Vue.extend({
     BPagination,
   },
   model: {
-    event: 'change',
-    prop: 'currentPage',
+    event: "change",
+    prop: "currentPage",
   },
   props: {
     currentPage: {
@@ -82,47 +82,47 @@ export default Vue.extend({
       currentPageNumber: 1,
       entriesNumber: 1,
       perPageNumber: 1,
-    }
+    };
   },
   mounted() {
-    this.update()
+    this.update();
   },
   computed: {
     startingIndex(): number {
       return (
         this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1)
-      )
+      );
     },
     endingIndex(): number {
-      const maxEnd = this.currentPageNumber * this.perPageNumber
+      const maxEnd = this.currentPageNumber * this.perPageNumber;
       if (maxEnd > this.entries) {
-        return this.entries
+        return this.entries;
       }
-      return maxEnd
+      return maxEnd;
     },
   },
   methods: {
     update() {
-      this.currentPageNumber = this.currentPage
-      this.entriesNumber = this.entries
-      this.perPageNumber = this.perPage
+      this.currentPageNumber = this.currentPage;
+      this.entriesNumber = this.entries;
+      this.perPageNumber = this.perPage;
     },
   },
   watch: {
     currentPageNumber() {
       if (this.currentPageNumber !== this.currentPage) {
-        this.$emit('change', this.currentPageNumber)
+        this.$emit("change", this.currentPageNumber);
       }
     },
     currentPage() {
-      this.update()
+      this.update();
     },
     entries() {
-      this.update()
+      this.update();
     },
     perPage() {
-      this.update()
+      this.update();
     },
   },
-})
+});
 </script>

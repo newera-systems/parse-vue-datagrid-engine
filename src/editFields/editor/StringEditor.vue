@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BButton,
   BButtonGroup,
@@ -39,10 +39,10 @@ import {
   BIconX,
   BInputGroup,
   BInputGroupAppend,
-} from 'bootstrap-vue'
-import {DataGridModifiedCell, FieldDefinition, GridEntityItem} from '@/index'
+} from "bootstrap-vue";
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconCheckSquare,
     BIconX,
@@ -71,36 +71,36 @@ export default Vue.extend({
     return {
       isModified: false,
       editValue: null as unknown as string,
-    }
+    };
   },
   mounted() {
-    if (typeof this.rawValue !== 'string') {
-      this.editValue = this.rawValue?.toString() ?? ''
+    if (typeof this.rawValue !== "string") {
+      this.editValue = this.rawValue?.toString() ?? "";
     } else {
-      this.editValue = String(this.rawValue)
+      this.editValue = String(this.rawValue);
     }
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
-        return
+        return;
       }
-      this.$emit('editionSave', {
+      this.$emit("editionSave", {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit("editionCanceled");
     },
   },
   watch: {
     editValue(newVal, oldValue) {
-      this.isModified = newVal !== this.rawValue
+      this.isModified = newVal !== this.rawValue;
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

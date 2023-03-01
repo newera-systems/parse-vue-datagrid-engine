@@ -31,22 +31,22 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BIconDashCircle,
   BIconQuestionOctagonFill,
   BProgress,
   BProgressBar,
-} from 'bootstrap-vue'
+} from "bootstrap-vue";
 import {
   FieldDefinition,
   GridEntityItem,
   IDataGridPrototype,
   RegistrationLanguage,
-} from '@/index'
-import {Dayjs} from 'dayjs'
+} from "@/index";
+import { Dayjs } from "dayjs";
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BProgress,
     BProgressBar,
@@ -78,40 +78,40 @@ export default Vue.extend({
       visibleData: null as unknown as number,
       error: false,
       isNull: false,
-      locales: 'CA-fr',
-    }
+      locales: "CA-fr",
+    };
   },
   created() {
     if (this.$i18n.locale) {
-      this.locales = this.$i18n.locale
+      this.locales = this.$i18n.locale;
     } else {
       // @ts-expect-error DataGrid is  set by plugin configuration
-      this.locales = (this.$DataGrid as IDataGridPrototype).lang ?? 'CA-fr'
+      this.locales = (this.$DataGrid as IDataGridPrototype).lang ?? "CA-fr";
     }
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
-      this.error = true
+    if (typeof this.rawValue === "undefined") {
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.isNull = true
-    } else if (typeof this.rawValue !== 'number') {
-      this.visibleData = Number(this.rawValue)
-      this.error = isNaN(this.visibleData)
+      this.isNull = true;
+    } else if (typeof this.rawValue !== "number") {
+      this.visibleData = Number(this.rawValue);
+      this.error = isNaN(this.visibleData);
     } else {
-      this.visibleData = Number(this.rawValue)
+      this.visibleData = Number(this.rawValue);
     }
   },
   methods: {
     getPercentage() {
       const formatter = new Intl.NumberFormat(this.locales, {
-        style: 'percent',
+        style: "percent",
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
-      })
-      return formatter.format(this.visibleData)
+      });
+      return formatter.format(this.visibleData);
     },
   },
-})
+});
 </script>
 <style lang="css" scoped>
 .percent-viewer-box {

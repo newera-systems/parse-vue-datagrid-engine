@@ -1,4 +1,4 @@
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   DataGridProviderFunction,
   DataGridProviderPromiseResult,
@@ -6,9 +6,9 @@ import {
   FieldDefinitionWithExtra,
   FieldType,
   GridEntityItem,
-} from '@/index'
+} from "@/index";
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     items: {
       type: [Array, Function, Promise] as PropType<
@@ -27,14 +27,14 @@ export default Vue.extend({
     return {
       localFieldsDef: [] as FieldDefinition[],
       localItems: [] as Array<GridEntityItem>,
-    }
+    };
   },
   computed: {
     hasFieldsOption(): boolean {
       if (Array.isArray(this.fields)) {
-        return this.fields.length > 0
+        return this.fields.length > 0;
       }
-      return false
+      return false;
     },
   },
   methods: {
@@ -47,49 +47,68 @@ export default Vue.extend({
         if (!fieldDef.config) {
           console.warn(
             `[DataGrid warn]: fields definition config missing,it will be generated`
-          )
+          );
           fieldDef.config = {
             canView: true,
             canRead: true,
             canEdit: false,
             canFilter: true,
             canSort: true,
-          }
-          return
+          };
+          return;
         }
-        if (!Object.keys(fieldDef.config).includes('canView')) {
+        if (!Object.keys(fieldDef.config).includes("canView")) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canView value, it will be set to true`
-          )
-          fieldDef.config.canView = true
+          );
+          fieldDef.config.canView = true;
         }
-        if (!Object.keys(fieldDef.config).includes('canRead')) {
+        if (!Object.keys(fieldDef.config).includes("canRead")) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canRead value, it will be set to true`
-          )
-          fieldDef.config.canRead = true
+          );
+          fieldDef.config.canRead = true;
         }
-        if (!Object.keys(fieldDef.config).includes('canEdit')) {
+        if (!Object.keys(fieldDef.config).includes("canEdit")) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canEdit value, it will be set to true`
-          )
-          fieldDef.config.canEdit = true
+          );
+          fieldDef.config.canEdit = true;
         }
-        if (!Object.keys(fieldDef.config).includes('canFilter')) {
+        if (!Object.keys(fieldDef.config).includes("canFilter")) {
           console.warn(
             `[DataGrid warn]: fields definition config does not contain a canFilter value, it will be set to true`
-          )
-          fieldDef.config.canFilter = true
+          );
+          fieldDef.config.canFilter = true;
         }
-      })
+      });
     },
+    // _addActionField(fields: Array<any>) {
+    //    const found = fields.find((field) => field.identifier === "action");
+    //    if (!found) {
+    //      fields.push({
+    //        identifier: "#action",
+    //        name: "Action",
+    //        type: FieldType.String,
+    //        config: {
+    //          canView: false,
+    //          canRead: true,
+    //          canEdit: false,
+    //          canFilter: false,
+    //          canSort: false,
+    //        },
+    //      });
+    //    }else{
+    //      found.config.canView = false;
+    //    }
+    // },
     _constructAdaptedFields() {
-      const fields: FieldDefinition[] = []
+      const fields: FieldDefinition[] = [];
       if (this.localItems.length) {
         for (const [key, value] of Object.entries(this.localItems[0])) {
           const field: FieldDefinition = {
             identifier: key,
-            name: key.replaceAll('_', ' '),
+            name: key.replaceAll("_", " "),
             config: {
               canView: true,
               canEdit: true,
@@ -98,53 +117,53 @@ export default Vue.extend({
               canSort: true,
             },
             type: FieldType.String,
-          }
+          };
           switch (typeof value) {
-            case 'bigint':
-            case 'number':
-              field.type = FieldType.Number
-              break
-            case 'boolean':
-              field.type = FieldType.Boolean
-              break
-            case 'symbol':
-            case 'object':
-              if (Array.isArray(value)) field.type = FieldType.Array
+            case "bigint":
+            case "number":
+              field.type = FieldType.Number;
+              break;
+            case "boolean":
+              field.type = FieldType.Boolean;
+              break;
+            case "symbol":
+            case "object":
+              if (Array.isArray(value)) field.type = FieldType.Array;
               else if (
-                Object.prototype.toString.call(value) === '[object Date]'
+                Object.prototype.toString.call(value) === "[object Date]"
               ) {
-                field.type = FieldType.Date
-              } else field.type = FieldType.OtherEntity
-              break
+                field.type = FieldType.Date;
+              } else field.type = FieldType.OtherEntity;
+              break;
             default:
-              field.type = FieldType.String
+              field.type = FieldType.String;
           }
-          fields.push(field)
+          fields.push(field);
         }
       }
-      return fields
+      return fields;
     },
     _fieldsUpdate() {
       if (this.hasFieldsOption) {
-        this._setLocalFieldsDefinition(this.fields)
-        return
+        this._setLocalFieldsDefinition(this.fields);
+        return;
       }
-      const constructedFields = this._constructAdaptedFields()
-      this._setLocalFieldsDefinition(constructedFields)
+      const constructedFields = this._constructAdaptedFields();
+      this._setLocalFieldsDefinition(constructedFields);
     },
   },
   watch: {
     fields: {
       deep: true,
       handler() {
-        this.$nextTick(this._fieldsUpdate)
+        this.$nextTick(this._fieldsUpdate);
       },
     },
     localItems: {
       deep: true,
       handler() {
-        this.$nextTick(this._fieldsUpdate)
+        this.$nextTick(this._fieldsUpdate);
       },
     },
   },
-})
+});

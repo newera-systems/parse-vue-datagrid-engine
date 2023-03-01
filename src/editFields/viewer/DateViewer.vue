@@ -22,15 +22,15 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BIconDashCircle, BIconQuestionOctagonFill} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
-import dayjs, {Dayjs} from 'dayjs'
-import calendar from 'dayjs/plugin/calendar'
+import Vue, { defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem } from "@/index";
+import dayjs, { Dayjs } from "dayjs";
+import calendar from "dayjs/plugin/calendar";
 
-dayjs.extend(calendar)
+dayjs.extend(calendar);
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -60,29 +60,29 @@ export default Vue.extend({
       visibleData: null as unknown as dayjs.Dayjs,
       isNull: false,
       error: false,
-    }
+    };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
-      this.error = true
+    if (typeof this.rawValue === "undefined") {
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.isNull = true
+      this.isNull = true;
     } else {
-      this.visibleData = dayjs(this.rawValue)
+      this.visibleData = dayjs(this.rawValue);
     }
   },
   methods: {
     displayDate(): string {
       // @ts-expect-error DataGrid is  set by plugin config
       if (this.$DataGrid.calendarTime) {
-        return this.visibleData?.calendar()
+        return this.visibleData?.calendar();
       } else {
         // @ts-expect-error DataGrid is  set by plugin config
-        return this.visibleData.format(this.$DataGrid.dateFormat)
+        return this.visibleData.format(this.$DataGrid.dateFormat);
       }
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

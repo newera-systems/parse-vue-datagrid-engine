@@ -14,11 +14,12 @@
 </template>
 
 <script lang="ts">
-import {RuleDefinition, RuleSlotProps} from 'query-builder-vue'
+import { RuleDefinition, RuleSlotProps } from "query-builder-vue";
 
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 
-export default Vue.extend({
+export default defineComponent({
+  name: "ModalRuleCtrlSlot",
   props: {
     ruleCtrl: {
       type: Object as PropType<RuleSlotProps>,
@@ -33,18 +34,18 @@ export default Vue.extend({
     ruleName(): string {
       const name = this.rules.find(
         (r) => r.identifier === this.ruleCtrl.ruleIdentifier
-      )?.name
-      return name ? this.getTranslation(name) : '??'
+      )?.name;
+      return name ? this.getTranslation(name) : "??";
     },
   },
   methods: {
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin
       if (this?.$DataGrid?.i18n) {
-        return this.$t(key).toString() ?? key
+        return this.$t(key).toString() ?? key;
       }
-      return key
+      return key;
     },
   },
-})
+});
 </script>

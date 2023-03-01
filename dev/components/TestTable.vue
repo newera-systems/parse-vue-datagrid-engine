@@ -10,7 +10,7 @@
       :pagination-entries="items.length"
       @goToEditor="goToItemEditor"
     >
-      <template #action="{item, index}"> slot {{ index }} </template>
+      <template #action="{ item, index }"> slot {{ index }} </template>
     </DataGridTable>
 
     <div>
@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from "vue";
 import {
   DataGridModifiedCell,
   FieldDefinitionWithExtra,
   FieldType,
   ProviderContext,
-} from '../../src'
+} from "../../src";
 
 const defaultConfig = {
   canView: true,
@@ -39,155 +39,155 @@ const defaultConfig = {
   canEdit: false,
   canFilter: true,
   canSort: true,
-}
-export default Vue.extend({
+};
+export default defineComponent({
   data() {
     return {
       fields: [
         {
-          identifier: '#action',
-          name: 'Actions',
-          config: {...defaultConfig},
+          identifier: "#action",
+          name: "Actions",
+          config: { ...defaultConfig },
           type: FieldType.String,
         },
         {
-          identifier: 'firstName',
-          name: 'First Name',
-          config: {...defaultConfig},
+          identifier: "firstName",
+          name: "First Name",
+          config: { ...defaultConfig },
           type: FieldType.String,
         },
         {
-          identifier: 'email',
-          name: 'Email',
-          config: {...defaultConfig},
+          identifier: "email",
+          name: "Email",
+          config: { ...defaultConfig },
           type: FieldType.String,
         },
         {
-          identifier: 'note',
-          name: 'Note',
-          config: {...defaultConfig},
+          identifier: "note",
+          name: "Note",
+          config: { ...defaultConfig },
           type: FieldType.Percent,
         },
         {
-          identifier: 'account',
-          name: 'Facture',
-          config: {...defaultConfig},
+          identifier: "account",
+          name: "Facture",
+          config: { ...defaultConfig },
           type: FieldType.Money,
         },
         {
-          identifier: 'lang',
-          name: 'langue',
-          config: {...defaultConfig},
+          identifier: "lang",
+          name: "langue",
+          config: { ...defaultConfig },
           type: FieldType.Lang,
         },
         {
-          identifier: 'status',
-          name: 'Status',
-          config: {...defaultConfig, canEdit: true},
-          type: 'InvoiceStatus',
+          identifier: "status",
+          name: "Status",
+          config: { ...defaultConfig, canEdit: true },
+          type: "InvoiceStatus",
         },
         {
-          identifier: 'isRegistered',
-          name: 'Is registered',
-          config: {...defaultConfig},
+          identifier: "isRegistered",
+          name: "Is registered",
+          config: { ...defaultConfig },
           type: FieldType.Boolean,
         },
       ] as FieldDefinitionWithExtra[],
       items: [
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: 'Mark',
-          email: 'longmailthatcomhere@meta.com',
+          firstName: "Mark",
+          email: "longmailthatcomhere@meta.com",
           note: 0.93,
           account: 120000,
-          lang: '',
-          status: 'awaiting_payment',
+          lang: "",
+          status: "awaiting_payment",
         },
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: 'Neymar',
-          email: 'neymar@brazil.com',
+          firstName: "Neymar",
+          email: "neymar@brazil.com",
           note: 0.76,
           account: 877090,
-          lang: '',
-          status: 'completed',
+          lang: "",
+          status: "completed",
         },
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: 'Lebron',
-          email: 'lebron@lakers.com',
+          firstName: "Lebron",
+          email: "lebron@lakers.com",
           note: 0.89,
           account: 120000,
-          lang: 'en',
-          status: 'cancelled_refunded',
+          lang: "en",
+          status: "cancelled_refunded",
           isRegistered: false,
         },
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: 'Bill',
-          email: 'gates@msft.com',
+          firstName: "Bill",
+          email: "gates@msft.com",
           note: 0.98,
           account: 9800000000,
-          lang: 'en',
-          status: 'completed',
+          lang: "en",
+          status: "completed",
           isRegistered: true,
         },
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: 'Kylian',
-          email: 'mbappe@psg.fr',
+          firstName: "Kylian",
+          email: "mbappe@psg.fr",
           note: -0.08,
           account: 89000,
-          lang: 'fr',
-          status: 'completed',
+          lang: "fr",
+          status: "completed",
         },
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: 'Lionel',
+          firstName: "Lionel",
           lastName: undefined,
-          email: 'lionnel@psg.fr',
+          email: "lionnel@psg.fr",
           note: 1.0,
           account: 89000,
-          lang: 'es',
+          lang: "es",
           isRegistered: true,
-          status: 'awaiting_payment',
+          status: "awaiting_payment",
         },
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: 'Curry',
+          firstName: "Curry",
           lastName: null,
-          email: 'steph@warriors.com',
+          email: "steph@warriors.com",
           note: 0,
           account: 67000,
-          status: 'completed',
+          status: "completed",
         },
       ],
       generatedRuleCode: null as unknown as string,
-    }
+    };
   },
   computed: {},
   methods: {
     provider(ctx: ProviderContext, cb) {
       if (ctx.FilterRule) {
-        this.generatedRuleCode = JSON.stringify(ctx.FilterRule, null, 2)
+        this.generatedRuleCode = JSON.stringify(ctx.FilterRule, null, 2);
         // console.log('FilterRule', ctx.FilterRule)
       }
-      const begin = (ctx.currentPage - 1) * ctx.perPage
-      const end = begin + ctx.perPage
-      cb(this.items.slice(begin, end))
+      const begin = (ctx.currentPage - 1) * ctx.perPage;
+      const end = begin + ctx.perPage;
+      cb(this.items.slice(begin, end));
     },
     modificationHandler(data: DataGridModifiedCell) {
-      const {item, field_key, newValue} = data
-      console.log('modificationHandler', item, field_key, newValue)
-      item[field_key] = newValue
+      const { item, field_key, newValue } = data;
+      console.log("modificationHandler", item, field_key, newValue);
+      item[field_key] = newValue;
     },
     goToItemEditor(item) {
       const msg =
-        'open complete editor for item, ' + JSON.stringify(item, null, 2)
-      alert(msg)
+        "open complete editor for item, " + JSON.stringify(item, null, 2);
+      alert(msg);
     },
   },
-})
+});
 </script>
 
 <style>

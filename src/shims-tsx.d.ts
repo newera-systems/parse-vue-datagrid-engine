@@ -1,6 +1,6 @@
 //shims-tsx.d.ts
 
-import Vue, {VNode} from 'vue'
+import Vue, { VNode } from "vue";
 
 declare global {
   namespace JSX {
@@ -11,7 +11,7 @@ declare global {
     interface ElementClass extends Vue {}
 
     interface IntrinsicElements {
-      [elem: string]: any
+      [elem: string]: any;
     }
   }
 }

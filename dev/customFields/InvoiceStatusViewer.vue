@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from "vue";
 import {
   BAvatar,
   BIcon,
@@ -40,45 +40,45 @@ import {
   BIconQuestionOctagonFill,
   BIconX,
   BTooltip,
-} from 'bootstrap-vue'
-import {FieldDefinitionWithExtra, GridEntityItem} from '@/index'
-import {InvoiceStatus} from '../customRule/InvoiceStatusRule.vue'
+} from "bootstrap-vue";
+import { FieldDefinitionWithExtra, GridEntityItem } from "../../src";
+import { InvoiceStatus } from "../customRule/InvoiceStatusRule.vue";
 
 export interface StatusInfo {
-  id: InvoiceStatus
-  variant: string
-  icon: string
-  label: string
+  id: InvoiceStatus;
+  variant: string;
+  icon: string;
+  label: string;
 }
 
 export const InvoiceStatusIcons: Record<InvoiceStatus, StatusInfo> = {
   [InvoiceStatus.COMPLETED]: {
     id: InvoiceStatus.COMPLETED,
-    variant: 'success',
-    icon: 'DollarSignIcon',
-    label: 'Paid',
+    variant: "success",
+    icon: "DollarSignIcon",
+    label: "Paid",
   },
   [InvoiceStatus.AWAITING_PAYMENT]: {
     id: InvoiceStatus.AWAITING_PAYMENT,
-    variant: 'info',
-    icon: 'DollarSignIcon',
-    label: 'Awaiting payment',
+    variant: "info",
+    icon: "DollarSignIcon",
+    label: "Awaiting payment",
   },
   [InvoiceStatus.CANCELLED_REFUNDED]: {
     id: InvoiceStatus.CANCELLED_REFUNDED,
-    variant: 'primary',
-    icon: 'DollarSignIcon',
-    label: 'Cancelled (Refunded)',
+    variant: "primary",
+    icon: "DollarSignIcon",
+    label: "Cancelled (Refunded)",
   },
   [InvoiceStatus.NONE]: {
     id: InvoiceStatus.NONE,
-    variant: 'primary',
-    icon: 'XIcon',
-    label: 'N/A',
+    variant: "primary",
+    icon: "XIcon",
+    label: "N/A",
   },
-}
+};
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -112,41 +112,41 @@ export default Vue.extend({
   },
   data() {
     return {
-      visibleData: '',
+      visibleData: "",
       error: false,
       isNull: false,
       id: `StatusInfoIcon-${Math.random().toString(36).substr(2, 9)}`,
-    }
+    };
   },
   computed: {
     status(): InvoiceStatus {
       switch (this.visibleData) {
         case InvoiceStatus.AWAITING_PAYMENT:
-          return InvoiceStatus.AWAITING_PAYMENT
+          return InvoiceStatus.AWAITING_PAYMENT;
         case InvoiceStatus.COMPLETED:
-          return InvoiceStatus.COMPLETED
+          return InvoiceStatus.COMPLETED;
         case InvoiceStatus.CANCELLED_REFUNDED:
-          return InvoiceStatus.CANCELLED_REFUNDED
+          return InvoiceStatus.CANCELLED_REFUNDED;
         default:
-          return InvoiceStatus.NONE
+          return InvoiceStatus.NONE;
       }
     },
     info(): StatusInfo {
-      return InvoiceStatusIcons[this.status]
+      return InvoiceStatusIcons[this.status];
     },
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = 'undefined'
+    if (typeof this.rawValue === "undefined") {
+      this.error = true;
+      this.visibleData = "undefined";
     } else if (this.rawValue === null) {
-      this.visibleData = 'null'
-      this.isNull = true
+      this.visibleData = "null";
+      this.isNull = true;
     } else {
-      this.visibleData = this.rawValue?.trim()
+      this.visibleData = this.rawValue?.trim();
     }
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

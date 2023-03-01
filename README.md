@@ -48,7 +48,7 @@ Available features:
 ## Installation
 
 ```shell
-yarn add yarn add https://github.com/newera-systems/parse-vue-datagrid-engine.git#datagrid-bvue
+yarn add yarn add https://github.com/newera-systems/parse-vue-datagrid-engine.git#master
 ```
 
 ```typescript
@@ -57,7 +57,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
-import DataGridPlugin from 'DataGridBvue'
+import DataGridPlugin from 'datagrid-bvue'
 Vue.use(DataGridPlugin, {
   ruleSchemas: {
     Student: [
@@ -159,9 +159,9 @@ Complete Example can be found in the dev folder.
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing datagrid',
@@ -208,9 +208,9 @@ export default Vue.extend({
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing datagrid',
@@ -265,10 +265,10 @@ export default Vue.extend({
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 import {Money} from 'ts-money/build'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing page',
@@ -474,9 +474,9 @@ B-Table style props available:
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing datagrid',
@@ -603,9 +603,9 @@ Vue.use(DataGridPlugin, {
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Rule Creation Modal Tester',
