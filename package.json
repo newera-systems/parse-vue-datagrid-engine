@@ -16,18 +16,15 @@
     "test": "yarn test:unit",
     "preview": "vite preview"
   },
-  "type": "module",
-  "module": "./dist/datagrid-bvue.js",
-  "exports": {
-    ".": {
-      "import": "./dist/datagrid-bvue.js"
-    }
-  },
+  "main": "./dist/datagrid-bvue.js",
+  "module": "./dist/datagrid-bvue.mjs",
   "style": "./dist/style.css",
   "typings": "./dist/index.d.ts",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "README.md"
   ],
   "dependencies": {
     "bootstrap-vue": "^2.23.1",
