@@ -107,7 +107,7 @@
         triggers="focus"
       >
         <template #title>{{ $t('DataGrid.configuration') }}</template>
-        <ToolbarConfig v-model="localFieldsDef" />
+        <ToolbarConfig v-model="localFieldsDef" :existing-fields='existingFields' />
       </b-popover>
     </div>
   </section>
@@ -250,7 +250,7 @@ export default defineComponent({
             if (f.identifier === 'id' || f.identifier === '#action') {
               return true;
             }
-            return f.config.canView && f.config.canRead;
+            return f.config.canView && f.config.canRead && this.existingFields.includes(f.identifier);
           })
           .map(f => {
             const tableSortable = f.config.canSort && f.type !== 'Pointer' && f.type !== 'Array';

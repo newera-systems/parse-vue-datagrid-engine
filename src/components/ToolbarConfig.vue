@@ -10,8 +10,13 @@
           </tr>
         </thead>
         <draggable v-model="fieldsUpdated" class="cursor-move" tag="tbody">
-          <tr v-for="(field, index) in fieldsUpdated" :key="`${field.name}_${index}`">
-            <template v-if="field.config.canView">
+          <tr
+            v-for="(field, index) in fieldsUpdated.filter(
+              f => f.config.canView && existingFields.includes(f.identifier)
+            )"
+            :key="field.identifier"
+          >
+            <template>
               <td>{{ index }}</td>
               <td>{{ getTranslation(field.name) }}</td>
               <td>
@@ -51,9 +56,9 @@
         <tbody>
           <tr
             v-for="(field, index) in fieldsUpdated.filter(
-              f => f.config.canView || f.config.canSort
+              f => (f.config.canView || f.config.canSort) && existingFields.includes(f.identifier)
             )"
-            :key="`${field.identifier}_${index}`"
+            :key="field.identifier"
           >
             <td>{{ getTranslation(field.name) }}</td>
             <td>
@@ -87,6 +92,11 @@ export default defineComponent({
   props: {
     value: {
       type: Array as PropType<FieldDefinition[]>,
+      required: true,
+      default: () => [],
+    },
+    existingFields: {
+      type: Array as PropType<string[]>,
       required: true,
       default: () => [],
     },

@@ -24,6 +24,7 @@ export default defineComponent({
   data() {
     return {
       localFieldsDef: [] as FieldDefinition[],
+      existingFields: [] as string[],
       localItems: [] as Array<GridEntityItem>,
     };
   },
@@ -90,52 +91,63 @@ export default defineComponent({
         }
       });
     },
-    _constructAdaptedFields() {
+    _constructAdaptedFields(entity: GridEntityItem): FieldDefinition[] {
       const fields: FieldDefinition[] = [];
-      if (this.localItems.length) {
-        for (const [key, value] of Object.entries(this.localItems[0])) {
-          const field: FieldDefinition = {
-            identifier: key,
-            name: key.replaceAll('_', ' '),
-            config: {
-              canView: true,
-              canEdit: true,
-              canFilter: false,
-              canRead: true,
-              canSort: true,
-            },
-            type: FieldType.String,
-          };
-          switch (typeof value) {
-            case 'bigint':
-            case 'number':
-              field.type = FieldType.Number;
-              break;
-            case 'boolean':
-              field.type = FieldType.Boolean;
-              break;
-            case 'symbol':
-            case 'object':
-              if (Array.isArray(value)) field.type = FieldType.Array;
-              else if (Object.prototype.toString.call(value) === '[object Date]') {
-                field.type = FieldType.Date;
-              } else field.type = FieldType.OtherEntity;
-              break;
-            default:
-              field.type = FieldType.String;
-          }
-          fields.push(field);
+      for (const [key, value] of Object.entries(entity)) {
+        const field: FieldDefinition = {
+          identifier: key,
+          name: key.replaceAll('_', ' '),
+          config: {
+            canView: true,
+            canEdit: true,
+            canFilter: false,
+            canRead: true,
+            canSort: true,
+          },
+          type: FieldType.String,
+        };
+        switch (typeof value) {
+          case 'bigint':
+          case 'number':
+            field.type = FieldType.Number;
+            break;
+          case 'boolean':
+            field.type = FieldType.Boolean;
+            break;
+          case 'symbol':
+          case 'object':
+            if (Array.isArray(value)) field.type = FieldType.Array;
+            else if (Object.prototype.toString.call(value) === '[object Date]') {
+              field.type = FieldType.Date;
+            } else field.type = FieldType.OtherEntity;
+            break;
+          default:
+            field.type = FieldType.String;
         }
+        fields.push(field);
       }
       return fields;
     },
+    _fieldsInspector(): FieldDefinition[] {
+      const presentFieldsKeys: FieldDefinition[] = this.localItems.reduce((acc, entity) => {
+        const fields = this._constructAdaptedFields(entity);
+        const toAdd = fields.filter(
+          field => !acc.find((f: FieldDefinition) => f.identifier === field.identifier)
+        );
+        return [...acc, ...toAdd];
+      }, [] as FieldDefinition[]);
+      this.existingFields = [
+        ...new Set(presentFieldsKeys.map((field: FieldDefinition) => field.identifier)),
+      ];
+      return presentFieldsKeys;
+    },
     _fieldsUpdate() {
+      const fields = this._fieldsInspector();
       if (this.hasFieldsOption) {
         this._setLocalFieldsDefinition(this.fields);
         return;
       }
-      const constructedFields = this._constructAdaptedFields();
-      this._setLocalFieldsDefinition(constructedFields);
+      this._setLocalFieldsDefinition(fields);
     },
   },
   beforeMount() {
