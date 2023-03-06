@@ -114,6 +114,7 @@ declare const _default: import("vue").DefineComponent<{
     };
 }, {}, {
     localFieldsDef: FieldDefinition[];
+    existingFields: string[];
     localItems: GridEntityItem[];
 }, {
     hasFieldsOption(): boolean;
@@ -121,7 +122,8 @@ declare const _default: import("vue").DefineComponent<{
     _setLocalFieldsDefinition(definitions: FieldDefinition[]): void;
     _checkActionField(fields: any[]): void;
     _transformToValidDefinition(fields: any[]): void;
-    _constructAdaptedFields(): FieldDefinition[];
+    _constructAdaptedFields(entity: GridEntityItem): FieldDefinition[];
+    _fieldsInspector(): FieldDefinition[];
     _fieldsUpdate(): void;
 }, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
     items: {

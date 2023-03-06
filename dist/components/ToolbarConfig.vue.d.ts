@@ -7,6 +7,11 @@ declare const _default: import("vue").DefineComponent<{
         required: true;
         default: () => never[];
     };
+    existingFields: {
+        type: PropType<string[]>;
+        required: true;
+        default: () => never[];
+    };
 }, {}, {
     fieldsUpdated: FieldDefinition[];
 }, {}, {
@@ -18,7 +23,13 @@ declare const _default: import("vue").DefineComponent<{
         required: true;
         default: () => never[];
     };
+    existingFields: {
+        type: PropType<string[]>;
+        required: true;
+        default: () => never[];
+    };
 }>>, {
     value: FieldDefinition[];
+    existingFields: string[];
 }>;
 export default _default;
