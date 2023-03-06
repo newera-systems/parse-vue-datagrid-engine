@@ -21,6 +21,7 @@ declare const _default: import("vue").DefineComponent<{
     _transformToValidDefinition(fields: Array<any>): void;
     _constructAdaptedFields(entity: GridEntityItem): FieldDefinition[];
     _fieldsInspector(): FieldDefinition[];
+    _checkExistingFields(fields: FieldDefinition[]): void;
     _fieldsUpdate(): void;
 }, import("vue/types/v3-component-options").ComponentOptionsMixin, import("vue/types/v3-component-options").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
     items: {

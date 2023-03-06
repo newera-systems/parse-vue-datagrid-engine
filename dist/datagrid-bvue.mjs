@@ -17903,12 +17903,18 @@ const r5 = e5.exports, n5 = Ee({
         ...new Set(r.map((t) => t.identifier))
       ], r;
     },
+    _checkExistingFields(r) {
+      const t = [];
+      r.forEach((e) => {
+        this.localItems.find((i) => Object.keys(i).includes(e.identifier)) && t.push(e.identifier);
+      }), this.existingFields = t;
+    },
     _fieldsUpdate() {
-      const r = this._fieldsInspector();
       if (this.hasFieldsOption) {
-        this._setLocalFieldsDefinition(this.fields);
+        this._checkExistingFields(this.fields), this._setLocalFieldsDefinition(this.fields);
         return;
       }
+      const r = this._fieldsInspector();
       this._setLocalFieldsDefinition(r);
     }
   },

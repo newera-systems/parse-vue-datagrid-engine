@@ -124,6 +124,7 @@ declare const _default: import("vue").DefineComponent<{
     _transformToValidDefinition(fields: any[]): void;
     _constructAdaptedFields(entity: GridEntityItem): FieldDefinition[];
     _fieldsInspector(): FieldDefinition[];
+    _checkExistingFields(fields: FieldDefinition[]): void;
     _fieldsUpdate(): void;
 }, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
     items: {
