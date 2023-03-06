@@ -141,12 +141,22 @@ export default defineComponent({
       ];
       return presentFieldsKeys;
     },
+    _checkExistingFields(fields: FieldDefinition[]){
+      const existingFields:string[] = [];
+      fields.forEach(field => {
+        // check in every localItems if the field exists
+        const found = this.localItems.find(item => Object.keys(item).includes(field.identifier));
+        if (found) existingFields.push(field.identifier);
+      });
+      this.existingFields = existingFields;
+    },
     _fieldsUpdate() {
-      const fields = this._fieldsInspector();
       if (this.hasFieldsOption) {
+        this._checkExistingFields(this.fields);
         this._setLocalFieldsDefinition(this.fields);
         return;
       }
+      const fields = this._fieldsInspector();
       this._setLocalFieldsDefinition(fields);
     },
   },
