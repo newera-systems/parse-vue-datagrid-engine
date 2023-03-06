@@ -151,6 +151,9 @@ export default defineComponent({
       this.existingFields = existingFields;
     },
     _fieldsUpdate() {
+      if (!Array.isArray(this.localItems)) {
+        return;
+      }
       if (this.hasFieldsOption) {
         this._checkExistingFields(this.fields);
         this._setLocalFieldsDefinition(this.fields);
