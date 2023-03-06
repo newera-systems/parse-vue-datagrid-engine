@@ -63,6 +63,12 @@ export default defineComponent({
           type: FieldType.String,
         },
         {
+          identifier: 'console',
+          name: 'console',
+          config: { ...defaultConfig },
+          type: FieldType.String,
+        },
+        {
           identifier: 'note',
           name: 'Note',
           config: { ...defaultConfig },
