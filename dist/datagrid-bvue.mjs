@@ -12645,16 +12645,16 @@ const oB = Ee({
   props: {
     currentPage: {
       type: Number,
-      default: 1,
+      default: () => 1,
       required: !0
     },
     perPage: {
       type: Number,
-      default: 25
+      default: () => 25
     },
     entries: {
       type: Number,
-      default: 0
+      default: () => 0
     }
   },
   data() {
@@ -12727,7 +12727,7 @@ function _e(r, t, e, n, i, o, l, u) {
 }
 var sB = function() {
   var t = this, e = t._self._c;
-  return t._self._setupProxy, e("div", { staticClass: "mb-2" }, [e("b-row", [e("b-col", { staticClass: "d-flex align-items-center justify-content-center justify-content-sm-start", attrs: { cols: "12", sm: "6" } }, [e("span", { staticClass: "text-muted" }, [t._v(" " + t._s(t.startingIndex) + " - " + t._s(t.endingIndex) + " | Total " + t._s(t.entriesNumber) + " " + t._s(t.$t("entries")) + " ")])]), e("b-col", { staticClass: "d-flex pt-2 align-items-center justify-content-center justify-content-sm-end", attrs: { cols: "12", sm: "6" } }, [e("b-pagination", { attrs: { "current-page": t.currentPage, "per-page": t.perPageNumber, "total-rows": t.entriesNumber, "first-number": "", "last-number": "", "next-class": "next-item", "prev-class": "prev-item" }, scopedSlots: t._u([{ key: "prev-text", fn: function() {
+  return t._self._setupProxy, e("div", { staticClass: "mb-2" }, [e("b-row", [e("b-col", { staticClass: "d-flex align-items-center justify-content-center justify-content-sm-start", attrs: { cols: "12", sm: "6" } }, [e("span", { staticClass: "text-muted" }, [t._v(" " + t._s(t.startingIndex) + " - " + t._s(t.endingIndex) + " | Total " + t._s(t.entriesNumber) + " " + t._s(t.$t("entries")) + " ")])]), e("b-col", { staticClass: "d-flex pt-2 align-items-center justify-content-center justify-content-sm-end", attrs: { cols: "12", sm: "6" } }, [e("b-pagination", { attrs: { "per-page": t.perPageNumber, "total-rows": t.entriesNumber, "first-number": "", "last-number": "", "next-class": "next-item", "prev-class": "prev-item" }, scopedSlots: t._u([{ key: "prev-text", fn: function() {
     return [e("BIconChevronLeft", { attrs: { width: "18" } })];
   }, proxy: !0 }, { key: "next-text", fn: function() {
     return [e("BIconChevronRight", { attrs: { width: "18" } })];
@@ -17359,7 +17359,7 @@ const Nj = Ee({
   },
   data() {
     return {
-      localBusy: !1,
+      localBusy: !0,
       localItems: [],
       cellKeyRemount: 1,
       context: {
@@ -17440,7 +17440,7 @@ const Nj = Ee({
     },
     paginationEntries: {
       type: Number,
-      default: 0
+      default: () => 0
     }
   },
   data() {
@@ -17904,6 +17904,8 @@ const r5 = e5.exports, n5 = Ee({
     _checkExistingFields(r) {
       const t = [];
       r.forEach((e) => {
+        if (!Array.isArray(this.localItems))
+          return;
         this.localItems.find((i) => Object.keys(i).includes(e.identifier)) && t.push(e.identifier);
       }), this.existingFields = t;
     },

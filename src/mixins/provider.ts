@@ -22,7 +22,7 @@ export default defineComponent({
   },
   data() {
     return {
-      localBusy: false,
+      localBusy: true,
       localItems: [] as Array<GridEntityItem>,
       cellKeyRemount: 1,
       context: {

@@ -145,6 +145,7 @@ export default defineComponent({
       const existingFields:string[] = [];
       fields.forEach(field => {
         // check in every localItems if the field exists
+        if (!Array.isArray(this.localItems)) return;
         const found = this.localItems.find(item => Object.keys(item).includes(field.identifier));
         if (found) existingFields.push(field.identifier);
       });

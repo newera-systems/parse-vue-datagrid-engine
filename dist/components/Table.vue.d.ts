@@ -81,7 +81,7 @@ declare const _default: import("vue").DefineComponent<{
     };
     paginationEntries: {
         type: NumberConstructor;
-        default: number;
+        default: () => number;
     };
 }, {}, {
     context: ProviderContext;
@@ -99,7 +99,7 @@ declare const _default: import("vue").DefineComponent<{
     };
     paginationEntries: {
         type: NumberConstructor;
-        default: number;
+        default: () => number;
     };
 }>>, {
     paginationEntries: number;

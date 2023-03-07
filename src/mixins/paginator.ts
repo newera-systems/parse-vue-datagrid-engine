@@ -19,7 +19,7 @@ export default defineComponent({
     },
     paginationEntries: {
       type: Number,
-      default: 0,
+      default: () => 0,
     },
   },
   data() {

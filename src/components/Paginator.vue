@@ -7,8 +7,7 @@
         sm="6"
       >
         <span class="text-muted">
-          {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }}
-          {{ $t('entries') }}
+          {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }} {{ $t('entries') }}
         </span>
       </b-col>
       <!-- Pagination -->
@@ -19,7 +18,6 @@
       >
         <b-pagination
           v-model="currentPageNumber"
-          :current-page="currentPage"
           :per-page="perPageNumber"
           :total-rows="entriesNumber"
           first-number
@@ -59,16 +57,16 @@ export default defineComponent({
   props: {
     currentPage: {
       type: Number,
-      default: 1,
+      default: () => 1,
       required: true,
     },
     perPage: {
       type: Number,
-      default: 25,
+      default: () => 25,
     },
     entries: {
       type: Number,
-      default: 0,
+      default: () => 0,
     },
   },
   data() {
