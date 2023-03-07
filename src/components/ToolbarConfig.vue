@@ -11,12 +11,10 @@
         </thead>
         <draggable v-model="fieldsUpdated" class="cursor-move" tag="tbody">
           <tr
-            v-for="(field, index) in fieldsUpdated.filter(
-              f => f.config.canView && existingFields.includes(f.identifier)
-            )"
+            v-for="(field, index) in fieldsUpdated"
             :key="field.identifier"
           >
-            <template>
+            <template v-if='field.config.canView && existingFields.includes(field.identifier)'>
               <td>{{ index }}</td>
               <td>{{ getTranslation(field.name) }}</td>
               <td>

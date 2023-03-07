@@ -17321,12 +17321,10 @@ var Ij = function() {
   var t = this, e = t._self._c;
   return t._self._setupProxy, e("b-tabs", [e("b-tab", { attrs: { title: t.$t("visibilityAndOrder") } }, [e("table", { staticClass: "table" }, [e("thead", [e("tr", [e("th", [t._v(t._s(t.$t("order")))]), e("th", [t._v(t._s(t.$t("id")))]), e("th", [t._v(t._s(t.$t("visible")))])])]), e("draggable", { staticClass: "cursor-move", attrs: { tag: "tbody" }, model: { value: t.fieldsUpdated, callback: function(n) {
     t.fieldsUpdated = n;
-  }, expression: "fieldsUpdated" } }, t._l(t.fieldsUpdated.filter(
-    (n) => n.config.canView && t.existingFields.includes(n.identifier)
-  ), function(n, i) {
-    return e("tr", { key: n.identifier }, [[e("td", [t._v(t._s(i))]), e("td", [t._v(t._s(t.getTranslation(n.name)))]), e("td", [e("b-form-checkbox", { staticClass: "custom-control-secondary", model: { value: n.config.canRead, callback: function(o) {
+  }, expression: "fieldsUpdated" } }, t._l(t.fieldsUpdated, function(n, i) {
+    return e("tr", { key: n.identifier }, [n.config.canView && t.existingFields.includes(n.identifier) ? [e("td", [t._v(t._s(i))]), e("td", [t._v(t._s(t.getTranslation(n.name)))]), e("td", [e("b-form-checkbox", { staticClass: "custom-control-secondary", model: { value: n.config.canRead, callback: function(o) {
       t.$set(n.config, "canRead", o);
-    }, expression: "field.config.canRead" } })], 1)]], 2);
+    }, expression: "field.config.canRead" } })], 1)] : t._e()], 2);
   }), 0)], 1)]), e("b-tab", { attrs: { title: t.$t("filters") } }, [e("table", { staticClass: "table" }, [e("thead", [e("tr", [e("th", [t._v(t._s(t.$t("id")))]), e("th", [t._v(t._s(t.$t("filter")))])])]), e("tbody", t._l(t.fieldsUpdated.filter((n) => n.config.canView), function(n) {
     return e("tr", { key: n.name }, [e("td", [t._v(t._s(t.getTranslation(n.name)))]), e("td", [e("b-form-checkbox", { staticClass: "custom-control-secondary", model: { value: n.config.canFilter, callback: function(i) {
       t.$set(n.config, "canFilter", i);
