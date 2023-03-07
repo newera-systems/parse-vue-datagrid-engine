@@ -96,6 +96,7 @@
           />
         </template>
       </b-table>
+      TEst
       <paginator
         v-model="context.currentPage"
         :entries="localEntries"
