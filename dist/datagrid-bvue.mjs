@@ -17913,7 +17913,7 @@ const r5 = e5.exports, n5 = Ee({
       if (!Array.isArray(this.localItems))
         return;
       if (this.hasFieldsOption) {
-        this._checkExistingFields(this.fields), this._setLocalFieldsDefinition(this.fields);
+        this._checkExistingFields(this.fields), this._setLocalFieldsDefinition([...this.fields]);
         return;
       }
       const r = this._fieldsInspector();
