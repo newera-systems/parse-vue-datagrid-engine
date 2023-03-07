@@ -156,7 +156,7 @@ export default defineComponent({
       }
       if (this.hasFieldsOption) {
         this._checkExistingFields(this.fields);
-        this._setLocalFieldsDefinition(this.fields);
+        this._setLocalFieldsDefinition([...this.fields]);
         return;
       }
       const fields = this._fieldsInspector();
