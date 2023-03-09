@@ -141,14 +141,33 @@ export default defineComponent({
       ];
       return presentFieldsKeys;
     },
-    _checkExistingFields(fields: FieldDefinition[]){
-      const existingFields:string[] = [];
+    _checkExistingFields(fields: FieldDefinition[]) {
+      const existingFields: string[] = [];
+
+      if (!Array.isArray(this.localItems)) {
+        this.existingFields = fields.map(field => field.identifier);
+        return;
+      }
+
       fields.forEach(field => {
-        // check in every localItems if the field exists
-        if (!Array.isArray(this.localItems)) return;
-        const found = this.localItems.find(item => Object.keys(item).includes(field.identifier));
-        if (found) existingFields.push(field.identifier);
+        let found = false;
+
+        for (let i = 0; i < this.localItems.length && !found; i++) {
+          const item = this.localItems[i];
+
+          const isGetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(item), field.identifier)?.get;
+          if (isGetter) {
+            found = true;
+          } else if (field.identifier in item) {
+            found = true;
+          }
+        }
+
+        if (found) {
+          existingFields.push(field.identifier);
+        }
       });
+
       this.existingFields = existingFields;
     },
     _fieldsUpdate() {
