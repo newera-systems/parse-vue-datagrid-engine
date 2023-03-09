@@ -155,7 +155,10 @@ export default defineComponent({
         for (let i = 0; i < this.localItems.length && !found; i++) {
           const item = this.localItems[i];
 
-          const isGetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(item), field.identifier)?.get;
+          const isGetter = Object.getOwnPropertyDescriptor(
+            Object.getPrototypeOf(item),
+            field.identifier
+          )?.get;
           if (isGetter) {
             found = true;
           } else if (field.identifier in item) {
