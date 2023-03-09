@@ -17918,7 +17918,7 @@ const r5 = e5.exports, n5 = Ee({
           )) == null ? void 0 : i.get) || e.identifier in l) && (n = !0);
         }
         n && t.push(e.identifier);
-      }), console.log(t), this.existingFields = t;
+      }), this.existingFields = t;
     },
     _fieldsUpdate() {
       if (!Array.isArray(this.localItems))

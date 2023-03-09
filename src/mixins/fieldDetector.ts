@@ -171,8 +171,6 @@ export default defineComponent({
         }
       });
 
-      console.log(existingFields);
-
       this.existingFields = existingFields;
     },
     _fieldsUpdate() {
