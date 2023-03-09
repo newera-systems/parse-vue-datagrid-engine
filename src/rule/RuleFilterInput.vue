@@ -10,21 +10,32 @@
       {{ getTranslation(definition.name) }}:
       <strong class="">{{ status }}</strong>
       <BIconChevronDown class="mx-1" />
-      <BIconXLg v-show="!isEmpty" class="text-danger mx-1 scale" @click.prevent.stop="clearRule" />
     </b-button>
+    <BIconXLg v-show="!isEmpty" class="text-danger mx-1 scale" @click.prevent.stop="clearRule" />
     <b-popover
       :show.sync="showPopup"
       :target="id"
       custom-class="big-custom-popover"
       triggers="focus"
+      placement="bottom"
       variant="primary"
-      @keyup.enter.stop="updateRule"
     >
       <template #title>{{ getTranslation(definition.name) }}</template>
-      <component :is="definition.component" v-model="editValue" />
-      <b-button type="submit" variant="success" @click="updateRule">
-        {{ $t('update') }}
-      </b-button>
+      <div
+        class='d-inline-flex align-items-start justify-content-center'
+        @submit.prevent.stop="updateRule"
+        @keydown.enter.prevent.stop="updateRule"
+        @keydown.esc.prevent.stop="abort"
+      >
+        <component
+          ref='ruleComponent'
+          :is="definition.component"
+          v-model="editValue"
+        />
+        <b-button class='ml-1' type="submit" variant="success" @click="updateRule">
+          {{ $t('update') }}
+        </b-button>
+      </div>
     </b-popover>
   </div>
 </template>
@@ -40,7 +51,7 @@ import {
   SimpleRuleType,
 } from '@/index';
 import { Money } from 'ts-money';
-import { BButton, BIconChevronDown, BIconXLg, BPopover } from 'bootstrap-vue';
+import { BButton, BIconChevronDown, BIconXLg, BPopover, BForm } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import filterTranslate from '@/translation/filter';
 
@@ -63,6 +74,7 @@ export default defineComponent({
     BIconXLg,
     BPopover,
     BButton,
+    BForm
   },
   props: {
     definition: {
@@ -78,7 +90,7 @@ export default defineComponent({
     return {
       editValue: null as unknown as RuleDataObject,
       id: `button-modify-${this.definition.identifier}-${Math.random().toString(36).substr(2, 9)}`,
-      showPopup: false,
+      showPopup: false
     };
   },
   computed: {
@@ -128,6 +140,9 @@ export default defineComponent({
         return key;
       }
       return t;
+    },
+    abort() {
+      this.showPopup = false;
     },
   },
 });

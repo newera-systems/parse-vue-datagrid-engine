@@ -38,6 +38,7 @@ Vue.use(DataGridPlugin, {
       { identifier: 'firstName', name: 'Prenom', type: RuleCompTypes.String },
       { identifier: 'language', name: 'Langue', type: RuleCompTypes.Lang },
       { identifier: 'console', name: 'Console', type: RuleCompTypes.String },
+      { identifier: 'sophomore', name: 'Sophomore', type: RuleCompTypes.Boolean },
     ],
     Invoice: [
       { identifier: 'id', name: 'id', type: RuleCompTypes.String },

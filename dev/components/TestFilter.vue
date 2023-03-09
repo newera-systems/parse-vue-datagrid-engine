@@ -35,7 +35,7 @@ export default defineComponent({
     return {
       title: 'Rule Filter Tester',
       filterBuild: null as unknown as FilterRuleInterface,
-      fieldList: ['firstName', 'order', 'language'],
+      fieldList: ['firstName', 'order', 'language', 'sophomore'],
     };
   },
   methods: {
