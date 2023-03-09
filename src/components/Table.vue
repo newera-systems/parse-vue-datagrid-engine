@@ -244,39 +244,33 @@ export default defineComponent({
       return GroupOperator;
     },
     columns(): BvTableFieldArray {
-      if (this.localFieldsDef.length) {
-        return this.localFieldsDef
-          .filter(f => {
-            if (f.identifier === 'id' || f.identifier === '#action') {
-              return true;
-            }
-            return (
-              f.config.canView && f.config.canRead && this.existingFields.includes(f.identifier)
-            );
-          })
-          .map(f => {
-            const tableSortable = f.config.canSort && f.type !== 'Pointer' && f.type !== 'Array';
-            return {
-              key: f.identifier,
-              label: f.identifier === 'id' ? '#' : this.getTranslation(f.name),
-              sortable: tableSortable,
-            };
-          });
-      }
-      return [];
+      return this.localFieldsDef
+        .filter(f => {
+          if (f.identifier === 'id' || f.identifier === '#action') {
+            return true;
+          }
+          return (
+            f.config.canView && f.config.canRead && this.existingFields.includes(f.identifier)
+          );
+        })
+        .map(f => {
+          const tableSortable = f.config.canSort && f.type !== 'Pointer' && f.type !== 'Array';
+          return {
+            key: f.identifier,
+            label: f.identifier === 'id' ? '#' : this.getTranslation(f.name),
+            sortable: tableSortable,
+          };
+        });
     },
     filterableFields(): string[] {
-      if (this.localFieldsDef.length) {
-        return this.localFieldsDef
-          .filter(f => {
-            if (f.identifier === 'id' || f.identifier === '#action') {
-              return false;
-            }
-            return f.config.canView && f.config.canFilter;
-          })
-          .map(f => f.identifier);
-      }
-      return [];
+      return this.localFieldsDef
+        .filter(f => {
+          if (f.identifier === 'id' || f.identifier === '#action') {
+            return false;
+          }
+          return f.config.canView && f.config.canFilter;
+        })
+        .map(f => f.identifier);
     },
     hasARuleFilterSchema(): boolean {
       try {
