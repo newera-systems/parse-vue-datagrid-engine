@@ -24,6 +24,7 @@ declare const _default: import("vue").DefineComponent<{
     updateRule(): void;
     getTranslation(key: string, force?: boolean): string;
     getOperatorTranslation(key: string): string;
+    abort(): void;
 }, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
     definition: {
         type: PropType<RuleDefinition>;
