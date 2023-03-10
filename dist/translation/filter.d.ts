@@ -38,6 +38,7 @@ declare const _default: {
                 not: string;
             };
             caseSensitive: string;
+            regexGenerated: string;
             clearFilter: string;
             filterBy: string;
             all: string;
@@ -89,6 +90,7 @@ declare const _default: {
                 not: string;
             };
             caseSensitive: string;
+            regexGenerated: string;
             clearFilter: string;
             filterBy: string;
             all: string;

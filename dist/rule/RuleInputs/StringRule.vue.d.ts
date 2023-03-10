@@ -9,7 +9,13 @@ declare const _default: import("vue").DefineComponent<{
     content: string;
     operator: EngineSubOperators;
     operatorList: EngineSubOperators[];
-}, {}, {}, import("vue").DefineComponent<{
+    caseSensitive: boolean;
+}, {
+    regex(): RegExp;
+}, {
+    update(): void;
+    updateOutput(): void;
+}, import("vue").DefineComponent<{
     value: {
         type: PropType<EngineRuleData<any, SimpleRuleType>>;
         default: () => EngineRuleData<string, SimpleRuleType.String>;
