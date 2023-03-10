@@ -54,11 +54,19 @@ export default defineComponent({
     },
     operator: {
       deep: true,
-      handler: 'updateOutput',
+      handler: function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.updateOutput();
+        }
+      },
     },
     content: {
       deep: true,
-      handler: 'updateOutput',
+      handler: function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.updateOutput();
+        }
+      },
     },
   },
 });
