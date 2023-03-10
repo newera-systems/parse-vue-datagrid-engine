@@ -7,8 +7,7 @@
         sm="6"
       >
         <span class="text-muted">
-          {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }}
-          {{ $t('entries') }}
+          {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }} {{ $t('entries') }}
         </span>
       </b-col>
       <!-- Pagination -->
@@ -19,7 +18,6 @@
       >
         <b-pagination
           v-model="currentPageNumber"
-          :current-page="currentPage"
           :per-page="perPageNumber"
           :total-rows="entriesNumber"
           first-number
@@ -40,16 +38,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import {
-  BCol,
-  BIconChevronLeft,
-  BIconChevronRight,
-  BPagination,
-  BRow,
-} from 'bootstrap-vue'
+import Vue, { defineComponent } from 'vue';
+import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'DataGridPagePaginator',
   components: {
     BCol,
@@ -65,16 +57,16 @@ export default Vue.extend({
   props: {
     currentPage: {
       type: Number,
-      default: 1,
+      default: () => 1,
       required: true,
     },
     perPage: {
       type: Number,
-      default: 25,
+      default: () => 25,
     },
     entries: {
       type: Number,
-      default: 0,
+      default: () => 0,
     },
   },
   data() {
@@ -82,47 +74,45 @@ export default Vue.extend({
       currentPageNumber: 1,
       entriesNumber: 1,
       perPageNumber: 1,
-    }
+    };
   },
   mounted() {
-    this.update()
+    this.update();
   },
   computed: {
     startingIndex(): number {
-      return (
-        this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1)
-      )
+      return this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1);
     },
     endingIndex(): number {
-      const maxEnd = this.currentPageNumber * this.perPageNumber
+      const maxEnd = this.currentPageNumber * this.perPageNumber;
       if (maxEnd > this.entries) {
-        return this.entries
+        return this.entries;
       }
-      return maxEnd
+      return maxEnd;
     },
   },
   methods: {
     update() {
-      this.currentPageNumber = this.currentPage
-      this.entriesNumber = this.entries
-      this.perPageNumber = this.perPage
+      this.currentPageNumber = this.currentPage;
+      this.entriesNumber = this.entries;
+      this.perPageNumber = this.perPage;
     },
   },
   watch: {
     currentPageNumber() {
       if (this.currentPageNumber !== this.currentPage) {
-        this.$emit('change', this.currentPageNumber)
+        this.$emit('change', this.currentPageNumber);
       }
     },
     currentPage() {
-      this.update()
+      this.update();
     },
     entries() {
-      this.update()
+      this.update();
     },
     perPage() {
-      this.update()
+      this.update();
     },
   },
-})
+});
 </script>

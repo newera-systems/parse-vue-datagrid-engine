@@ -1,11 +1,6 @@
 <template>
   <div>
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">{{ visibleData }}</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -23,11 +18,11 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BIconDashCircle, BIconQuestionOctagonFill} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
+import Vue, { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -57,36 +52,36 @@ export default Vue.extend({
       visibleData: null as unknown as string,
       error: false,
       isNull: false,
-    }
+    };
   },
   mounted() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = 'undefined'
+      this.error = true;
+      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = 'null'
-      this.isNull = true
+      this.visibleData = 'null';
+      this.isNull = true;
     } else if (typeof this.rawValue === 'object') {
       if (Array.isArray(this.rawValue)) {
-        this.visibleData = 'Tableau'
+        this.visibleData = 'Tableau';
       } else {
-        this.visibleData = this.rawValue?.toString() ?? ''
-        this.error = this.visibleData.length === 0
+        this.visibleData = this.rawValue?.toString() ?? '';
+        this.error = this.visibleData.length === 0;
       }
     } else if (typeof this.rawValue !== 'string') {
-      this.visibleData = this.rawValue?.toString() ?? ''
-      this.error = this.visibleData.length === 0
+      this.visibleData = this.rawValue?.toString() ?? '';
+      this.error = this.visibleData.length === 0;
     } else {
-      this.visibleData = String(this.rawValue?.toString())
+      this.visibleData = String(this.rawValue?.toString());
     }
   },
   methods: {
     truncateString(str: string, length: number) {
       if (str === null || str === undefined) {
-        return ''
+        return '';
       }
-      return str.length > length ? str.substring(0, length - 3) + '...' : str
+      return str.length > length ? str.substring(0, length - 3) + '...' : str;
     },
   },
-})
+});
 </script>

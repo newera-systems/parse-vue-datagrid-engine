@@ -1,11 +1,6 @@
 <template>
   <div>
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">undefined|NaN</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -18,35 +13,21 @@
     <p v-else class="rounded percent-viewer-box">
       <span
         :class="
-          visibleData > 0
-            ? 'percent-viewer-box__bg bg-success'
-            : 'percent-viewer-box__bg bg-danger'
+          visibleData > 0 ? 'percent-viewer-box__bg bg-success' : 'percent-viewer-box__bg bg-danger'
         "
       ></span>
-      <span :class="visibleData > 0 ? 'text-success' : 'text-danger'">{{
-        getPercentage()
-      }}</span>
+      <span :class="visibleData > 0 ? 'text-success' : 'text-danger'">{{ getPercentage() }}</span>
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {
-  BIconDashCircle,
-  BIconQuestionOctagonFill,
-  BProgress,
-  BProgressBar,
-} from 'bootstrap-vue'
-import {
-  FieldDefinition,
-  GridEntityItem,
-  IDataGridPrototype,
-  RegistrationLanguage,
-} from '@/index'
-import {Dayjs} from 'dayjs'
+import Vue, { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill, BProgress, BProgressBar } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem, IDataGridPrototype, RegistrationLanguage } from '@/index';
+import { Dayjs } from 'dayjs';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BProgress,
     BProgressBar,
@@ -79,26 +60,26 @@ export default Vue.extend({
       error: false,
       isNull: false,
       locales: 'CA-fr',
-    }
+    };
   },
   created() {
     if (this.$i18n.locale) {
-      this.locales = this.$i18n.locale
+      this.locales = this.$i18n.locale;
     } else {
       // @ts-expect-error DataGrid is  set by plugin configuration
-      this.locales = (this.$DataGrid as IDataGridPrototype).lang ?? 'CA-fr'
+      this.locales = (this.$DataGrid as IDataGridPrototype).lang ?? 'CA-fr';
     }
   },
   mounted() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.isNull = true
+      this.isNull = true;
     } else if (typeof this.rawValue !== 'number') {
-      this.visibleData = Number(this.rawValue)
-      this.error = isNaN(this.visibleData)
+      this.visibleData = Number(this.rawValue);
+      this.error = isNaN(this.visibleData);
     } else {
-      this.visibleData = Number(this.rawValue)
+      this.visibleData = Number(this.rawValue);
     }
   },
   methods: {
@@ -107,11 +88,11 @@ export default Vue.extend({
         style: 'percent',
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
-      })
-      return formatter.format(this.visibleData)
+      });
+      return formatter.format(this.visibleData);
     },
   },
-})
+});
 </script>
 <style lang="css" scoped>
 .percent-viewer-box {

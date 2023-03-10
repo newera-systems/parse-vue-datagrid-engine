@@ -1,11 +1,19 @@
-import Vue from 'vue';
+import { PropType } from 'vue';
 import { GroupOperatorSlotProps } from 'query-builder-vue';
-declare const _default: import("vue/types/vue").ExtendedVue<Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>, {
+declare const _default: import("vue").DefineComponent<{
+    groupOperator: {
+        type: PropType<GroupOperatorSlotProps>;
+        required: true;
+    };
+}, {}, {
     expanded: boolean;
-}, {
+}, {}, {
     selectOperator(operator: string): void;
     getTranslation(key: string): string;
-}, unknown, {
-    groupOperator: GroupOperatorSlotProps;
-}, {}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin>;
+}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
+    groupOperator: {
+        type: PropType<GroupOperatorSlotProps>;
+        required: true;
+    };
+}>>, {}>;
 export default _default;

@@ -10,7 +10,7 @@
       :pagination-entries="items.length"
       @goToEditor="goToItemEditor"
     >
-      <template #action="{item, index}"> slot {{ index }} </template>
+      <template #action="{ item, index }"> slot {{ index }} </template>
     </DataGridTable>
 
     <div>
@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue';
 import {
   DataGridModifiedCell,
   FieldDefinitionWithExtra,
   FieldType,
   ProviderContext,
-} from '../../src'
+} from '../../src';
 
 const defaultConfig = {
   canView: true,
@@ -39,57 +39,63 @@ const defaultConfig = {
   canEdit: false,
   canFilter: true,
   canSort: true,
-}
-export default Vue.extend({
+};
+export default defineComponent({
   data() {
     return {
       fields: [
         {
           identifier: '#action',
           name: 'Actions',
-          config: {...defaultConfig},
+          config: { ...defaultConfig },
           type: FieldType.String,
         },
         {
           identifier: 'firstName',
           name: 'First Name',
-          config: {...defaultConfig},
+          config: { ...defaultConfig },
           type: FieldType.String,
         },
         {
           identifier: 'email',
           name: 'Email',
-          config: {...defaultConfig},
+          config: { ...defaultConfig },
+          type: FieldType.String,
+        },
+        {
+          identifier: 'console',
+          name: 'console',
+          config: { ...defaultConfig },
           type: FieldType.String,
         },
         {
           identifier: 'note',
           name: 'Note',
-          config: {...defaultConfig},
+          config: { ...defaultConfig },
           type: FieldType.Percent,
         },
         {
           identifier: 'account',
           name: 'Facture',
-          config: {...defaultConfig},
+          config: { ...defaultConfig },
           type: FieldType.Money,
         },
         {
           identifier: 'lang',
           name: 'langue',
-          config: {...defaultConfig},
+          config: { ...defaultConfig },
           type: FieldType.Lang,
         },
         {
           identifier: 'status',
           name: 'Status',
-          config: {...defaultConfig, canEdit: true},
+          config: { ...defaultConfig, canEdit: true },
           type: 'InvoiceStatus',
         },
         {
           identifier: 'isRegistered',
           name: 'Is registered',
-          config: {...defaultConfig},
+          config: { ...defaultConfig },
           type: FieldType.Boolean,
         },
       ] as FieldDefinitionWithExtra[],
@@ -163,31 +169,30 @@ export default Vue.extend({
         },
       ],
       generatedRuleCode: null as unknown as string,
-    }
+    };
   },
   computed: {},
   methods: {
     provider(ctx: ProviderContext, cb) {
       if (ctx.FilterRule) {
-        this.generatedRuleCode = JSON.stringify(ctx.FilterRule, null, 2)
+        this.generatedRuleCode = JSON.stringify(ctx.FilterRule, null, 2);
         // console.log('FilterRule', ctx.FilterRule)
       }
-      const begin = (ctx.currentPage - 1) * ctx.perPage
-      const end = begin + ctx.perPage
-      cb(this.items.slice(begin, end))
+      const begin = (ctx.currentPage - 1) * ctx.perPage;
+      const end = begin + ctx.perPage;
+      cb(this.items.slice(begin, end));
     },
     modificationHandler(data: DataGridModifiedCell) {
-      const {item, field_key, newValue} = data
-      console.log('modificationHandler', item, field_key, newValue)
-      item[field_key] = newValue
+      const { item, field_key, newValue } = data;
+      console.log('modificationHandler', item, field_key, newValue);
+      item[field_key] = newValue;
     },
     goToItemEditor(item) {
-      const msg =
-        'open complete editor for item, ' + JSON.stringify(item, null, 2)
-      alert(msg)
+      const msg = 'open complete editor for item, ' + JSON.stringify(item, null, 2);
+      alert(msg);
     },
   },
-})
+});
 </script>
 
 <style>

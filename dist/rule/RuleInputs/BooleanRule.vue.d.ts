@@ -1,71 +1,48 @@
-import Vue, { PropType } from 'vue';
+import { PropType } from 'vue';
 import { EngineRuleData, EngineSubOperators, SimpleRuleType } from '@/index';
-declare const _default: import("vue/types/vue").ExtendedVue<Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>, {
+declare const _default: import("vue").DefineComponent<{
+    value: {
+        type: PropType<EngineRuleData<boolean, SimpleRuleType.Boolean>>;
+        default: () => EngineRuleData<boolean, SimpleRuleType.Boolean>;
+    };
+}, {}, {
     selected: boolean;
     operator: EngineSubOperators;
     operatorList: EngineSubOperators[];
 }, {
-    update(): void;
-    updateOutput(): void;
-    getTranslation(key: string): string;
-}, {
-    options: {
+    options(): {
         value: boolean;
         text: string;
     }[];
 }, {
+    update(): void;
+    updateOutput(): void;
+    getTranslation(key: string): string;
+}, import("vue").DefineComponent<{
     value: {
-        type: SimpleRuleType;
-        value: boolean;
-        operator: EngineSubOperators;
+        type: PropType<EngineRuleData<any, SimpleRuleType>>;
+        default: () => EngineRuleData<string, SimpleRuleType.String>;
     };
 }, {}, {
-    components: {
-        OperatorDropdown: import("vue/types/vue").ExtendedVue<Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>, {
-            operator: EngineSubOperators;
-        }, {
-            update(): void;
-            setOperation(index: number): void;
-            getTranslation(key: string, force?: boolean): string;
-            getOperatorTranslation(key: EngineSubOperators): string;
-        }, unknown, {
-            value: EngineSubOperators;
-            options: EngineSubOperators[];
-        }, {}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin>;
+    content: string;
+    operator: EngineSubOperators;
+    operatorList: EngineSubOperators[];
+}, {}, {
+    update(): void;
+    updateOutput(): void;
+}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
+    value: {
+        type: PropType<EngineRuleData<any, SimpleRuleType>>;
+        default: () => EngineRuleData<string, SimpleRuleType.String>;
     };
-    props: {
-        value: {
-            type: PropType<EngineRuleData<string, SimpleRuleType.String>>;
-            default(): {
-                type: SimpleRuleType;
-                value: string;
-                operator: EngineSubOperators;
-            };
-        };
+}>>, {
+    value: EngineRuleData<any, SimpleRuleType>;
+}>, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
+    value: {
+        type: PropType<EngineRuleData<boolean, SimpleRuleType.Boolean>>;
+        default: () => EngineRuleData<boolean, SimpleRuleType.Boolean>;
     };
-    data(): {
-        content: string;
-        operator: EngineSubOperators;
-        operatorList: EngineSubOperators[];
-    };
-    beforeMount(): void;
-    methods: {
-        update(): void;
-        updateOutput(): void;
-    };
-    watch: {
-        value: {
-            deep: boolean;
-            handler: string;
-        };
-        operator: {
-            deep: boolean;
-            handler: string;
-        };
-        content: {
-            deep: boolean;
-            handler: string;
-        };
-    };
-}, import("vue/types/v3-component-options.js").ComponentOptionsMixin>;
+}>>, {
+    value: EngineRuleData<boolean, SimpleRuleType.Boolean>;
+}>;
 export default _default;

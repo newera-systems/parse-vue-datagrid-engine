@@ -1,17 +1,38 @@
-import Vue from 'vue';
+import { PropType } from 'vue';
 import { DataGridProviderFunction, DataGridProviderPromiseResult, FieldDefinition, FieldDefinitionWithExtra, GridEntityItem } from '@/index';
-declare const _default: import("vue/types/vue").ExtendedVue<Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>, {
+declare const _default: import("vue").DefineComponent<{
+    items: {
+        type: PropType<GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult>;
+        required: true;
+    };
+    fields: {
+        type: PropType<FieldDefinitionWithExtra[]>;
+        default: () => never[];
+    };
+}, {}, {
     localFieldsDef: FieldDefinition[];
+    existingFields: string[];
     localItems: GridEntityItem[];
 }, {
+    hasFieldsOption(): boolean;
+}, {
     _setLocalFieldsDefinition(definitions: FieldDefinition[]): void;
+    _checkActionField(fields: Array<any>): void;
     _transformToValidDefinition(fields: Array<any>): void;
-    _constructAdaptedFields(): FieldDefinition[];
+    _constructAdaptedFields(entity: GridEntityItem): FieldDefinition[];
+    _fieldsInspector(): FieldDefinition[];
+    _checkExistingFields(fields: FieldDefinition[]): void;
     _fieldsUpdate(): void;
-}, {
-    hasFieldsOption: boolean;
-}, {
-    items: GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult;
+}, import("vue/types/v3-component-options").ComponentOptionsMixin, import("vue/types/v3-component-options").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
+    items: {
+        type: PropType<GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult>;
+        required: true;
+    };
+    fields: {
+        type: PropType<FieldDefinitionWithExtra[]>;
+        default: () => never[];
+    };
+}>>, {
     fields: FieldDefinitionWithExtra[];
-}, {}, import("vue/types/v3-component-options").ComponentOptionsMixin, import("vue/types/v3-component-options").ComponentOptionsMixin>;
+}>;
 export default _default;

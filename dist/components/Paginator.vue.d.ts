@@ -1,16 +1,43 @@
-import Vue from 'vue';
-declare const _default: import("vue/types/vue").ExtendedVue<Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>, {
+declare const _default: import("vue").DefineComponent<{
+    currentPage: {
+        type: NumberConstructor;
+        default: () => 1;
+        required: true;
+    };
+    perPage: {
+        type: NumberConstructor;
+        default: () => 25;
+    };
+    entries: {
+        type: NumberConstructor;
+        default: () => 0;
+    };
+}, {}, {
     currentPageNumber: number;
     entriesNumber: number;
     perPageNumber: number;
 }, {
+    startingIndex(): number;
+    endingIndex(): number;
+}, {
     update(): void;
-}, {
-    startingIndex: number;
-    endingIndex: number;
-}, {
+}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
+    currentPage: {
+        type: NumberConstructor;
+        default: () => 1;
+        required: true;
+    };
+    perPage: {
+        type: NumberConstructor;
+        default: () => 25;
+    };
+    entries: {
+        type: NumberConstructor;
+        default: () => 0;
+    };
+}>>, {
     currentPage: number;
-    perPage: number;
     entries: number;
-}, {}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin>;
+    perPage: number;
+}>;
 export default _default;

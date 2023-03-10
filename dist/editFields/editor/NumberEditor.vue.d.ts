@@ -1,16 +1,38 @@
-import Vue from 'vue';
+import { PropType } from 'vue';
 import { FieldDefinition, GridEntityItem } from '@/index';
-declare const _default: import("vue/types/vue").ExtendedVue<Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>, {
+declare const _default: import("vue").DefineComponent<{
+    item: {
+        type: PropType<GridEntityItem>;
+        required: true;
+    };
+    rawValue: {
+        type: PropType<unknown>;
+        required: true;
+    };
+    field: {
+        type: PropType<FieldDefinition>;
+        required: true;
+    };
+}, {}, {
     isModified: boolean;
     valid: boolean;
     editValue: number;
     editMode: boolean;
-}, {
+}, {}, {
     saveModification(): void;
     discardChanges(): void;
-}, unknown, {
-    item: GridEntityItem;
-    rawValue: unknown;
-    field: FieldDefinition;
-}, {}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin>;
+}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
+    item: {
+        type: PropType<GridEntityItem>;
+        required: true;
+    };
+    rawValue: {
+        type: PropType<unknown>;
+        required: true;
+    };
+    field: {
+        type: PropType<FieldDefinition>;
+        required: true;
+    };
+}>>, {}>;
 export default _default;

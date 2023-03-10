@@ -8,12 +8,7 @@
     />
     <b-input-group-append>
       <b-button-group>
-        <b-button
-          class="btn-icon"
-          size="sm"
-          variant="danger"
-          @click="discardChanges"
-        >
+        <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
           <BIconX size="16" variant="white" />
         </b-button>
         <b-button
@@ -31,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -41,11 +36,11 @@ import {
   BIconX,
   BInputGroup,
   BInputGroupAppend,
-} from 'bootstrap-vue'
+} from 'bootstrap-vue';
 
-import {DataGridModifiedCell, FieldDefinition, GridEntityItem} from '@/index'
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconCheckSquare,
     BIconX,
@@ -78,36 +73,36 @@ export default Vue.extend({
       valid: true,
       editValue: null as unknown as number,
       editMode: false,
-    }
+    };
   },
   mounted() {
     if (typeof this.rawValue !== 'number') {
-      this.editValue = Number(this.rawValue) ?? 0
+      this.editValue = Number(this.rawValue) ?? 0;
     } else {
-      this.editValue = this.rawValue as number
+      this.editValue = this.rawValue as number;
     }
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
-        return
+        return;
       }
       this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit('editionCanceled');
     },
   },
   watch: {
     editValue(newVal) {
-      this.isModified = newVal !== this.rawValue
+      this.isModified = newVal !== this.rawValue;
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

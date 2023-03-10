@@ -10,8 +10,7 @@ export default {
         identifier: "Il y a un problème avec l'identifiant",
         identifierNotUnique: "L'identifiant n'est pas unique",
         identifierNotValid: "L'identifiant n'est pas valide",
-        identifierNotValidForEntity:
-          "L'identifiant n'est pas valide pour l'entité",
+        identifierNotValidForEntity: "L'identifiant n'est pas valide pour l'entité",
         identifierHelpMsg: "S'il vous plaît vérifier les champs : {fields}",
       },
       Operator: {
@@ -56,8 +55,7 @@ export default {
         creation: 'Création de la règle',
       },
       Form: {
-        nameError:
-          'Le nom est obligatoire, il doit contenir {min} caractères minimum',
+        nameError: 'Le nom est obligatoire, il doit contenir {min} caractères minimum',
       },
       male: 'Homme',
       female: 'Femme',
@@ -72,8 +70,7 @@ export default {
         identifier: 'There is a problem with the identifier',
         identifierNotUnique: 'The identifier is not unique',
         identifierNotValid: 'The identifier is not valid',
-        identifierNotValidForEntity:
-          'The identifier is not valid for the entity',
+        identifierNotValidForEntity: 'The identifier is not valid for the entity',
         identifierHelpMsg: 'Please check the fields : {fields}',
       },
       Operator: {
@@ -118,8 +115,7 @@ export default {
         creation: 'Rule Creation',
       },
       Form: {
-        nameError:
-          'The name is required, it must contain {min} characters minimum',
+        nameError: 'The name is required, it must contain {min} characters minimum',
       },
       male: 'Male',
       female: 'Female',
@@ -128,4 +124,4 @@ export default {
       no: 'No',
     },
   },
-}
+};

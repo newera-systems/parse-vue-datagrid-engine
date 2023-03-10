@@ -1,11 +1,6 @@
 <template>
   <div class="d-cell-viewer-boolean">
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">{{ visibleData }}</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -29,17 +24,17 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BFormCheckbox,
   BIconDashCircle,
   BIconLock,
   BIconPen,
   BIconQuestionOctagonFill,
-} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
+} from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/index';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BFormCheckbox,
     BIconQuestionOctagonFill,
@@ -72,18 +67,18 @@ export default Vue.extend({
       visibleData: null as unknown as boolean,
       error: false,
       isNull: false,
-    }
+    };
   },
   mounted() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = false
+      this.error = true;
+      this.visibleData = false;
     } else if (this.rawValue === null) {
-      this.visibleData = false
-      this.isNull = true
-    } else this.visibleData = this.rawValue === true
+      this.visibleData = false;
+      this.isNull = true;
+    } else this.visibleData = this.rawValue === true;
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,11 +1,26 @@
 import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
-import Vue from 'vue';
-declare const _default: import("vue/types/vue").ExtendedVue<Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>, unknown, {
+import { PropType } from 'vue';
+declare const _default: import("vue").DefineComponent<{
+    ruleCtrl: {
+        type: PropType<RuleSlotProps>;
+        required: true;
+    };
+    rules: {
+        type: PropType<RuleDefinition[]>;
+        required: true;
+    };
+}, {}, {}, {
+    ruleName(): string;
+}, {
     getTranslation(key: string): string;
-}, {
-    ruleName: string;
-}, {
-    ruleCtrl: RuleSlotProps;
-    rules: RuleDefinition[];
-}, {}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin>;
+}, import("vue/types/v3-component-options.js").ComponentOptionsMixin, import("vue/types/v3-component-options.js").ComponentOptionsMixin, {}, string, Readonly<import("vue").ExtractPropTypes<{
+    ruleCtrl: {
+        type: PropType<RuleSlotProps>;
+        required: true;
+    };
+    rules: {
+        type: PropType<RuleDefinition[]>;
+        required: true;
+    };
+}>>, {}>;
 export default _default;

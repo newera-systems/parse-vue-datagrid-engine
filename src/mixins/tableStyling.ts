@@ -1,6 +1,6 @@
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from 'vue';
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     striped: {
       type: Boolean,
@@ -52,4 +52,4 @@ export default Vue.extend({
     },
   },
   methods: {},
-})
+});

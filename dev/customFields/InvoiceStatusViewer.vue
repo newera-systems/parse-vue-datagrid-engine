@@ -1,11 +1,6 @@
 <template>
   <div class="d-cell-viewer-invoice">
-    <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
-    >
+    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
@@ -28,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BAvatar,
   BIcon,
@@ -40,15 +35,15 @@ import {
   BIconQuestionOctagonFill,
   BIconX,
   BTooltip,
-} from 'bootstrap-vue'
-import {FieldDefinitionWithExtra, GridEntityItem} from '@/index'
-import {InvoiceStatus} from '../customRule/InvoiceStatusRule.vue'
+} from 'bootstrap-vue';
+import { FieldDefinitionWithExtra, GridEntityItem } from '../../src';
+import { InvoiceStatus } from '../customRule/InvoiceStatusRule.vue';
 
 export interface StatusInfo {
-  id: InvoiceStatus
-  variant: string
-  icon: string
-  label: string
+  id: InvoiceStatus;
+  variant: string;
+  icon: string;
+  label: string;
 }
 
 export const InvoiceStatusIcons: Record<InvoiceStatus, StatusInfo> = {
@@ -76,9 +71,9 @@ export const InvoiceStatusIcons: Record<InvoiceStatus, StatusInfo> = {
     icon: 'XIcon',
     label: 'N/A',
   },
-}
+};
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -116,37 +111,37 @@ export default Vue.extend({
       error: false,
       isNull: false,
       id: `StatusInfoIcon-${Math.random().toString(36).substr(2, 9)}`,
-    }
+    };
   },
   computed: {
     status(): InvoiceStatus {
       switch (this.visibleData) {
         case InvoiceStatus.AWAITING_PAYMENT:
-          return InvoiceStatus.AWAITING_PAYMENT
+          return InvoiceStatus.AWAITING_PAYMENT;
         case InvoiceStatus.COMPLETED:
-          return InvoiceStatus.COMPLETED
+          return InvoiceStatus.COMPLETED;
         case InvoiceStatus.CANCELLED_REFUNDED:
-          return InvoiceStatus.CANCELLED_REFUNDED
+          return InvoiceStatus.CANCELLED_REFUNDED;
         default:
-          return InvoiceStatus.NONE
+          return InvoiceStatus.NONE;
       }
     },
     info(): StatusInfo {
-      return InvoiceStatusIcons[this.status]
+      return InvoiceStatusIcons[this.status];
     },
   },
   mounted() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = 'undefined'
+      this.error = true;
+      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = 'null'
-      this.isNull = true
+      this.visibleData = 'null';
+      this.isNull = true;
     } else {
-      this.visibleData = this.rawValue?.trim()
+      this.visibleData = this.rawValue?.trim();
     }
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

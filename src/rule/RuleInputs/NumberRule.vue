@@ -4,36 +4,26 @@
       <b-input-group-prepend>
         <OperatorDropdown v-model="operator" :options="operatorList" />
       </b-input-group-prepend>
-      <b-form-input
-        v-model.number="content"
-        autocomplete="off"
-        trim
-        type="number"
-      />
+      <b-form-input v-model.number="content" autocomplete="off" trim type="number" />
     </b-input-group>
   </b-form-group>
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BFormGroup,
   BFormInput,
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
-} from 'bootstrap-vue'
-import {
-  EngineRuleData,
-  EngineSubOperators,
-  NumberOperatorOptions,
-  SimpleRuleType,
-} from '@/index'
-import fieldInput from '@/mixins/RuleFieldInput'
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue'
+} from 'bootstrap-vue';
+import { EngineRuleData, EngineSubOperators, NumberOperatorOptions, SimpleRuleType } from '@/index';
+import fieldInput from '@/mixins/RuleFieldInput';
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
-export default Vue.extend({
-  mixins: [fieldInput],
+export default defineComponent({
+  name: 'NumberRule',
   components: {
     BFormGroup,
     BInputGroup,
@@ -45,13 +35,12 @@ export default Vue.extend({
   props: {
     value: {
       type: Object as PropType<EngineRuleData<number, SimpleRuleType.Number>>,
-      default() {
-        return {
+      default: () =>
+        ({
           type: SimpleRuleType.Number,
           value: 0,
           operator: EngineSubOperators.EqualTo,
-        }
-      },
+        } as EngineRuleData<number, SimpleRuleType.Number>),
     },
   },
   data() {
@@ -59,20 +48,21 @@ export default Vue.extend({
       content: null as unknown as number,
       operator: EngineSubOperators.EqualTo,
       operatorList: NumberOperatorOptions,
-    }
+    };
+  },
+  beforeMount() {
+    this.update();
   },
   methods: {
     update() {
       try {
         if (this.value) {
-          // @ts-expect-error function called via mixins
-          this.content = this.value.value
-          this.operator = this.value.operator
+          this.content = this.value.value;
+          this.operator = this.value.operator;
         }
       } catch (e) {
-        // @ts-expect-error function called via mixins
-        this.content = 0
-        this.operator = EngineSubOperators.EqualTo
+        this.content = 0;
+        this.operator = EngineSubOperators.EqualTo;
       }
     },
     updateOutput() {
@@ -80,8 +70,22 @@ export default Vue.extend({
         type: 'number',
         value: this.content,
         operator: this.operator,
-      } as EngineRuleData<number, SimpleRuleType.Number>)
+      } as EngineRuleData<number, SimpleRuleType.Number>);
     },
   },
-})
+  watch: {
+    value: {
+      deep: true,
+      handler: 'update',
+    },
+    operator: {
+      deep: true,
+      handler: 'updateOutput',
+    },
+    content: {
+      deep: true,
+      handler: 'updateOutput',
+    },
+  },
+});
 </script>

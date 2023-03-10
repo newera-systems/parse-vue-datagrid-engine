@@ -1,9 +1,7 @@
 <template>
   <div class="mx-3">
     <h2>{{ title }}</h2>
-    <button class="btn btn-secondary ml-4 btn-sm mb-1" @click="setFilter">
-      set a Test rule
-    </button>
+    <button class="btn btn-secondary ml-4 btn-sm mb-1" @click="setFilter">set a Test rule</button>
     <RuleEngineFilter
       v-model="filterBuild"
       :field-list="fieldList"
@@ -23,22 +21,22 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue';
 import {
   EngineSubOperators,
   FilterRuleInterface,
   GroupOperator,
   RuleActions,
   SimpleRuleType,
-} from '../../src'
+} from '../../src';
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Rule Filter Tester',
       filterBuild: null as unknown as FilterRuleInterface,
-      fieldList: ['firstName', 'order', 'language'],
-    }
+      fieldList: ['firstName', 'order', 'language', 'sophomore'],
+    };
   },
   methods: {
     setFilter() {
@@ -46,7 +44,7 @@ export default Vue.extend({
         type: SimpleRuleType.String,
         value: 'hello test',
         operator: EngineSubOperators.EqualTo,
-      }
+      };
       this.filterBuild = {
         name: 'Student list',
         target: 'Student',
@@ -67,7 +65,7 @@ export default Vue.extend({
           type: RuleActions.LIST,
           value: '',
         },
-      }
+      };
     },
   },
   watch: {
@@ -78,7 +76,7 @@ export default Vue.extend({
       deep: true,
     },
   },
-})
+});
 </script>
 
 <style scoped></style>
