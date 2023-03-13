@@ -1,7 +1,14 @@
 {
   "name": "datagrid-bvue",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "DataGrid based on bootstrap vue",
+  "keywords": [
+    "datagrid",
+    "bootstrap",
+    "vue",
+    "vuejs",
+    "table"
+  ],
   "author": "NewEra Systems",
   "license": "MIT",
   "private": false,
