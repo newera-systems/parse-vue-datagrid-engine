@@ -9,13 +9,15 @@
     "dev": "vite",
     "prebuild": "rimraf dist",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "build:demo": "vite build --mode development",
     "test:unit": "jest",
     "test": "yarn test:unit",
-    "preview": "vite preview --base /dev/"
+    "preview": "vite preview --mode development"
   },
   "main": "./dist/datagrid-bvue.js",
   "module": "./dist/datagrid-bvue.mjs",
   "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -25,7 +27,6 @@
     "./package.json": "./package.json"
   },
   "style": "./dist/style.css",
-  "typings": "./dist/index.d.ts",
   "files": [
     "dist",
     "src",
