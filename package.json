@@ -1,31 +1,41 @@
 {
   "name": "datagrid-bvue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "DataGrid based on bootstrap vue",
   "author": "NewEra Systems",
   "license": "MIT",
   "private": false,
-  "engines": {
-    "npm": "please-use-yarn"
-  },
   "scripts": {
     "dev": "vite",
     "prebuild": "rimraf dist",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
     "test:unit": "jest",
     "test": "yarn test:unit",
-    "preview": "vite preview"
+    "preview": "vite preview --base /dev/"
   },
   "main": "./dist/datagrid-bvue.js",
   "module": "./dist/datagrid-bvue.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/datagrid-bvue.mjs",
+      "require": "./dist/datagrid-bvue.js"
+    },
+    "./package.json": "./package.json"
+  },
   "style": "./dist/style.css",
   "typings": "./dist/index.d.ts",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "src",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/newera-systems/parse-vue-datagrid-engine.git",
+    "branch": "master"
+  },
   "dependencies": {
     "bootstrap-vue": "^2.23.1",
     "dayjs": "^1.11.6",
