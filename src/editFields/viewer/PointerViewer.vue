@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, Component, PropType } from 'vue';
+import { Component, defineComponent, PropType } from 'vue';
 import { BIconDashCircle, BIconQuestionOctagonFill, BIconTagsFill } from 'bootstrap-vue';
 import { FieldDefinitionWithExtra, GridEntityItem } from '@/index';
 

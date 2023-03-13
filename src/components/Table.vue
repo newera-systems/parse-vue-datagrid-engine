@@ -10,9 +10,9 @@
         <RuleEngineFilter
           v-model="context.FilterRule"
           :field-list="filterableFields"
+          :operator="GroupOperator.AND"
           :target="target"
           :visible-name="name"
-          :operator="GroupOperator.AND"
         />
       </div>
       <b-button-toolbar class="mb-2 mx-2" justify>
@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, Component, PropType } from 'vue';
+import Vue, { Component, defineComponent, PropType } from 'vue';
 import Paginator from '@components/Paginator.vue';
 import {
   BButton,
@@ -138,7 +138,6 @@ import {
   DataGridProviderFunction,
   DataGridProviderPromiseResult,
   FieldDefinition,
-  FieldDefinitionWithExtra,
   FieldType,
   FilterRuleInterface,
   GridEntityItem,
@@ -249,9 +248,7 @@ export default defineComponent({
           if (f.identifier === 'id' || f.identifier === '#action') {
             return true;
           }
-          return (
-            f.config.canView && f.config.canRead && this.existingFields.includes(f.identifier)
-          );
+          return f.config.canView && f.config.canRead && this.existingFields.includes(f.identifier);
         })
         .map(f => {
           const tableSortable = f.config.canSort && f.type !== 'Pointer' && f.type !== 'Array';

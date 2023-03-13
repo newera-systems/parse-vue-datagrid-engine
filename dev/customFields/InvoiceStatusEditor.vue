@@ -4,7 +4,7 @@
     @keyup.esc.stop="discardChanges"
     @keyup.enter.stop="saveModification"
   >
-    <b-form-select v-model="editValue" :options="list" value-field="id" text-field="label" />
+    <b-form-select v-model="editValue" :options="list" text-field="label" value-field="id" />
     <b-button-group>
       <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
         <BIconX size="16" variant="white" />
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,

@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import TestModalCreator from './components/TestModalCreator.vue';
 import TestFilter from './components/TestFilter.vue';
 import TestTable from './components/TestTable.vue';

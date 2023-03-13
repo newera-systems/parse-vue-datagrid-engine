@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { BButton, BButtonGroup, BFormCheckbox, BIconCheckSquare, BIconX } from 'bootstrap-vue';
 import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
 

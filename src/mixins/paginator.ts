@@ -1,4 +1,4 @@
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import Paginator from '@components/Paginator.vue';
 import {
   DataGridProviderFunction,

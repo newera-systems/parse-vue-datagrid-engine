@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import {
   BFormGroup,
   BFormInput,
@@ -19,7 +19,6 @@ import {
   BInputGroupPrepend,
 } from 'bootstrap-vue';
 import { EngineRuleData, EngineSubOperators, NumberOperatorOptions, SimpleRuleType } from '@/index';
-import fieldInput from '@/mixins/RuleFieldInput';
 import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
 export default defineComponent({

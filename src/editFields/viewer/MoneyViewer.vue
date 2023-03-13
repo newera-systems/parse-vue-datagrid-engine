@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
 import { FieldDefinition, GridEntityItem } from '@/index';
 import { Money } from 'ts-money';

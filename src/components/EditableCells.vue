@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, Component, PropType } from 'vue';
+import { Component, defineComponent, PropType } from 'vue';
 import { BButton, BIconLock, BIconPen, BIconPencilSquare, BIconX } from 'bootstrap-vue';
 import { DataGridModifiedCell, FieldDefinitionWithExtra, FieldType, GridEntityItem } from '@/index';
 import StringEditor from '@/editFields/editor/StringEditor.vue';

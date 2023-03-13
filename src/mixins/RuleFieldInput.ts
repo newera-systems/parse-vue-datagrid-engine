@@ -1,5 +1,5 @@
 import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
-import { PropType, defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/index';
 
 export default defineComponent({

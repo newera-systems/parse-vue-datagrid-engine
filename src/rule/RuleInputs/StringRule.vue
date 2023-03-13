@@ -7,31 +7,31 @@
       <b-form-input v-model="content" autocomplete="off" trim />
       <b-input-group-append v-show="operator === 'matches'" is-text>
         <b-form-checkbox
-          plain
-          title='Case sensitive regex'
           v-model="caseSensitive"
           class="custom-control-info"
+          plain
+          title="Case sensitive regex"
         />
       </b-input-group-append>
     </b-input-group>
-    <p class='m-0 p-0' v-show="operator === 'matches'">
-      {{$t('regexGenerated')}}: <small class="pr-1 text-info"> {{ regex }}</small>
+    <p v-show="operator === 'matches'" class="m-0 p-0">
+      {{ $t('regexGenerated') }}: <small class="pr-1 text-info"> {{ regex }}</small>
     </p>
   </b-form-group>
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import {
+  BFormCheckbox,
   BFormGroup,
   BFormInput,
-  BFormCheckbox,
-  BInputGroupText,
   BInputGroup,
   BInputGroupAppend,
   BInputGroupPrepend,
+  BInputGroupText,
 } from 'bootstrap-vue';
-import { EngineRuleData, EngineSubOperators, GroupOperator, SimpleRuleType, StringOperatorOptions } from '@/index';
+import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/index';
 import fieldInput from '@/mixins/RuleFieldInput';
 import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
@@ -67,15 +67,18 @@ export default defineComponent({
       caseSensitive: false,
     };
   },
-  computed:{
+  computed: {
     regex(): RegExp {
       if (this.content.startsWith('/') && this.content.endsWith('/')) {
         // Input is already a regex
-        const flags = this.content.slice(this.content.lastIndexOf('/') + 1)
-        return new RegExp(this.content.slice(1, -1).slice(0, -flags.length), flags + (this.caseSensitive ? '' : 'i'))
+        const flags = this.content.slice(this.content.lastIndexOf('/') + 1);
+        return new RegExp(
+          this.content.slice(1, -1).slice(0, -flags.length),
+          flags + (this.caseSensitive ? '' : 'i')
+        );
       } else {
         // Input is text
-        return new RegExp(this.content, this.caseSensitive ? '' : 'i')
+        return new RegExp(this.content, this.caseSensitive ? '' : 'i');
       }
     },
   },

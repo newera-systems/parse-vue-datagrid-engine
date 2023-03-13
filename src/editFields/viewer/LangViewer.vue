@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { BIconDashCircle, BIconLock, BIconPen, BIconQuestionOctagonFill } from 'bootstrap-vue';
 import { FieldDefinition, GridEntityItem } from '@/index';
 import { LocaleInterface, LOCALES } from '@/fieldsData';

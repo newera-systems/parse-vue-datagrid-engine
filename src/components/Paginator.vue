@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
 
 export default defineComponent({

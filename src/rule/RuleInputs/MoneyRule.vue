@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { Money } from 'ts-money';
 import { EngineRuleData, EngineSubOperators, MoneyOperatorOptions, SimpleRuleType } from '@/index';
 import {

@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 
-import { EngineSubOperators, StringOperatorOptions, FieldInputMixin } from '../../src';
+import { EngineSubOperators, FieldInputMixin, StringOperatorOptions } from '../../src';
 import {
   BFormGroup,
   BFormInput,

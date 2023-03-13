@@ -16,23 +16,19 @@
       :show.sync="showPopup"
       :target="id"
       custom-class="big-custom-popover"
-      triggers="focus"
       placement="bottom"
+      triggers="focus"
       variant="primary"
     >
       <template #title>{{ getTranslation(definition.name) }}</template>
       <div
-        class='d-inline-flex align-items-start justify-content-center'
+        class="d-inline-flex align-items-start justify-content-center"
         @submit.prevent.stop="updateRule"
         @keydown.enter.prevent.stop="updateRule"
         @keydown.esc.prevent.stop="abort"
       >
-        <component
-          ref='ruleComponent'
-          :is="definition.component"
-          v-model="editValue"
-        />
-        <b-button class='ml-1' type="submit" variant="success" @click="updateRule">
+        <component :is="definition.component" ref="ruleComponent" v-model="editValue" />
+        <b-button class="ml-1" type="submit" variant="success" @click="updateRule">
           {{ $t('update') }}
         </b-button>
       </div>
@@ -51,7 +47,7 @@ import {
   SimpleRuleType,
 } from '@/index';
 import { Money } from 'ts-money';
-import { BButton, BIconChevronDown, BIconXLg, BPopover, BForm } from 'bootstrap-vue';
+import { BButton, BForm, BIconChevronDown, BIconXLg, BPopover } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import filterTranslate from '@/translation/filter';
 
@@ -74,7 +70,7 @@ export default defineComponent({
     BIconXLg,
     BPopover,
     BButton,
-    BForm
+    BForm,
   },
   props: {
     definition: {
@@ -90,7 +86,7 @@ export default defineComponent({
     return {
       editValue: null as unknown as RuleDataObject,
       id: `button-modify-${this.definition.identifier}-${Math.random().toString(36).substr(2, 9)}`,
-      showPopup: false
+      showPopup: false,
     };
   },
   computed: {

@@ -16,7 +16,7 @@
 <script lang="ts">
 import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
 
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'ModalRuleCtrlSlot',

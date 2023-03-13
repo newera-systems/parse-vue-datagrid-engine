@@ -107,9 +107,9 @@
               </b-col>
               <b-col v-else>
                 <slot
-                  name="editor"
-                  :value="localValue.action.value"
                   :onEditorInput="onEditorInput"
+                  :value="localValue.action.value"
+                  name="editor"
                 />
               </b-col>
             </b-row>

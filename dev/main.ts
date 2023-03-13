@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import DataGridPlugin, { DataGridOptions, RuleCompTypes, StringViewer } from '../src';
+import DataGridPlugin, { DataGridOptions, RuleCompTypes } from '../src';
 import 'vue-select/dist/vue-select.css';
 
 // custom components

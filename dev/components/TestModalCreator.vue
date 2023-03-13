@@ -17,8 +17,8 @@
     <RuleEngineCreatorModal
       ref="mod"
       v-model="modalVisible"
-      :use-editor="useEditor"
       :rule="filterBuild"
+      :use-editor="useEditor"
       target="Invoice"
       @edited="
         filterEdited => {
@@ -30,9 +30,9 @@
         <div class="form-group">
           <label for="">Custom editor</label>
           <input
-            type="text"
-            class="form-control"
             :value="value"
+            class="form-control"
+            type="text"
             @input="val => onEditorInput(val.target.value)"
           />
         </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { FilterRuleInterface } from '../../src';
 
 export default defineComponent({

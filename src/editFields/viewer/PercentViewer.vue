@@ -22,9 +22,9 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { BIconDashCircle, BIconQuestionOctagonFill, BProgress, BProgressBar } from 'bootstrap-vue';
-import { FieldDefinition, GridEntityItem, IDataGridPrototype, RegistrationLanguage } from '@/index';
+import { FieldDefinition, GridEntityItem, IDataGridPrototype } from '@/index';
 import { Dayjs } from 'dayjs';
 
 export default defineComponent({

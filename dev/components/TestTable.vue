@@ -4,13 +4,13 @@
       :fields="fields"
       :items="provider"
       :modification-handler="modificationHandler"
+      :pagination-entries="items.length"
       name="school"
       responsive
       target="Student"
-      :pagination-entries="items.length"
       @goToEditor="goToItemEditor"
     >
-      <template #action="{ item, index }"> slot {{ index }} </template>
+      <template #action="{ item, index }"> slot {{ index }}</template>
     </DataGridTable>
 
     <div>
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import {
   DataGridModifiedCell,
   FieldDefinitionWithExtra,
@@ -205,6 +205,7 @@ export default defineComponent({
   margin: 10px 0;
   max-height: 300px;
 }
+
 .rule-code code {
   box-sizing: border-box;
   margin: 0;
