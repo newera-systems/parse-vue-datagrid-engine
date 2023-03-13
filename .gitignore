@@ -47,3 +47,7 @@ yarn.lock
 
 # demo folder
 demo/
+
+# builds folder
+dist/
+build/
