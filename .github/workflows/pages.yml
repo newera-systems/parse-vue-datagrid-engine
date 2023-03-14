@@ -25,7 +25,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: newera-systems.github.io/parse-vue-datagrid-engine
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
