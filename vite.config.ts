@@ -1,6 +1,6 @@
 import { BuildOptions, defineConfig } from 'vite';
-import {resolve} from 'path'
-import vue from '@vitejs/plugin-vue2'
+import { resolve } from 'path';
+import vue from '@vitejs/plugin-vue2';
 
 // used to build the library
 const libraryModeConfigBuild:BuildOptions = {
@@ -10,7 +10,7 @@ const libraryModeConfigBuild:BuildOptions = {
     // Could also be a dictionary or array of multiple entry points
     entry: resolve(__dirname, 'src/index.ts'),
     name: 'DataGridBVue',
-    formats: ['es', 'cjs'],
+    formats: ['es', 'umd'],
     fileName: 'datagrid-bvue',
   },
   rollupOptions: {

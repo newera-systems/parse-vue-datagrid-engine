@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 class='h3 font-weight-normal text-muted'>DataGridTable Component</h2>
     <DataGridTable
       :fields="fields"
       :items="provider"
@@ -12,9 +13,8 @@
     >
       <template #action="{ item, index }"> slot {{ index }}</template>
     </DataGridTable>
-
     <div>
-      <h4>Generated rule code</h4>
+      <h5 class='text-center text-info'>Generated rule code</h5>
       <pre class="rule-code">
         <code>
             {{ generatedRuleCode }}
@@ -26,12 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import {
-  DataGridModifiedCell,
-  FieldDefinitionWithExtra,
-  FieldType,
-  ProviderContext,
-} from '../../src';
+import { DataGridModifiedCell, FieldDefinitionWithExtra, FieldType, ProviderContext } from '../../src';
 
 const defaultConfig = {
   canView: true,

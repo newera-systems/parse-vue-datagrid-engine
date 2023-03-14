@@ -1,13 +1,13 @@
 <template>
-  <div class="mx-3">
-    <h2>{{ title }}</h2>
-    <button class="btn btn-secondary ml-4 btn-sm mb-1" @click="setFilter">set a Test rule</button>
+  <div class=''>
+    <h2 class='h3 font-weight-normal text-muted'>{{ title }}</h2>
+    <button class='btn btn-secondary ml-4 btn-sm mb-1' @click='setFilter'>set a Test rule</button>
     <RuleEngineFilter
-      v-model="filterBuild"
-      :field-list="fieldList"
-      operator="AND"
-      target="Student"
-      visible-name="School"
+      v-model='filterBuild'
+      :field-list='fieldList'
+      operator='AND'
+      target='Student'
+      visible-name='School'
     />
     <div>
       <h4>Generated rule code</h4>
@@ -22,18 +22,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import {
-  EngineSubOperators,
-  FilterRuleInterface,
-  GroupOperator,
-  RuleActions,
-  SimpleRuleType,
-} from '../../src';
+import { EngineSubOperators, FilterRuleInterface, GroupOperator, RuleActions, SimpleRuleType } from '../../src';
 
 export default defineComponent({
   data() {
     return {
-      title: 'Rule Filter Tester',
+      title: 'Rule Filter Component',
       filterBuild: null as unknown as FilterRuleInterface,
       fieldList: ['firstName', 'order', 'language', 'sophomore'],
     };

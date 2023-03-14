@@ -2,7 +2,7 @@
   Parse - DatagridBvue
 </h1>
 <h4 align='center'>
-  v1.0.0
+  v0.1.0
 </h4>
 <h5 align='center'>
 

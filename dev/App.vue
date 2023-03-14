@@ -1,11 +1,11 @@
 <template>
-  <div class="mx-4">
-    <h1>{{ title }}</h1>
-
+  <div class='mx-4'>
+    <h1 class='text-center pt-1'>{{ title }}</h1>
+    <hr />
     <TestTable />
     <hr />
     <TestFilter />
-    <hr class="mt-2" />
+    <hr class='mt-2' />
     <TestModalCreator />
   </div>
 </template>

@@ -21,6 +21,7 @@
     "test": "yarn test:unit",
     "preview": "vite preview --mode development"
   },
+  "type": "module",
   "main": "./dist/datagrid-bvue.js",
   "module": "./dist/datagrid-bvue.mjs",
   "types": "./dist/index.d.ts",
@@ -28,8 +29,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/datagrid-bvue.mjs",
-      "require": "./dist/datagrid-bvue.js"
+      "import": "./dist/datagrid-bvue.js",
+      "require": "./dist/datagrid-bvue.umd.cjs"
     },
     "./package.json": "./package.json"
   },
