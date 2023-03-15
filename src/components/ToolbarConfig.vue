@@ -50,7 +50,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(field, index) in fieldsUpdated.filter(
+            v-for="field in fieldsUpdated.filter(
               f => (f.config.canView || f.config.canSort) && existingFields.includes(f.identifier)
             )"
             :key="field.identifier"
@@ -67,38 +67,38 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from 'vue';
-import draggable from 'vuedraggable';
-import { FieldDefinition } from '@/index';
-import { BFormCheckbox, BTab, BTabs } from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
-import tableTranslate from '@/translation/table';
+import Vue, { defineComponent, PropType } from "vue";
+import draggable from "vuedraggable";
+import { FieldDefinition } from "@/index";
+import { BFormCheckbox, BTab, BTabs } from "bootstrap-vue";
+import VueI18n from "vue-i18n";
+import tableTranslate from "@/translation/table";
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: 'ToolbarConfig',
+  name: "ToolbarConfig",
   i18n: new VueI18n(tableTranslate),
   components: {
     draggable,
     BTabs,
     BTab,
-    BFormCheckbox,
+    BFormCheckbox
   },
   props: {
     value: {
       type: Array as PropType<FieldDefinition[]>,
       required: true,
-      default: () => [],
+      default: () => []
     },
     existingFields: {
       type: Array as PropType<string[]>,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   data() {
     return {
-      fieldsUpdated: [] as FieldDefinition[],
+      fieldsUpdated: [] as FieldDefinition[]
     };
   },
   beforeMount() {
@@ -106,7 +106,7 @@ export default defineComponent({
   },
   methods: {
     update() {
-      this.$emit('input', this.fieldsUpdated);
+      this.$emit("input", this.fieldsUpdated);
     },
     getTranslation(key: string) {
       // @ts-expect-error DataGrid defined when using plugin
@@ -114,15 +114,15 @@ export default defineComponent({
         return this.$t(key);
       }
       return key;
-    },
+    }
   },
   watch: {
     fieldsUpdated: {
       deep: true,
       handler() {
         this.update();
-      },
-    },
-  },
-});
+      }
+    }
+  }
+})
 </script>

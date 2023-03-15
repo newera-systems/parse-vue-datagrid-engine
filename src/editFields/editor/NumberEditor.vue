@@ -26,19 +26,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 import {
   BButton,
   BButtonGroup,
-  BFormGroup,
   BFormInput,
   BIconCheckSquare,
   BIconX,
   BInputGroup,
-  BInputGroupAppend,
-} from 'bootstrap-vue';
+  BInputGroupAppend
+} from "bootstrap-vue";
 
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
 
 export default defineComponent({
   components: {
@@ -46,37 +45,36 @@ export default defineComponent({
     BIconX,
     BButton,
     BButtonGroup,
-    BFormGroup,
     BInputGroup,
     BFormInput,
-    BInputGroupAppend,
+    BInputGroupAppend
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true,
+      required: true
     },
     rawValue: {
       type: [String, Number, Date, Boolean, Object] as PropType<
         string | number | unknown | null | undefined
       >,
-      required: true,
+      required: true
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       isModified: false,
       valid: true,
       editValue: null as unknown as number,
-      editMode: false,
+      editMode: false
     };
   },
   mounted() {
-    if (typeof this.rawValue !== 'number') {
+    if (typeof this.rawValue !== "number") {
       this.editValue = Number(this.rawValue) ?? 0;
     } else {
       this.editValue = this.rawValue as number;
@@ -87,22 +85,22 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit('editionSave', {
+      this.$emit("editionSave", {
         item: this.item,
-        field_key: this.field.identifier,
-        newValue: this.editValue,
+        fieldKey: this.field.identifier,
+        newValue: this.editValue
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled');
-    },
+      this.$emit("editionCanceled");
+    }
   },
   watch: {
     editValue(newVal) {
       this.isModified = newVal !== this.rawValue;
-    },
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

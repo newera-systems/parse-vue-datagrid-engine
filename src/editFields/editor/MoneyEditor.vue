@@ -29,20 +29,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 import {
   BButton,
   BButtonGroup,
-  BFormGroup,
   BFormInput,
   BIconCheckSquare,
   BIconX,
   BInputGroup,
-  BInputGroupAppend,
-} from 'bootstrap-vue';
+  BInputGroupAppend
+} from "bootstrap-vue";
 
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/index';
-import { Money } from 'ts-money';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
+import { Money } from "ts-money";
 
 export default defineComponent({
   components: {
@@ -50,24 +49,23 @@ export default defineComponent({
     BIconX,
     BButton,
     BButtonGroup,
-    BFormGroup,
     BInputGroup,
     BFormInput,
-    BInputGroupAppend,
+    BInputGroupAppend
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true,
+      required: true
     },
     rawValue: {
       type: [Number, Object] as PropType<number | Money | null | undefined>,
-      required: true,
+      required: true
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
@@ -75,17 +73,17 @@ export default defineComponent({
       editValue: null as number | null,
       amount: null as number | null,
       isModified: false,
-      currency: 'CAD',
+      currency: "CAD"
     };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
+    if (typeof this.rawValue === "undefined") {
       this.editValue = null;
     } else if (this.rawValue === null) {
       this.editValue = null;
-    } else if (typeof this.rawValue === 'object') {
+    } else if (typeof this.rawValue === "object") {
       this.editValue = this.rawValue.amount ?? null;
-      this.currency = this.rawValue.currency ?? 'CAD';
+      this.currency = this.rawValue.currency ?? "CAD";
     } else {
       this.editValue = Number(this.rawValue) ?? 0;
     }
@@ -94,11 +92,11 @@ export default defineComponent({
   },
   computed: {
     state(): boolean | null {
-      if (this.price === null || this.price.trim() === '') {
+      if (this.price === null || this.price.trim() === "") {
         return null;
       }
       return Number.parseFloat(this.price).toFixed(2) === this.price;
-    },
+    }
   },
   methods: {
     saveModification() {
@@ -107,21 +105,22 @@ export default defineComponent({
       }
       let newValue: Money | Number | null = null;
       try {
-        if (typeof this.rawValue === 'object' && this.editValue) {
+        if (typeof this.rawValue === "object" && this.editValue) {
           newValue = Money.fromInteger(this.editValue, this.currency);
         } else {
           newValue = this.editValue;
         }
-      } catch (e) {}
-      this.$emit('editionSave', {
+      } catch (e) {
+      }
+      this.$emit("editionSave", {
         item: this.item,
-        field_key: this.field.identifier,
-        newValue: newValue,
+        fieldKey: this.field.identifier,
+        newValue
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled');
-    },
+      this.$emit("editionCanceled");
+    }
   },
   watch: {
     price() {
@@ -138,9 +137,9 @@ export default defineComponent({
     },
     editValue(newVal) {
       this.isModified = newVal !== this.amount;
-    },
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

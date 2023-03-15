@@ -10,43 +10,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-
-import { EngineSubOperators, FieldInputMixin, StringOperatorOptions } from '../../src';
-import {
-  BFormGroup,
-  BFormInput,
-  BFormSelect,
-  BInputGroup,
-  BInputGroupAppend,
-  BInputGroupPrepend,
-} from 'bootstrap-vue';
-
-export enum InvoiceStatus {
-  NONE = '',
-  AWAITING_PAYMENT = 'awaiting_payment',
-  COMPLETED = 'completed',
-  CANCELLED_REFUNDED = 'cancelled_refunded',
-}
+import { defineComponent } from "vue";
+import { EngineSubOperators, FieldInputMixin, StringOperatorOptions } from "../../src";
+import { InvoiceStatus } from "../customFields/InvoiceStatusViewer.vue";
+import { BFormGroup, BFormSelect, BInputGroup, BInputGroupPrepend } from "bootstrap-vue";
 
 export default defineComponent({
   mixins: [FieldInputMixin],
   components: {
     BFormGroup,
-    BFormInput,
     BInputGroup,
-    BInputGroupAppend,
     BInputGroupPrepend,
-    BFormSelect,
+    BFormSelect
   },
   data() {
     return {
-      content: '',
+      content: "",
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
-      options: Object.values(InvoiceStatus),
+      options: Object.values(InvoiceStatus)
     };
-  },
+  }
 });
 </script>
 

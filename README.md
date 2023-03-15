@@ -246,8 +246,8 @@ export default defineComponent({
       alert(msg)
     },
     // you can use a custom modification handler
-    async modificationHandler({item, field_key, newValue}) {
-      item[field_key] = newValue
+    async modificationHandler({item, fieldKey, newValue}) {
+      item[fieldKey] = newValue
     },
     modificationStart() {
       // a call to the modification handler was emitted

@@ -1,28 +1,54 @@
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
-import { defineComponent, PropType } from 'vue';
-import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/index';
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+import { defineComponent, type PropType } from "vue";
+import {
+  type EngineRuleData,
+  EngineSubOperators,
+  SimpleRuleType,
+  StringOperatorOptions
+} from "@/index";
 
 export default defineComponent({
   components: {
-    OperatorDropdown,
+    OperatorDropdown
   },
   props: {
     value: {
       type: Object as PropType<EngineRuleData<any, SimpleRuleType>>,
-      default: () =>
-        ({
-          type: SimpleRuleType.String,
-          value: '',
-          operator: EngineSubOperators.EqualTo,
-        } as EngineRuleData<string, SimpleRuleType.String>),
-    },
+      default: () => ({
+        type: SimpleRuleType.String,
+        value: "",
+        operator: EngineSubOperators.EqualTo
+      })
+    }
   },
   data() {
     return {
-      content: '' as string,
+      content: "" as string,
       operator: EngineSubOperators.EqualTo,
-      operatorList: StringOperatorOptions,
+      operatorList: StringOperatorOptions
     };
+  },
+  watch: {
+    value: {
+      deep: true,
+      handler: "update"
+    },
+    operator: {
+      deep: true,
+      handler: function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.updateOutput();
+        }
+      }
+    },
+    content: {
+      deep: true,
+      handler: function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.updateOutput();
+        }
+      }
+    }
   },
   beforeMount(): void {
     this.update();
@@ -30,43 +56,20 @@ export default defineComponent({
   methods: {
     update(): void {
       try {
-        if (this.value) {
-          this.content = this.value.value;
-          this.operator = this.value.operator;
-        }
+        this.content = this.value.value;
+        this.operator = this.value.operator;
       } catch (e) {
-        this.content = '';
+        this.content = "";
         this.operator = EngineSubOperators.EqualTo;
       }
     },
     updateOutput(): void {
-      this.$emit('input', {
+      const val: EngineRuleData<string, SimpleRuleType.String> = {
         type: SimpleRuleType.String,
         value: this.content,
-        operator: this.operator,
-      } as EngineRuleData<string, SimpleRuleType.String>);
-    },
-  },
-  watch: {
-    value: {
-      deep: true,
-      handler: 'update',
-    },
-    operator: {
-      deep: true,
-      handler: function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.updateOutput();
-        }
-      },
-    },
-    content: {
-      deep: true,
-      handler: function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.updateOutput();
-        }
-      },
-    },
-  },
-});
+        operator: this.operator
+      };
+      this.$emit("input", val);
+    }
+  }
+})

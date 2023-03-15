@@ -22,44 +22,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { BIconDashCircle, BIconQuestionOctagonFill, BProgress, BProgressBar } from 'bootstrap-vue';
-import { FieldDefinition, GridEntityItem, IDataGridPrototype } from '@/index';
-import { Dayjs } from 'dayjs';
+import { defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem, IDataGridPrototype } from "@/index";
+import { Dayjs } from "dayjs";
 
 export default defineComponent({
   components: {
-    BProgress,
-    BProgressBar,
     BIconQuestionOctagonFill,
-    BIconDashCircle,
+    BIconDashCircle
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true,
+      required: true
     },
     rawValue: {
       type: [String, Number, Date, Boolean, Object] as PropType<
         string | number | Date | Dayjs | null | undefined
-      >,
+      >
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true,
+      required: true
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       visibleData: null as unknown as number,
       error: false,
       isNull: false,
-      locales: 'CA-fr',
+      locales: "CA-fr"
     };
   },
   created() {
@@ -67,15 +65,15 @@ export default defineComponent({
       this.locales = this.$i18n.locale;
     } else {
       // @ts-expect-error DataGrid is  set by plugin configuration
-      this.locales = (this.$DataGrid as IDataGridPrototype).lang ?? 'CA-fr';
+      this.locales = (this.$DataGrid as IDataGridPrototype).lang ?? "CA-fr";
     }
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
+    if (typeof this.rawValue === "undefined") {
       this.error = true;
     } else if (this.rawValue === null) {
       this.isNull = true;
-    } else if (typeof this.rawValue !== 'number') {
+    } else if (typeof this.rawValue !== "number") {
       this.visibleData = Number(this.rawValue);
       this.error = isNaN(this.visibleData);
     } else {
@@ -85,14 +83,14 @@ export default defineComponent({
   methods: {
     getPercentage() {
       const formatter = new Intl.NumberFormat(this.locales, {
-        style: 'percent',
+        style: "percent",
         minimumFractionDigits: 0,
-        maximumFractionDigits: 2,
+        maximumFractionDigits: 2
       });
       return formatter.format(this.visibleData);
-    },
-  },
-});
+    }
+  }
+})
 </script>
 <style lang="css" scoped>
 .percent-viewer-box {

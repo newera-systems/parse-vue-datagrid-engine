@@ -17,56 +17,56 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
-import { FieldDefinition, GridEntityItem } from '@/index';
-import { Dayjs } from 'dayjs';
+import { defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem } from "@/index";
+import { Dayjs } from "dayjs";
 
 export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
-    BIconDashCircle,
+    BIconDashCircle
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true,
+      required: true
     },
     rawValue: {
       type: [String, Number, Date, Boolean, Object] as PropType<
         string | number | Date | Dayjs | null | undefined
-      >,
+      >
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true,
+      required: true
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       visibleData: null as unknown as number,
       error: false,
-      isNull: false,
+      isNull: false
     };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
+    if (typeof this.rawValue === "undefined") {
       this.error = true;
     } else if (this.rawValue === null) {
       this.isNull = true;
-    } else if (typeof this.rawValue !== 'number') {
+    } else if (typeof this.rawValue !== "number") {
       this.visibleData = Number(this.rawValue);
       this.error = isNaN(this.visibleData);
     } else {
       this.visibleData = Number(this.rawValue);
     }
-  },
-});
+  }
+})
 </script>
 
 <style lang="scss" scoped>

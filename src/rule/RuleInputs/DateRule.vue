@@ -27,40 +27,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 import {
   BDropdown,
   BDropdownItem,
   BFormDatepicker,
   BFormGroup,
-  BFormInput,
   BFormSelect,
   BInputGroup,
   BInputGroupAppend,
-  BInputGroupPrepend,
-} from 'bootstrap-vue';
+  BInputGroupPrepend
+} from "bootstrap-vue";
 import {
   DateOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
   RegistrationLanguage,
-  SimpleRuleType,
-} from '@/index';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+  SimpleRuleType
+} from "@/index";
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 
 export default defineComponent({
-  name: 'DateRule',
+  name: "DateRule",
   components: {
     OperatorDropdown,
     BFormGroup,
-    BFormInput,
     BInputGroup,
     BInputGroupAppend,
     BInputGroupPrepend,
     BFormSelect,
     BFormDatepicker,
     BDropdown,
-    BDropdownItem,
+    BDropdownItem
   },
   props: {
     value: {
@@ -71,31 +69,31 @@ export default defineComponent({
         ({
           type: SimpleRuleType.Date,
           value: null,
-          operator: EngineSubOperators.EqualTo,
-        } as unknown as EngineRuleData<string, SimpleRuleType.Date>),
-    },
+          operator: EngineSubOperators.EqualTo
+        } as unknown as EngineRuleData<string, SimpleRuleType.Date>)
+    }
   },
   data() {
     return {
-      dateContent: '',
+      dateContent: "",
       lang: RegistrationLanguage.FR,
       DateType: SimpleRuleType.Date,
       typeList: [SimpleRuleType.Date, SimpleRuleType.Day],
       config: {
         enableTime: true,
-        dateFormat: 'Y-m-d H:i',
+        dateFormat: "Y-m-d H:i"
       },
       weekdays: [
-        { value: 1, en: 'Monday', fr: 'Lundi' },
-        { value: 2, en: 'Tuesday', fr: 'Mardi' },
-        { value: 3, en: 'Wednesday', fr: 'Mercredi' },
-        { value: 4, en: 'Thursday', fr: 'Jeudi' },
-        { value: 5, en: 'Friday', fr: 'Vendredi' },
-        { value: 6, en: 'Saturday', fr: 'Samedi' },
-        { value: 0, en: 'Sunday', fr: 'Dimanche' },
+        { value: 1, en: "Monday", fr: "Lundi" },
+        { value: 2, en: "Tuesday", fr: "Mardi" },
+        { value: 3, en: "Wednesday", fr: "Mercredi" },
+        { value: 4, en: "Thursday", fr: "Jeudi" },
+        { value: 5, en: "Friday", fr: "Vendredi" },
+        { value: 6, en: "Saturday", fr: "Samedi" },
+        { value: 0, en: "Sunday", fr: "Dimanche" }
       ],
       operator: EngineSubOperators.EqualTo,
-      operatorList: DateOperatorOptions,
+      operatorList: DateOperatorOptions
     };
   },
   created() {
@@ -109,32 +107,32 @@ export default defineComponent({
     async update() {
       try {
         if (this.value) {
-          this.dateContent = this.value.value ?? '';
+          this.dateContent = this.value.value ?? "";
           this.DateType = this.value.type;
           this.operator = this.value.operator;
         }
       } catch (e) {
-        this.dateContent = '';
+        this.dateContent = "";
         this.DateType = SimpleRuleType.Date;
         this.operator = EngineSubOperators.EqualTo;
       }
     },
     setType(index: number) {
-      this.dateContent = '';
+      this.dateContent = "";
       this.DateType = this.typeList[index];
     },
     updateOutput() {
-      this.$emit('input', {
+      this.$emit("input", {
         type: this.DateType,
         value: this.dateContent.toString().trim(),
-        operator: this.operator,
+        operator: this.operator
       } as EngineRuleData<string, SimpleRuleType.Date> | EngineRuleData<string, SimpleRuleType.Day>);
-    },
+    }
   },
   watch: {
     value: {
       deep: true,
-      handler: 'update',
+      handler: "update"
     },
     operator() {
       this.updateOutput();
@@ -144,7 +142,7 @@ export default defineComponent({
     },
     DateType() {
       this.updateOutput();
-    },
-  },
-});
+    }
+  }
+})
 </script>

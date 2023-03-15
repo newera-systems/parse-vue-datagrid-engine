@@ -17,37 +17,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import {
-  BFormGroup,
-  BFormInput,
-  BFormRadioGroup,
-  BInputGroup,
-  BInputGroupAppend,
-  BInputGroupPrepend,
-} from 'bootstrap-vue';
+import { defineComponent, PropType } from "vue";
+import { BFormGroup, BFormRadioGroup, BInputGroup, BInputGroupPrepend } from "bootstrap-vue";
 import {
   BooleanOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
   RegistrationLanguage,
-  SimpleRuleType,
-} from '@/index';
-import fieldInput from '@/mixins/RuleFieldInput';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
-import { LOCALES } from '@/fieldsData';
+  SimpleRuleType
+} from "@/index";
+import fieldInput from "@/mixins/RuleFieldInput";
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+import { LOCALES } from "@/fieldsData";
 
 export default defineComponent({
-  name: 'LangRule',
+  name: "LangRule",
   mixins: [fieldInput],
   components: {
     BFormGroup,
-    BFormInput,
     BInputGroup,
-    BInputGroupAppend,
     BInputGroupPrepend,
     BFormRadioGroup,
-    OperatorDropdown,
+    OperatorDropdown
   },
   props: {
     value: {
@@ -56,27 +47,27 @@ export default defineComponent({
         ({
           type: SimpleRuleType.String,
           value: RegistrationLanguage.NONE,
-          operator: EngineSubOperators.EqualTo,
-        } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>),
-    },
+          operator: EngineSubOperators.EqualTo
+        } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>)
+    }
   },
   data() {
     return {
       lang: RegistrationLanguage.NONE,
       operator: EngineSubOperators.EqualTo,
-      operatorList: BooleanOperatorOptions,
+      operatorList: BooleanOperatorOptions
     };
   },
   computed: {
     langOptions(): Array<{ value: string; text: string }> {
-      const acceptedLanguages = ['fr', 'en'] as string[];
+      const acceptedLanguages = ["fr", "en"] as string[];
       return Array.from(LOCALES.values())
         .filter(locale => acceptedLanguages.includes(locale.value))
         .map(locale => ({
           value: locale.value,
-          text: locale.name,
+          text: locale.name
         }));
-    },
+    }
   },
   methods: {
     update() {
@@ -91,19 +82,19 @@ export default defineComponent({
       }
     },
     updateOutput() {
-      this.$emit('input', {
+      this.$emit("input", {
         type: SimpleRuleType.String,
         value: this.lang,
-        operator: this.operator,
+        operator: this.operator
       } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>);
-    },
+    }
   },
   watch: {
     lang() {
       this.updateOutput();
-    },
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

@@ -14,27 +14,27 @@
 </template>
 
 <script lang="ts">
-import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
+import { RuleDefinition, RuleSlotProps } from "query-builder-vue";
 
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: 'ModalRuleCtrlSlot',
   props: {
     ruleCtrl: {
       type: Object as PropType<RuleSlotProps>,
-      required: true,
+      required: true
     },
     rules: {
       type: Array as PropType<RuleDefinition[]>,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     ruleName(): string {
       const name = this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.name;
-      return name ? this.getTranslation(name) : '??';
-    },
+      return name ? this.getTranslation(name) : "??";
+    }
   },
   methods: {
     getTranslation(key: string): string {
@@ -43,7 +43,7 @@ export default defineComponent({
         return this.$t(key).toString() ?? key;
       }
       return key;
-    },
-  },
-});
+    }
+  }
+})
 </script>

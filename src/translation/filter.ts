@@ -6,7 +6,7 @@ export default {
     fr: {
       Error: {
         target: 'Erreur sur la cible',
-        source: 'Erreur sur la source',
+        source: "Erreur sur la source"
       },
       filter: 'Filtre',
       Operator: {
@@ -35,7 +35,7 @@ export default {
         isNotNull: "N'est pas nul",
         and: 'Et',
         or: 'Ou',
-        not: 'Non',
+        not: "Non"
       },
       caseSensitive: 'Sensible à la casse',
       regexGenerated: 'Expression régulière générée',
@@ -53,12 +53,12 @@ export default {
       and: 'Et',
       AND: 'ET',
       or: 'Ou',
-      OR: 'OU',
+      OR: "OU"
     },
     en: {
       Error: {
         target: 'Error on target',
-        source: 'Error on source',
+        source: "Error on source"
       },
       filter: 'Filter',
       Operator: {
@@ -87,7 +87,7 @@ export default {
         isNotNull: 'Is not null',
         and: 'And',
         or: 'Or',
-        not: 'Not',
+        not: "Not"
       },
       caseSensitive: 'Case sensitive',
       regexGenerated: 'Regex generated',
@@ -95,17 +95,17 @@ export default {
       filterBy: 'Filter by',
       all: 'All',
       update: 'Update',
-      cancel: 'Cancel',
-      add: 'Add',
-      male: 'Male',
-      female: 'Female',
-      other: 'Other',
-      yes: 'Yes',
-      no: 'No',
-      and: 'Et',
-      AND: 'ET',
-      or: 'Ou',
-      OR: 'OU',
-    },
-  },
-};
+      cancel: "Cancel",
+      add: "Add",
+      male: "Male",
+      female: "Female",
+      other: "Other",
+      yes: "Yes",
+      no: "No",
+      and: "Et",
+      AND: "ET",
+      or: "Ou",
+      OR: "OU"
+    }
+  }
+}

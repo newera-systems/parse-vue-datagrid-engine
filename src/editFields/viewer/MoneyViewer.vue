@@ -20,56 +20,56 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
-import { FieldDefinition, GridEntityItem } from '@/index';
-import { Money } from 'ts-money';
+import { defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem } from "@/index";
+import { Money } from "ts-money";
 
 export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
-    BIconDashCircle,
+    BIconDashCircle
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true,
+      required: true
     },
     rawValue: {
-      type: [Number, Object] as PropType<number | Money | null | undefined>,
+      type: [Number, Object] as PropType<number | Money | null | undefined>
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true,
+      required: true
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       visibleData: null as unknown as Money,
       isNull: false,
       error: false,
-      currency: 'CAD',
+      currency: "CAD"
     };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
+    if (typeof this.rawValue === "undefined") {
       this.error = true;
     } else if (this.rawValue === null) {
       this.isNull = true;
-    } else if (typeof this.rawValue === 'object') {
+    } else if (typeof this.rawValue === "object") {
       this.visibleData = this.rawValue;
-      this.currency = this.rawValue.currency ?? 'CAD';
+      this.currency = this.rawValue.currency ?? "CAD";
     } else {
       const amount = Number(this.rawValue) ?? 0;
       this.visibleData = new Money(amount, this.currency);
     }
-  },
-});
+  }
+})
 </script>
 
 <style lang="scss" scoped>

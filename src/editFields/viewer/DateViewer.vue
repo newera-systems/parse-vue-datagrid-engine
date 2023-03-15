@@ -17,48 +17,48 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
-import { FieldDefinition, GridEntityItem } from '@/index';
-import dayjs, { Dayjs } from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
+import { defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
+import { FieldDefinition, GridEntityItem } from "@/index";
+import dayjs, { Dayjs } from "dayjs";
+import calendar from "dayjs/plugin/calendar";
 
 dayjs.extend(calendar);
 
 export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
-    BIconDashCircle,
+    BIconDashCircle
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true,
+      required: true
     },
     rawValue: {
       type: [String, Number, Date, Object] as PropType<
         string | number | Date | Dayjs | null | undefined
-      >,
+      >
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true,
+      required: true
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       visibleData: null as unknown as dayjs.Dayjs,
       isNull: false,
-      error: false,
+      error: false
     };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
+    if (typeof this.rawValue === "undefined") {
       this.error = true;
     } else if (this.rawValue === null) {
       this.isNull = true;
@@ -75,9 +75,9 @@ export default defineComponent({
         // @ts-expect-error DataGrid is  set by plugin config
         return this.visibleData.format(this.$DataGrid.dateFormat);
       }
-    },
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

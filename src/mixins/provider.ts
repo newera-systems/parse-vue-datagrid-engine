@@ -1,56 +1,71 @@
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, type PropType } from "vue";
 import {
-  DataGridProviderFunction,
-  DataGridProviderPromiseResult,
-  FilterRuleInterface,
-  GridEntityItem,
-  ProviderContext,
-} from '@/index';
+  type DataGridProviderFunction,
+  type DataGridProviderPromiseResult,
+  type FilterRuleInterface,
+  type GridEntityItem,
+  type ProviderContext
+} from "@/index";
 
-function isPromise(p: any) {
-  return typeof p === 'object' && typeof p.then === 'function';
+function isPromise(p: any): boolean {
+  return typeof p === "object" && typeof p.then === "function";
 }
 
 export default defineComponent({
   props: {
     items: {
       type: [Array, Function, Promise] as PropType<
-        Array<GridEntityItem> | DataGridProviderFunction | DataGridProviderPromiseResult
+        GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
+    const context: ProviderContext = {
+      currentPage: 1,
+      perPage: 25,
+      sortBy: null as unknown as string,
+      sortDesc: true,
+      withFilter: false,
+      FilterRule: null as unknown as FilterRuleInterface
+    };
     return {
       localBusy: true,
-      localItems: [] as Array<GridEntityItem>,
+      localItems: [] as GridEntityItem[],
       cellKeyRemount: 1,
-      context: {
-        currentPage: 1,
-        perPage: 25,
-        sortBy: null as unknown as string,
-        sortDesc: true,
-        withFilter: false,
-        FilterRule: null as FilterRuleInterface | null,
-      } as ProviderContext,
+      context
     };
+  },
+  computed: {
+    hasProviderFunction(): boolean {
+      return typeof this.items === "function";
+    }
+  },
+  watch: {
+    items: {
+      deep: true,
+      handler() {
+        this.$nextTick(this._providerUpdate);
+      }
+    }
   },
   mounted() {
     this._providerUpdate();
   },
-  computed: {
-    hasProviderFunction(): boolean {
-      return typeof this.items === 'function';
-    },
-  },
   methods: {
     // Provider related methods
-    _providerSetLocal(items: Array<GridEntityItem> | any) {
+    _providerSetLocal(items: GridEntityItem[] | any) {
       if (isPromise(items)) {
         // function returned a promise need to wait before updating
-        (items as DataGridProviderPromiseResult).then(result => {
-          this._providerSetLocal(result);
-        });
+        (items as DataGridProviderPromiseResult)
+          .then(result => {
+            this._providerSetLocal(result);
+          })
+          .catch(e => {
+            console.warn("[DataGrid warn]:", e);
+            this.localItems = [];
+            this.localBusy = false;
+          });
         this.localItems = [];
         this.localBusy = true;
       } else if (Array.isArray(items)) {
@@ -59,18 +74,18 @@ export default defineComponent({
         this.localBusy = false;
       } else {
         this.localItems = [];
-        console.warn(`[DataGrid warn]: items need to be an array`);
+        console.warn("[DataGrid warn]: items need to be an array");
         this.localBusy = false;
       }
       this.cellKeyRemount++;
-      this.$emit('itemsRefreshed');
+      this.$emit("itemsRefreshed");
     },
-    _checkIfIdFieldPresent(list: Array<any>) {
+    _checkIfIdFieldPresent(list: any[]) {
       const idIsPresent = list.every((item: any): boolean => {
-        return Object.keys(item).includes('id');
+        return Object.keys(item).includes("id");
       });
       if (!idIsPresent) {
-        console.warn(`[DataGrid warn]: item doesn't have, id field`);
+        console.warn("[DataGrid warn]: item doesn't have, id field");
       }
       return idIsPresent;
     },
@@ -82,19 +97,31 @@ export default defineComponent({
       this.localBusy = true;
       this.$nextTick(() => {
         try {
-          //promise
+          // promise
           if (isPromise(this.items)) {
-            (this.items as DataGridProviderPromiseResult).then(result => {
-              this._providerSetLocal(result);
-            });
+            (this.items as DataGridProviderPromiseResult)
+              .then(result => {
+                this._providerSetLocal(result);
+              })
+              .catch(e => {
+                console.warn("[DataGrid warn]:", e);
+                this.localItems = [];
+                this.localBusy = false;
+              });
           } else {
             // function returning array or promises
             const provider = this.items as DataGridProviderFunction;
             const data = provider(this.context, this._providerSetLocal);
             if (isPromise(data)) {
-              (data as DataGridProviderPromiseResult).then(items => {
-                this._providerSetLocal(items);
-              });
+              (data as DataGridProviderPromiseResult)
+                .then(items => {
+                  this._providerSetLocal(items);
+                })
+                .catch(e => {
+                  console.warn("[DataGrid warn]:", e);
+                  this.localItems = [];
+                  this.localBusy = false;
+                });
             } else if (Array.isArray(data)) {
               // Provider returned Array data
               this._providerSetLocal(data);
@@ -110,17 +137,9 @@ export default defineComponent({
             }
           }
         } catch (e) {
-          console.error('DataGrid provider function error', e);
+          console.error("DataGrid provider function error", e);
         }
-      });
-    },
-  },
-  watch: {
-    items: {
-      deep: true,
-      handler() {
-        this.$nextTick(this._providerUpdate);
-      },
-    },
-  },
-});
+      })
+    }
+  }
+})

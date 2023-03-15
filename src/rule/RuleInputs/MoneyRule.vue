@@ -27,9 +27,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { Money } from 'ts-money';
-import { EngineRuleData, EngineSubOperators, MoneyOperatorOptions, SimpleRuleType } from '@/index';
+import { defineComponent, PropType } from "vue";
+import { Money } from "ts-money";
+import { EngineRuleData, EngineSubOperators, MoneyOperatorOptions, SimpleRuleType } from "@/index";
 import {
   BDropdown,
   BDropdownItem,
@@ -37,13 +37,13 @@ import {
   BFormInput,
   BInputGroup,
   BInputGroupAppend,
-  BInputGroupPrepend,
-} from 'bootstrap-vue';
-import fieldInput from '@/mixins/RuleFieldInput';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+  BInputGroupPrepend
+} from "bootstrap-vue";
+import fieldInput from "@/mixins/RuleFieldInput";
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 
 export default defineComponent({
-  name: 'MoneyRule',
+  name: "MoneyRule",
   mixins: [fieldInput],
   components: {
     OperatorDropdown,
@@ -53,30 +53,30 @@ export default defineComponent({
     BInputGroupAppend,
     BInputGroupPrepend,
     BDropdown,
-    BDropdownItem,
+    BDropdownItem
   },
   props: {
     value: {
       type: Object as PropType<EngineRuleData<Money, SimpleRuleType.Money>>,
-      default: null,
-    },
+      default: null
+    }
   },
   data() {
     return {
       operator: EngineSubOperators.EqualTo,
       operatorList: MoneyOperatorOptions,
-      moneyAmount: '',
-      currency: 'CAD',
-      currencyList: ['CAD'],
+      moneyAmount: "",
+      currency: "CAD",
+      currencyList: ["CAD"]
     };
   },
   computed: {
     state(): boolean | null {
-      if (this.moneyAmount.trim() === '') {
+      if (this.moneyAmount.trim() === "") {
         return null;
       }
       return Number.parseFloat(this.moneyAmount).toFixed(2) === this.moneyAmount;
-    },
+    }
   },
   methods: {
     setCurrency(index: number): void {
@@ -84,37 +84,37 @@ export default defineComponent({
     },
     update() {
       try {
-        if (!!this.value) {
+        if (this.value) {
           this.currency = this.value.value.currency;
           this.moneyAmount = Money.fromInteger(this.value.value.amount, this.currency).toString();
           this.operator = this.value.operator;
         }
       } catch (e) {
-        this.moneyAmount = '0.00';
-        this.currency = 'CAD';
+        this.moneyAmount = "0.00";
+        this.currency = "CAD";
         this.operator = EngineSubOperators.EqualTo;
       }
     },
     updateOutput() {
       if (this.state) {
         const newAmount = Money.fromDecimal(Number.parseFloat(this.moneyAmount), this.currency);
-        this.$emit('input', {
+        this.$emit("input", {
           type: SimpleRuleType.Money,
           value: newAmount,
-          operator: this.operator,
+          operator: this.operator
         } as EngineRuleData<Money, SimpleRuleType.Money>);
       }
-    },
+    }
   },
   watch: {
     moneyAmount: {
       deep: true,
-      handler: 'updateOutput',
+      handler: "updateOutput"
     },
     currency: {
       deep: true,
-      handler: 'updateOutput',
-    },
-  },
-});
+      handler: "updateOutput"
+    }
+  }
+})
 </script>

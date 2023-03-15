@@ -22,53 +22,53 @@
 </template>
 
 <script lang="ts">
-import { Component, defineComponent, PropType } from 'vue';
-import { BIconDashCircle, BIconQuestionOctagonFill, BIconStack } from 'bootstrap-vue';
-import { FieldDefinitionWithExtra, GridEntityItem } from '@/index';
+import { Component, defineComponent, PropType } from "vue";
+import { BIconDashCircle, BIconQuestionOctagonFill, BIconStack } from "bootstrap-vue";
+import { FieldDefinitionWithExtra, GridEntityItem } from "@/index";
 
 export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
-    BIconStack,
+    BIconStack
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true,
+      required: true
     },
     rawValue: {
-      type: [Array] as PropType<Array<any> | null | undefined>,
+      type: [Array] as PropType<Array<any> | null | undefined>
     },
     field: {
       type: Object as PropType<FieldDefinitionWithExtra>,
-      required: true,
+      required: true
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       visibleData: null as unknown as string,
       icon: null as unknown as Component,
       error: false,
-      isNull: false,
+      isNull: false
     };
   },
   mounted() {
-    if (typeof this.rawValue === 'undefined') {
+    if (typeof this.rawValue === "undefined") {
       this.error = true;
-      this.visibleData = 'undefined';
+      this.visibleData = "undefined";
     } else if (this.rawValue === null) {
-      this.visibleData = 'null';
+      this.visibleData = "null";
       this.isNull = true;
     } else if (this.field.pointerName) {
       this.visibleData = this.field.pointerName;
     } else {
-      this.visibleData = this.$t('table').toString();
+      this.visibleData = this.$t("table").toString();
     }
     if (this.field.specialIcon) {
       this.icon = this.field.specialIcon;
@@ -76,13 +76,13 @@ export default defineComponent({
   },
   methods: {
     _handleClick() {
-      this.$emit('arrayOnClick:external');
+      this.$emit("arrayOnClick:external");
       this.$nextTick(() => {
-        if (typeof this.field.onClickExternalRoutine === 'function') {
+        if (typeof this.field.onClickExternalRoutine === "function") {
           this.field.onClickExternalRoutine(this.rawValue);
         }
       });
-    },
-  },
-});
+    }
+  }
+})
 </script>

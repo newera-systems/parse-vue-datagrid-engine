@@ -21,32 +21,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 import {
   BFormCheckbox,
   BFormGroup,
   BFormInput,
   BInputGroup,
   BInputGroupAppend,
-  BInputGroupPrepend,
-  BInputGroupText,
-} from 'bootstrap-vue';
-import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/index';
-import fieldInput from '@/mixins/RuleFieldInput';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+  BInputGroupPrepend
+} from "bootstrap-vue";
+import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from "@/index";
+import fieldInput from "@/mixins/RuleFieldInput";
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 
 export default defineComponent({
-  name: 'StringRule',
+  name: "StringRule",
   mixins: [fieldInput],
   components: {
     BFormGroup,
     BInputGroup,
     BFormInput,
     BFormCheckbox,
-    BInputGroupText,
     BInputGroupAppend,
     BInputGroupPrepend,
-    OperatorDropdown,
+    OperatorDropdown
   },
   props: {
     value: {
@@ -54,33 +52,33 @@ export default defineComponent({
       default: () =>
         ({
           type: SimpleRuleType.String,
-          value: '',
-          operator: EngineSubOperators.EqualTo,
-        } as EngineRuleData<string, SimpleRuleType.String>),
-    },
+          value: "",
+          operator: EngineSubOperators.EqualTo
+        } as EngineRuleData<string, SimpleRuleType.String>)
+    }
   },
   data() {
     return {
-      content: '',
+      content: "",
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
-      caseSensitive: false,
+      caseSensitive: false
     };
   },
   computed: {
     regex(): RegExp {
-      if (this.content.startsWith('/') && this.content.endsWith('/')) {
+      if (this.content.startsWith("/") && this.content.endsWith("/")) {
         // Input is already a regex
-        const flags = this.content.slice(this.content.lastIndexOf('/') + 1);
+        const flags = this.content.slice(this.content.lastIndexOf("/") + 1);
         return new RegExp(
           this.content.slice(1, -1).slice(0, -flags.length),
-          flags + (this.caseSensitive ? '' : 'i')
+          flags + (this.caseSensitive ? "" : "i")
         );
       } else {
         // Input is text
-        return new RegExp(this.content, this.caseSensitive ? '' : 'i');
+        return new RegExp(this.content, this.caseSensitive ? "" : "i");
       }
-    },
+    }
   },
   methods: {
     update(): void {
@@ -91,25 +89,25 @@ export default defineComponent({
           this.caseSensitive = this.value.caseSensitive ?? false;
         }
       } catch (e) {
-        this.content = '';
+        this.content = "";
         this.operator = EngineSubOperators.EqualTo;
       }
     },
     updateOutput() {
-      this.$emit('input', {
+      this.$emit("input", {
         type: SimpleRuleType.String,
         value: this.content,
         operator: this.operator,
-        caseSensitive: this.caseSensitive,
+        caseSensitive: this.caseSensitive
       } as EngineRuleData<string, SimpleRuleType.String>);
-    },
+    }
   },
   watch: {
     caseSensitive(newVal, oldVal) {
       if (newVal !== oldVal) this.updateOutput();
-    },
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped></style>

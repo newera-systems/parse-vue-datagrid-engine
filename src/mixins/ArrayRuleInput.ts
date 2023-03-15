@@ -1,27 +1,26 @@
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
-import { defineComponent, PropType } from 'vue';
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+import { defineComponent, type PropType } from "vue";
 import {
-  EngineRuleData,
+  type EngineRuleData,
   EngineSubOperators,
   MultiOperatorOptions,
   RegistrationLanguage,
-  SimpleRuleType,
-} from '@/index';
+  SimpleRuleType
+} from "@/index";
 
 export default defineComponent({
   components: {
-    OperatorDropdown,
+    OperatorDropdown
   },
   props: {
     value: {
-      type: Object as PropType<EngineRuleData<Array<string>, SimpleRuleType.Array>>,
-      default: () =>
-        ({
-          type: SimpleRuleType.Array,
-          value: [],
-          operator: EngineSubOperators.Contains,
-        } as EngineRuleData<Array<string>, SimpleRuleType.Array>),
-    },
+      type: Object as PropType<EngineRuleData<string[], SimpleRuleType.Array>>,
+      default: () => ({
+        type: SimpleRuleType.Array,
+        value: [],
+        operator: EngineSubOperators.Contains
+      })
+    }
   },
   data() {
     return {
@@ -29,12 +28,26 @@ export default defineComponent({
       lang: RegistrationLanguage.FR,
       operator: EngineSubOperators.Contains,
       operatorList: MultiOperatorOptions,
-      options: [],
+      options: []
     };
+  },
+  watch: {
+    value: {
+      deep: true,
+      handler: "update"
+    },
+    operator: {
+      deep: true,
+      handler: "updateOutput"
+    },
+    content: {
+      deep: true,
+      handler: "updateOutput"
+    }
   },
   created(): void {
     // @ts-expect-error lang exist on component
-    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? 'fr';
+    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? "fr";
   },
   beforeMount(): void {
     this.update();
@@ -42,35 +55,20 @@ export default defineComponent({
   methods: {
     update(): void {
       try {
-        if (this.value) {
-          this.content = this.value.value;
-          this.operator = this.value.operator;
-        }
+        this.content = this.value.value;
+        this.operator = this.value.operator;
       } catch (e) {
         this.content = [];
         this.operator = EngineSubOperators.Contains;
       }
     },
     updateOutput(): void {
-      this.$emit('input', {
+      const newValue: EngineRuleData<string[], SimpleRuleType.Array> = {
         type: SimpleRuleType.Array,
         value: this.content,
-        operator: this.operator,
-      } as EngineRuleData<Array<string>, SimpleRuleType.Array>);
-    },
-  },
-  watch: {
-    value: {
-      deep: true,
-      handler: 'update',
-    },
-    operator: {
-      deep: true,
-      handler: 'updateOutput',
-    },
-    content: {
-      deep: true,
-      handler: 'updateOutput',
-    },
-  },
-});
+        operator: this.operator
+      };
+      this.$emit("input", newValue);
+    }
+  }
+})

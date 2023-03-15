@@ -38,42 +38,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
+import { defineComponent } from "vue";
+import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from "bootstrap-vue";
 
 export default defineComponent({
-  name: 'DataGridPagePaginator',
+  name: "DataGridPagePaginator",
   components: {
     BCol,
     BRow,
     BIconChevronLeft,
     BIconChevronRight,
-    BPagination,
+    BPagination
   },
   model: {
     event: 'change',
-    prop: 'currentPage',
+    prop: "currentPage"
   },
   props: {
     currentPage: {
       type: Number,
       default: () => 1,
-      required: true,
+      required: true
     },
     perPage: {
       type: Number,
-      default: () => 25,
+      default: () => 25
     },
     entries: {
       type: Number,
-      default: () => 0,
-    },
+      default: () => 0
+    }
   },
   data() {
     return {
       currentPageNumber: 1,
       entriesNumber: 1,
-      perPageNumber: 1,
+      perPageNumber: 1
     };
   },
   mounted() {
@@ -89,19 +89,19 @@ export default defineComponent({
         return this.entries;
       }
       return maxEnd;
-    },
+    }
   },
   methods: {
     update() {
       this.currentPageNumber = this.currentPage;
       this.entriesNumber = this.entries;
       this.perPageNumber = this.perPage;
-    },
+    }
   },
   watch: {
     currentPageNumber() {
       if (this.currentPageNumber !== this.currentPage) {
-        this.$emit('change', this.currentPageNumber);
+        this.$emit("change", this.currentPageNumber);
       }
     },
     currentPage() {
@@ -112,7 +112,7 @@ export default defineComponent({
     },
     perPage() {
       this.update();
-    },
-  },
-});
+    }
+  }
+})
 </script>

@@ -10,26 +10,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import {
-  BFormGroup,
-  BFormInput,
-  BInputGroup,
-  BInputGroupAppend,
-  BInputGroupPrepend,
-} from 'bootstrap-vue';
-import { EngineRuleData, EngineSubOperators, NumberOperatorOptions, SimpleRuleType } from '@/index';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { defineComponent, PropType } from "vue";
+import { BFormGroup, BFormInput, BInputGroup, BInputGroupPrepend } from "bootstrap-vue";
+import { EngineRuleData, EngineSubOperators, NumberOperatorOptions, SimpleRuleType } from "@/index";
+import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 
 export default defineComponent({
-  name: 'NumberRule',
+  name: "NumberRule",
   components: {
     BFormGroup,
     BInputGroup,
     BFormInput,
-    BInputGroupAppend,
     BInputGroupPrepend,
-    OperatorDropdown,
+    OperatorDropdown
   },
   props: {
     value: {
@@ -38,15 +31,15 @@ export default defineComponent({
         ({
           type: SimpleRuleType.Number,
           value: 0,
-          operator: EngineSubOperators.EqualTo,
-        } as EngineRuleData<number, SimpleRuleType.Number>),
-    },
+          operator: EngineSubOperators.EqualTo
+        } as EngineRuleData<number, SimpleRuleType.Number>)
+    }
   },
   data() {
     return {
       content: null as unknown as number,
       operator: EngineSubOperators.EqualTo,
-      operatorList: NumberOperatorOptions,
+      operatorList: NumberOperatorOptions
     };
   },
   beforeMount() {
@@ -65,26 +58,26 @@ export default defineComponent({
       }
     },
     updateOutput() {
-      this.$emit('input', {
-        type: 'number',
+      this.$emit("input", {
+        type: "number",
         value: this.content,
-        operator: this.operator,
+        operator: this.operator
       } as EngineRuleData<number, SimpleRuleType.Number>);
-    },
+    }
   },
   watch: {
     value: {
       deep: true,
-      handler: 'update',
+      handler: "update"
     },
     operator: {
       deep: true,
-      handler: 'updateOutput',
+      handler: "updateOutput"
     },
     content: {
       deep: true,
-      handler: 'updateOutput',
-    },
-  },
-});
+      handler: "updateOutput"
+    }
+  }
+})
 </script>
