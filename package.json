@@ -20,7 +20,7 @@
     "test:unit": "jest",
     "test": "yarn test:unit",
     "preview": "vite preview --mode development",
-    "pre-commit": "yarn run lint && yarn run prettier",
+    "pre-commit": "yarn run prettier && yarn run lint",
     "lint": "eslint  --fix  ./src/ ./dev/ --ext .js,.ts,.vue",
     "prettier": "prettier --write  src/ spec/ dev/"
   },

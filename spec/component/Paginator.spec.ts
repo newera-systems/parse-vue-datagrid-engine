@@ -5,10 +5,10 @@ import { mount } from "@vue/test-utils";
 import Paginator from "@/components/Paginator.vue";
 import { waitNextTick } from "../utils";
 
-describe('Table', () => {
-  describe('Pagination', () => {
-    describe('Paginator component', () => {
-      it('should show number of entries', async () => {
+describe("Table", () => {
+  describe("Pagination", () => {
+    describe("Paginator component", () => {
+      it("should show number of entries", async () => {
         const wrapper = mount(Paginator, {
           propsData: {
             currentPage: 1,
@@ -18,12 +18,12 @@ describe('Table', () => {
           mocks: {
             $t: (key: string) => key
           }
-        })
-        await waitNextTick(wrapper.vm)
-        expect(wrapper.text()).toContain('Total 13')
-        wrapper.destroy()
-      })
-      it('should show starting index item on page', async () => {
+        });
+        await waitNextTick(wrapper.vm);
+        expect(wrapper.text()).toContain("Total 13");
+        wrapper.destroy();
+      });
+      it("should show starting index item on page", async () => {
         const wrapper = mount(Paginator, {
           propsData: {
             currentPage: 3,
@@ -33,12 +33,12 @@ describe('Table', () => {
           mocks: {
             $t: (key: string) => key
           }
-        })
-        await waitNextTick(wrapper.vm)
-        expect(wrapper.text()).toContain('55')
-        wrapper.destroy()
-      })
-      it('should show current page', async () => {
+        });
+        await waitNextTick(wrapper.vm);
+        expect(wrapper.text()).toContain("55");
+        wrapper.destroy();
+      });
+      it("should show current page", async () => {
         const wrapper = mount(Paginator, {
           propsData: {
             currentPage: 13,
@@ -48,11 +48,11 @@ describe('Table', () => {
           mocks: {
             $t: (key: string) => key
           }
-        })
-        await waitNextTick(wrapper.vm)
-        expect(wrapper.text()).toContain('13')
-        wrapper.destroy()
-      })
-    })
-  })
-})
+        });
+        await waitNextTick(wrapper.vm);
+        expect(wrapper.text()).toContain("13");
+        wrapper.destroy();
+      });
+    });
+  });
+});

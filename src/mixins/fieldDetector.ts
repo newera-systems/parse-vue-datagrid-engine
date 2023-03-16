@@ -106,7 +106,7 @@ export default defineComponent({
           );
           fieldDef.config.canFilter = true;
         }
-      })
+      });
     },
     _constructAdaptedFields(entity: GridEntityItem): FieldDefinition[] {
       const fields: FieldDefinition[] = [];

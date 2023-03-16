@@ -12,7 +12,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { BFormGroup, BFormInput, BInputGroup, BInputGroupPrepend } from "bootstrap-vue";
-import { EngineRuleData, EngineSubOperators, NumberOperatorOptions, SimpleRuleType } from "@/datagrid-bvue";
+import {
+  EngineRuleData,
+  EngineSubOperators,
+  NumberOperatorOptions,
+  SimpleRuleType
+} from "@/datagrid-bvue";
 import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 
 export default defineComponent({

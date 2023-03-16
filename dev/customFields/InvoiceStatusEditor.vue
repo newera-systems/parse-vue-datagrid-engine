@@ -25,7 +25,11 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { BButton, BButtonGroup, BFormSelect, BIconCheckSquare, BIconX } from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinitionWithExtra, GridEntityItem } from "../../src/datagrid-bvue";
+import {
+  DataGridModifiedCell,
+  FieldDefinitionWithExtra,
+  GridEntityItem
+} from "../../src/datagrid-bvue";
 import { InvoiceStatus, InvoiceStatusIcons } from "./InvoiceStatusViewer.vue";
 
 export default defineComponent({

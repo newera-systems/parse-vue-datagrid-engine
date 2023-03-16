@@ -214,6 +214,10 @@ export default defineComponent({
     editorConfig: {
       type: Object as PropType<Record<FieldType, Component>>,
       default: () => editorComponentsList
+    },
+    initViewFilter: {
+      type: Boolean,
+      default: () => false
     }
   },
   data() {

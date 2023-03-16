@@ -30,7 +30,12 @@
 <script lang="ts">
 import { Component, defineComponent, PropType } from "vue";
 import { BButton, BIconLock, BIconPen, BIconPencilSquare, BIconX } from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinitionWithExtra, FieldType, GridEntityItem } from "@/datagrid-bvue";
+import {
+  DataGridModifiedCell,
+  FieldDefinitionWithExtra,
+  FieldType,
+  GridEntityItem
+} from "@/datagrid-bvue";
 import StringEditor from "@/editFields/editor/StringEditor.vue";
 import StringViewer from "@/editFields/viewer/StringViewer.vue";
 import ArrayViewer from "@/editFields/viewer/ArrayViewer.vue";
