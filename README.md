@@ -9,6 +9,10 @@
 [![Jest Tests on Node 16.x and 18.x](https://github.com/newera-systems/parse-vue-datagrid-engine/actions/workflows/test.yml/badge.svg)](https://github.com/newera-systems/parse-vue-datagrid-engine/actions/workflows/test.yml)
 
 </h5>
+<h5 align="center">
+ <a href="https://newera-systems.github.io/parse-vue-datagrid-engine">Demo</a>
+</h5>
+
 <p align='center'>
   <a href='#datagrid-table'>Datagrid Table</a> |
   <a href='#rule-engine-filter'>Rule engine Filter</a> |
