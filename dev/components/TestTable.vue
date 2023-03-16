@@ -5,8 +5,9 @@
       :fields="fields"
       :items="provider"
       :modification-handler="modificationHandler"
-      :pagination-entries="items.length"
-      name="school"
+      :pagination-entries='items.length'
+      :show-filter.sync='showFilter'
+      name='school'
       responsive
       target="Student"
       @goToEditor="goToItemEditor"
@@ -164,6 +165,7 @@ export default defineComponent({
         },
       ],
       generatedRuleCode: null as unknown as string,
+      showFilter: false,
     };
   },
   computed: {},

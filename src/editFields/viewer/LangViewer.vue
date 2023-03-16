@@ -78,7 +78,7 @@ export default defineComponent({
   methods: {
     setLang() {
       this.lang = this.locales.find((locale: LocaleInterface) =>
-        locale.possibleLocales.includes(this.visibleData.trim().toLowerCase()),
+        locale.possibleLocales.includes(this.visibleData.trim().toLowerCase())
       ) ?? {
         possibleLocales: [],
         name: this.visibleData,

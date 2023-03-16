@@ -89,7 +89,7 @@ export default defineComponent({
       const list = Array.from(LOCALES.values());
       return (
         list.find((locale: LocaleInterface) =>
-          locale.possibleLocales.includes(this.editValue.trim().toLowerCase()),
+          locale.possibleLocales.includes(this.editValue.trim().toLowerCase())
         ) ?? {
           possibleLocales: [],
           name: this.editValue,

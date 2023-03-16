@@ -29,8 +29,8 @@
             :disabled="!hasARuleFilterSchema"
             :pressed="context.withFilter"
             :title="$t('filter')"
-            :variant="context.withFilter ? `primary` : `outline-primary`"
-            @click="context.withFilter = !context.withFilter"
+            :variant='context.withFilter ? `primary` : `outline-primary`'
+            @click='_updateShowFilter(!context.withFilter)'
           >
             <BIconFunnel :class="hasARuleInFilter ? 'text-danger' : ''" width="24" />
           </b-button>
@@ -215,7 +215,7 @@ export default defineComponent({
       type: Object as PropType<Record<FieldType, Component>>,
       default: () => editorComponentsList,
     },
-    initViewFilter: {
+    showFilter: {
       type: Boolean,
       default: () => false,
     },
@@ -232,7 +232,7 @@ export default defineComponent({
         perPage: 25,
         sortBy: null as unknown as string,
         sortDesc: true,
-        withFilter: true,
+        withFilter: this.showFilter,
         FilterRule: null as FilterRuleInterface | null,
       } as ProviderContext,
       perPageOptions: [5, 10, 25, 50, 100],
@@ -361,6 +361,10 @@ export default defineComponent({
         });
       }
       this.$emit('modified');
+    },
+    _updateShowFilter(showFilter: boolean) {
+      this.context.withFilter = showFilter;
+      this.$emit('update:showFilter', showFilter);
     },
   },
   watch: {

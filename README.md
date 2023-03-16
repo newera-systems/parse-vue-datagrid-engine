@@ -430,6 +430,10 @@ B-Table style props available:
     <th>Types</th>
   </thead>
   <tbody>
+    <tr>
+      <td>showFilter</td>
+      <td>Boolean</td>
+    </tr>
      <tr>
          <td>striped</td>
          <td>Boolean</td>
