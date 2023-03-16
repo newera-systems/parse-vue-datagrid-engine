@@ -25,13 +25,13 @@
     "prettier": "prettier --write  src/ spec/ dev/"
   },
   "type": "module",
-  "main": "./dist/datagrid-bvue.js",
-  "module": "./dist/datagrid-bvue.mjs",
-  "types": "./dist/index.d.ts",
-  "typings": "./dist/index.d.ts",
+  "main": "./dist/datagrid-bvue.umd.cjs",
+  "module": "./dist/datagrid-bvue.js",
+  "types": "./dist/datagrid-bvue.d.ts",
+  "typings": "./dist/datagrid-bvue.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/datagrid-bvue.d.ts",
       "import": "./dist/datagrid-bvue.js",
       "require": "./dist/datagrid-bvue.umd.cjs"
     },
