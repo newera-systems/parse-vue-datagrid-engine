@@ -33,7 +33,7 @@ import {
   BIconX,
   BTooltip
 } from "bootstrap-vue";
-import { FieldDefinitionWithExtra, GridEntityItem } from "../../src";
+import { FieldDefinitionWithExtra, GridEntityItem } from "../../src/datagrid-bvue";
 
 export enum InvoiceStatus {
   // eslint-disable-next-line no-unused-vars

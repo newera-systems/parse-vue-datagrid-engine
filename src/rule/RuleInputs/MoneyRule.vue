@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Money } from "ts-money";
-import { EngineRuleData, EngineSubOperators, MoneyOperatorOptions, SimpleRuleType } from "@/index";
+import { EngineRuleData, EngineSubOperators, MoneyOperatorOptions, SimpleRuleType } from "@/datagrid-bvue";
 import {
   BDropdown,
   BDropdownItem,

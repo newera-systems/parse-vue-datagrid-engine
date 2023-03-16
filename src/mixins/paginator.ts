@@ -6,7 +6,7 @@ import {
   type FilterRuleInterface,
   type GridEntityItem,
   type ProviderContext
-} from "@/index";
+} from "@/datagrid-bvue";
 
 export default defineComponent({
   components: { Paginator },
@@ -36,7 +36,7 @@ export default defineComponent({
       perPageOptions: [5, 10, 25, 50, 100],
       localItems: [] as GridEntityItem[],
       localEntries: 0
-    };
+    }
   },
   computed: {
     paginatedItems(): GridEntityItem[] {

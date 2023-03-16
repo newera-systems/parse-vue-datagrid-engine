@@ -24,7 +24,7 @@ import {
   EngineRuleData,
   EngineSubOperators,
   SimpleRuleType
-} from "@/index";
+} from "@/datagrid-bvue";
 import fieldInput from "@/mixins/RuleFieldInput";
 import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 

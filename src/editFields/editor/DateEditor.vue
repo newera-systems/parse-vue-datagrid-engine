@@ -39,7 +39,7 @@ import {
   BInputGroup,
   BInputGroupAppend
 } from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
 import dayjs, { Dayjs } from "dayjs";
 
 export default defineComponent({

@@ -44,7 +44,7 @@ import {
   EngineSubOperators,
   RegistrationLanguage,
   SimpleRuleType
-} from "@/index";
+} from "@/datagrid-bvue";
 import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 
 export default defineComponent({

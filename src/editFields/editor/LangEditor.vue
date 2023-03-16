@@ -49,7 +49,7 @@ import {
   BIconCheckSquare,
   BIconX
 } from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
 import { LocaleInterface, LOCALES } from "@/fieldsData";
 
 export default defineComponent({

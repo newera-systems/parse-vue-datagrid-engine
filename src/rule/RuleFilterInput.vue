@@ -13,7 +13,7 @@
     </b-button>
     <BIconXLg v-show="!isEmpty" class="text-danger mx-1 scale" @click.prevent.stop="clearRule" />
     <b-popover
-      v-model:show="showPopup"
+      :show="showPopup"
       :target="id"
       custom-class="big-custom-popover"
       placement="bottom"
@@ -45,7 +45,7 @@ import {
   RegistrationGender,
   RegistrationLanguage,
   SimpleRuleType
-} from "@/index";
+} from "@/datagrid-bvue";
 import { Money } from "ts-money";
 import { BButton, BForm, BIconChevronDown, BIconXLg, BPopover } from "bootstrap-vue";
 import VueI18n from "vue-i18n";

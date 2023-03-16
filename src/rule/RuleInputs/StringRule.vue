@@ -30,7 +30,7 @@ import {
   BInputGroupAppend,
   BInputGroupPrepend
 } from "bootstrap-vue";
-import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from "@/index";
+import { EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from "@/datagrid-bvue";
 import fieldInput from "@/mixins/RuleFieldInput";
 import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
 

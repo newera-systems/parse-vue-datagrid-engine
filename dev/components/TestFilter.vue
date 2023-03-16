@@ -28,7 +28,7 @@ import {
   GroupOperator,
   RuleActions,
   SimpleRuleType
-} from "../../src";
+} from "../../src/datagrid-bvue";
 
 export default defineComponent({
   data() {

@@ -40,7 +40,7 @@ import {
   BInputGroupAppend
 } from "bootstrap-vue";
 
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/index";
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
 import { Money } from "ts-money";
 
 export default defineComponent({

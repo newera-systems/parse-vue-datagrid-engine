@@ -13,7 +13,7 @@
 <script lang="ts">
 import Vue, { defineComponent, PropType } from "vue";
 import { BDropdown, BDropdownItem } from "bootstrap-vue";
-import { EngineSubOperators } from "@/index";
+import { EngineSubOperators } from "@/datagrid-bvue";
 import VueI18n from "vue-i18n";
 import filterTranslate from "@/translation/filter";
 

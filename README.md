@@ -527,7 +527,7 @@ export default defineComponent({
 
 To use the filter you need to add the target name that matches the schema name
 
-//index.ts
+//datagrid-bvue.ts
 
 ```typescript
 Vue.use(DataGridPlugin, {

@@ -99,7 +99,7 @@ export interface RuleGroupAction {
 }
 
 export enum EngineSubOperators {
-  EqualTo = 'equalTo',
+  EqualTo = "equalTo",
   NotEqual = "notEqualTo",
   StartsWith = "startsWith",
   EndsWith = "endsWith",
@@ -284,7 +284,7 @@ const DataGridPlugin: PluginObject<DataGridOptions> = {
       options.customFieldTypes.forEach(field => {
         viewerComponentsList[field.name] = field.viewer;
         editorComponentsList[field.name] = field.editor;
-      });
+      })
     }
     if (options?.customRulesComponents != null) {
       for (const key of Object.keys(options.customRulesComponents)) {

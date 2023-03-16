@@ -6,7 +6,7 @@ import MoneyRule from "@/rule/RuleInputs/MoneyRule.vue";
 import LangRule from "@/rule/RuleInputs/LangRule.vue";
 import DateRule from "@/rule/RuleInputs/DateRule.vue";
 import BooleanRule from "@/rule/RuleInputs/BooleanRule.vue";
-import { GroupOperator, type RuleCompTypes } from "@/index";
+import { GroupOperator, type RuleCompTypes } from "@/datagrid-bvue";
 
 export interface SchemaDefinition {
   identifier: string;
@@ -23,7 +23,7 @@ export const componentsList: Record<RuleCompTypes | string, Component> = {
   Money: MoneyRule,
   Lang: LangRule,
   Date: DateRule
-};
+}
 
 export class RuleEngineConfig {
   public draggable: boolean;

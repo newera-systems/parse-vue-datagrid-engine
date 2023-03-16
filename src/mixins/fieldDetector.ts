@@ -6,7 +6,7 @@ import {
   type FieldDefinitionWithExtra,
   FieldType,
   type GridEntityItem
-} from "@/index";
+} from "@/datagrid-bvue";
 
 export default defineComponent({
   props: {
@@ -88,13 +88,13 @@ export default defineComponent({
           );
           fieldDef.config.canView = true;
         }
-        if (!Object.keys(fieldDef.config).includes('canRead')) {
+        if (!Object.keys(fieldDef.config).includes("canRead")) {
           console.warn(
             "[DataGrid warn]: fields definition config does not contain a canRead value, it will be set to true"
           );
           fieldDef.config.canRead = true;
         }
-        if (!Object.keys(fieldDef.config).includes('canEdit')) {
+        if (!Object.keys(fieldDef.config).includes("canEdit")) {
           console.warn(
             "[DataGrid warn]: fields definition config does not contain a canEdit value, it will be set to true"
           );
@@ -178,7 +178,7 @@ export default defineComponent({
           const isGetter = Object.getOwnPropertyDescriptor(
             Object.getPrototypeOf(item),
             field.identifier
-          )?.get;
+          )?.get
           if (isGetter != null) {
             found = true;
           } else if (field.identifier in item) {
@@ -189,7 +189,7 @@ export default defineComponent({
         if (found) {
           existingFields.push(field.identifier);
         }
-      });
+      })
 
       this.existingFields = existingFields;
     },

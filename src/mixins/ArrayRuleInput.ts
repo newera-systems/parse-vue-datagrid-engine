@@ -6,7 +6,7 @@ import {
   MultiOperatorOptions,
   RegistrationLanguage,
   SimpleRuleType
-} from "@/index";
+} from "@/datagrid-bvue";
 
 export default defineComponent({
   components: {

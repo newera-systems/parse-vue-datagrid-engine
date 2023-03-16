@@ -1,5 +1,5 @@
 import { type Component } from "vue";
-import { type FieldType } from "@/index";
+import { type FieldType } from "@/datagrid-bvue";
 import StringViewer from "@/editFields/viewer/StringViewer.vue";
 import NumberViewer from "@/editFields/viewer/NumberViewer.vue";
 import DateViewer from "@/editFields/viewer/DateViewer.vue";
@@ -26,7 +26,7 @@ export const viewerComponentsList: Record<FieldType | string, Component> = {
   Date: DateViewer,
   Pointer: PointerViewer,
   Array: ArrayViewer
-};
+}
 
 export const editorComponentsList: Record<FieldType | string, Component> = {
   String: StringEditor,

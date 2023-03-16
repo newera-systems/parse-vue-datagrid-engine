@@ -27,7 +27,7 @@ import {
   GroupOperator,
   IDataGridPrototype,
   RuleActions
-} from "@/index";
+} from "@/datagrid-bvue";
 import { RuleEngineConfig } from "@/rule/RuleElementCreator";
 import { RuleDefinition } from "query-builder-vue";
 import VueI18n from "vue-i18n";
@@ -73,7 +73,7 @@ export default defineComponent({
         },
         action: { type: RuleActions.LIST, value: this.visibleName }
       } as FilterRuleInterface
-    };
+    }
   },
   computed: {
     // make all rule in a EngineSimpleRule Array

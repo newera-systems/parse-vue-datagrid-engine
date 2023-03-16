@@ -5,7 +5,7 @@ import {
   type FilterRuleInterface,
   type GridEntityItem,
   type ProviderContext
-} from "@/index";
+} from "@/datagrid-bvue";
 
 function isPromise(p: any): boolean {
   return typeof p === "object" && typeof p.then === "function";
@@ -34,7 +34,7 @@ export default defineComponent({
       localItems: [] as GridEntityItem[],
       cellKeyRemount: 1,
       context
-    };
+    }
   },
   computed: {
     hasProviderFunction(): boolean {

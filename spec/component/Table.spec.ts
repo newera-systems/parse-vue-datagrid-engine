@@ -4,7 +4,7 @@
 import { mount } from "@vue/test-utils";
 import Table from "@/components/Table.vue";
 import { waitNextTick } from "../utils";
-import { type DataGridProviderFunction } from "../../src";
+import { type DataGridProviderFunction } from "../../src/datagrid-bvue";
 
 const testItems = [
   { id: "aaa", a: "hello", b: 4, c: new Date() },

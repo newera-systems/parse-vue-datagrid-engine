@@ -24,7 +24,7 @@
 <script lang="ts">
 import { Component, defineComponent, PropType } from "vue";
 import { BIconDashCircle, BIconQuestionOctagonFill, BIconStack } from "bootstrap-vue";
-import { FieldDefinitionWithExtra, GridEntityItem } from "@/index";
+import { FieldDefinitionWithExtra, GridEntityItem } from "@/datagrid-bvue";
 
 export default defineComponent({
   components: {

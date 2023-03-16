@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import DataGridPlugin, { type DataGridOptions, RuleCompTypes } from "../src";
+import DataGridPlugin, { type DataGridOptions, RuleCompTypes } from "../src/datagrid-bvue";
 import "vue-select/dist/vue-select.css";
 
 // custom components
@@ -41,7 +41,7 @@ const options: DataGridOptions = {
       { identifier: "sophomore", name: "Sophomore", type: RuleCompTypes.Boolean }
     ],
     Invoice: [
-      { identifier: 'id', name: 'id', type: RuleCompTypes.String },
+      { identifier: "id", name: "id", type: RuleCompTypes.String },
       {
         identifier: "firstName",
         name: "firstName",
@@ -64,4 +64,4 @@ Vue.use(DataGridPlugin, options);
 new Vue({
   el: "#app",
   render: h => h(App)
-});
+})

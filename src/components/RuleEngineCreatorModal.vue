@@ -151,7 +151,7 @@ import {
   GroupOperator,
   IDataGridPrototype,
   RuleActions
-} from "@/index";
+} from "@/datagrid-bvue";
 import QueryBuilder, {
   OperatorDefinition,
   QueryBuilderConfig,

@@ -24,7 +24,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem, IDataGridPrototype } from "@/index";
+import { FieldDefinition, GridEntityItem, IDataGridPrototype } from "@/datagrid-bvue";
 import { Dayjs } from "dayjs";
 
 export default defineComponent({

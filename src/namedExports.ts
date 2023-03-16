@@ -27,4 +27,4 @@ export {
   StringRule,
   ArrayInputMixin,
   FieldInputMixin
-};
+}

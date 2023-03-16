@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { FilterRuleInterface } from "../../src";
+import { FilterRuleInterface } from "../../src/datagrid-bvue";
 
 export default defineComponent({
   data() {

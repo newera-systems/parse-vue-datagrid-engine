@@ -69,7 +69,7 @@
 <script lang="ts">
 import Vue, { defineComponent, PropType } from "vue";
 import draggable from "vuedraggable";
-import { FieldDefinition } from "@/index";
+import { FieldDefinition } from "@/datagrid-bvue";
 import { BFormCheckbox, BTab, BTabs } from "bootstrap-vue";
 import VueI18n from "vue-i18n";
 import tableTranslate from "@/translation/table";

@@ -144,7 +144,7 @@ import {
   GroupOperator,
   ModificationHandler,
   ProviderContext
-} from "@/index";
+} from "@/datagrid-bvue";
 import provider from "@/mixins/provider";
 import paginatorMixin from "@/mixins/paginator";
 import EditableCells from "@components/EditableCells.vue";

@@ -31,7 +31,7 @@ import {
   FieldDefinitionWithExtra,
   FieldType,
   ProviderContext
-} from "../../src";
+} from "../../src/datagrid-bvue";
 
 const defaultConfig = {
   canView: true,
@@ -39,7 +39,7 @@ const defaultConfig = {
   canEdit: false,
   canFilter: true,
   canSort: true
-};
+}
 export default defineComponent({
   data() {
     return {
@@ -52,7 +52,7 @@ export default defineComponent({
         },
         {
           identifier: "firstName",
-          name: 'First Name',
+          name: "First Name",
           config: { ...defaultConfig },
           type: FieldType.String
         },

@@ -4,7 +4,7 @@
 import { mount } from "@vue/test-utils";
 import Table from "@/components/Table.vue";
 import { waitNextTick } from "../utils";
-import { type FieldDefinition, FieldType } from "../../src";
+import { type FieldDefinition, FieldType } from "../../src/datagrid-bvue";
 
 const testItems = [
   { id: "aaa", a: "hello_0", b: 4, c: new Date() },

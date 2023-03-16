@@ -51,7 +51,7 @@ export default defineComponent({
     BPagination
   },
   model: {
-    event: 'change',
+    event: "change",
     prop: "currentPage"
   },
   props: {

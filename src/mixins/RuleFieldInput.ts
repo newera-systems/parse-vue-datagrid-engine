@@ -5,7 +5,7 @@ import {
   EngineSubOperators,
   SimpleRuleType,
   StringOperatorOptions
-} from "@/index";
+} from "@/datagrid-bvue";
 
 export default defineComponent({
   components: {

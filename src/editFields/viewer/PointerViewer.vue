@@ -24,7 +24,7 @@
 <script lang="ts">
 import { Component, defineComponent, PropType } from "vue";
 import { BIconDashCircle, BIconQuestionOctagonFill, BIconTagsFill } from "bootstrap-vue";
-import { FieldDefinitionWithExtra, GridEntityItem } from "@/index";
+import { FieldDefinitionWithExtra, GridEntityItem } from "@/datagrid-bvue";
 
 export default defineComponent({
   components: {
@@ -70,12 +70,12 @@ export default defineComponent({
     } else if (typeof this.rawValue === "object") {
       if (typeof this.rawValue?.className === "string") {
         this.visibleData = String(this.rawValue?.className);
-      } else if (typeof this.rawValue?.name === 'string') {
+      } else if (typeof this.rawValue?.name === "string") {
         this.visibleData = String(this.rawValue?.name);
-      } else if (typeof this.rawValue?.type === 'string') {
+      } else if (typeof this.rawValue?.type === "string") {
         this.visibleData = String(this.rawValue?.type);
       }
-    } else if (typeof this.rawValue === 'string') {
+    } else if (typeof this.rawValue === "string") {
       this.visibleData = this.rawValue;
     } else {
       this.visibleData = "Pointer";
