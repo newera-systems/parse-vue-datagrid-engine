@@ -70,7 +70,7 @@ export default defineComponent({
   },
   watch: {
     filterBuild: {
-      handler: function(val) {
+      handler: function (val) {
         // console.log('new customRule', val)
       },
       deep: true,

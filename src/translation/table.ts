@@ -36,7 +36,7 @@ export default {
         startsWith: 'Commence par',
         endsWith: 'Finit par',
         isNull: 'Est nul',
-        isNotNull: 'N\'est pas nul',
+        isNotNull: "N'est pas nul",
         and: 'Et',
         or: 'Ou',
         not: 'Non',

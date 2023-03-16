@@ -84,25 +84,25 @@ export default defineComponent({
         }
         if (!Object.keys(fieldDef.config).includes('canView')) {
           console.warn(
-            '[DataGrid warn]: fields definition config does not contain a canView value, it will be set to true',
+            '[DataGrid warn]: fields definition config does not contain a canView value, it will be set to true'
           );
           fieldDef.config.canView = true;
         }
         if (!Object.keys(fieldDef.config).includes('canRead')) {
           console.warn(
-            '[DataGrid warn]: fields definition config does not contain a canRead value, it will be set to true',
+            '[DataGrid warn]: fields definition config does not contain a canRead value, it will be set to true'
           );
           fieldDef.config.canRead = true;
         }
         if (!Object.keys(fieldDef.config).includes('canEdit')) {
           console.warn(
-            '[DataGrid warn]: fields definition config does not contain a canEdit value, it will be set to true',
+            '[DataGrid warn]: fields definition config does not contain a canEdit value, it will be set to true'
           );
           fieldDef.config.canEdit = true;
         }
         if (!Object.keys(fieldDef.config).includes('canFilter')) {
           console.warn(
-            '[DataGrid warn]: fields definition config does not contain a canFilter value, it will be set to true',
+            '[DataGrid warn]: fields definition config does not contain a canFilter value, it will be set to true'
           );
           fieldDef.config.canFilter = true;
         }
@@ -177,7 +177,7 @@ export default defineComponent({
 
           const isGetter = Object.getOwnPropertyDescriptor(
             Object.getPrototypeOf(item),
-            field.identifier,
+            field.identifier
           )?.get;
           if (isGetter != null) {
             found = true;

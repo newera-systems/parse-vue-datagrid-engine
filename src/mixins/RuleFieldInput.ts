@@ -30,7 +30,7 @@ export default defineComponent({
     },
     operator: {
       deep: true,
-      handler: function(newValue, oldValue) {
+      handler: function (newValue, oldValue) {
         if (newValue !== oldValue) {
           this.updateOutput();
         }
@@ -38,7 +38,7 @@ export default defineComponent({
     },
     content: {
       deep: true,
-      handler: function(newValue, oldValue) {
+      handler: function (newValue, oldValue) {
         if (newValue !== oldValue) {
           this.updateOutput();
         }

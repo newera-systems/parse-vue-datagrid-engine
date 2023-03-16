@@ -93,7 +93,7 @@ export default defineComponent({
       // @ts-expect-error DataGrid is  set by plugin config
       const engine: RuleEngineConfig = (this.$DataGrid as IDataGridPrototype).ruleEngineConfigs[
         this.target
-        ];
+      ];
       if (!engine) {
         console.error('[DataGrid Rule Modal] target rule config schema not found');
         return null;

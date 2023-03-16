@@ -50,7 +50,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.String)).toBe(true);
         wrapper.destroy();
@@ -69,7 +69,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.String)).toBe(true);
         expect(wrapper.text()).toContain('hello_0');
@@ -89,7 +89,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.String)).toBe(true);
         expect(wrapper.text()).toContain('null');
@@ -109,7 +109,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.String)).toBe(true);
         expect(wrapper.text()).toContain('undefined');
@@ -129,7 +129,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.String)).toBe(true);
         expect(wrapper.text()).toContain('true');
@@ -149,7 +149,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.String)).toBe(true);
         expect(wrapper.text()).toContain('[object Object]');
@@ -171,7 +171,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.Number)).toBe(true);
         wrapper.destroy();
@@ -190,7 +190,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.Number)).toBe(true);
         expect(wrapper.text()).toContain('4');
@@ -210,7 +210,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.Number)).toBe(true);
         await waitNextTick(wrapper.vm);
@@ -231,7 +231,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.Number)).toBe(true);
         await waitNextTick(wrapper.vm);
@@ -254,7 +254,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.Date)).toBe(true);
         wrapper.destroy();
@@ -273,7 +273,7 @@ describe('editFields', () => {
         });
         await waitNextTick(wrapper.vm);
         const fieldsTypesFound: FieldType[] = wrapper.vm.$data.localFieldsDef.map(
-          (f: FieldDefinition) => f.type,
+          (f: FieldDefinition) => f.type
         );
         expect(fieldsTypesFound.includes(FieldType.Date)).toBe(true);
         await waitNextTick(wrapper.vm);

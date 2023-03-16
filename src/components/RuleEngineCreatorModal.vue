@@ -303,7 +303,7 @@ export default defineComponent({
       // @ts-expect-error DataGrid is  set by plugin config
       const engine: RuleEngineConfig = (this.$DataGrid as IDataGridPrototype).ruleEngineConfigs[
         this.localValue.target
-        ];
+      ];
       if (!engine) {
         console.error('[DataGrid Rule Modal] target rule config schema not found');
         return null;
@@ -324,7 +324,7 @@ export default defineComponent({
     },
     invalidIdentifier(): string[] {
       return this.presentIdentifier.filter(
-        identifier => !this.allowedIdentifier.includes(identifier),
+        identifier => !this.allowedIdentifier.includes(identifier)
       );
     },
     valid(): boolean {
@@ -383,7 +383,7 @@ export default defineComponent({
   },
   watch: {
     rule: {
-      handler: function(val) {
+      handler: function (val) {
         if (val) {
           this.localValue = { ...val };
         }

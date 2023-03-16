@@ -29,8 +29,8 @@
             :disabled="!hasARuleFilterSchema"
             :pressed="context.withFilter"
             :title="$t('filter')"
-            :variant='context.withFilter ? `primary` : `outline-primary`'
-            @click='_updateShowFilter(!context.withFilter)'
+            :variant="context.withFilter ? `primary` : `outline-primary`"
+            @click="_updateShowFilter(!context.withFilter)"
           >
             <BIconFunnel :class="hasARuleInFilter ? 'text-danger' : ''" width="24" />
           </b-button>
@@ -334,7 +334,7 @@ export default defineComponent({
           return;
         }
         console.warn(
-          '[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style',
+          '[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style'
         );
       }
       this.localModificationHandler = this._defaultModificationHandler;

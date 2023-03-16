@@ -72,7 +72,7 @@ export default defineComponent({
         const flags = this.content.slice(this.content.lastIndexOf('/') + 1);
         return new RegExp(
           this.content.slice(1, -1).slice(0, -flags.length),
-          flags + (this.caseSensitive ? '' : 'i'),
+          flags + (this.caseSensitive ? '' : 'i')
         );
       } else {
         // Input is text

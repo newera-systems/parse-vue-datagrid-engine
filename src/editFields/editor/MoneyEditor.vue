@@ -110,8 +110,7 @@ export default defineComponent({
         } else {
           newValue = this.editValue;
         }
-      } catch (e) {
-      }
+      } catch (e) {}
       this.$emit('editionSave', {
         item: this.item,
         fieldKey: this.field.identifier,
@@ -128,7 +127,7 @@ export default defineComponent({
         if (this.state && this.price) {
           this.editValue = Money.fromDecimal(
             Number.parseFloat(this.price),
-            this.currency,
+            this.currency
           ).getAmount();
         }
       } catch (e) {

@@ -72,7 +72,7 @@ type ProviderCallBack = (items: GridEntityItem[]) => void;
 
 export type DataGridProviderFunction = (
   ctx: ProviderContext,
-  callback: ProviderCallBack,
+  callback: ProviderCallBack
 ) => GridEntityItem[] | DataGridProviderPromiseResult | any;
 
 export interface DataGridModifiedCell {

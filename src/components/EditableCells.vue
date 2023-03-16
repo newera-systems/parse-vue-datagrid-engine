@@ -116,8 +116,7 @@ export default defineComponent({
     _onCloseEdition() {
       this.editMode = false;
     },
-    saveModification() {
-    },
+    saveModification() {},
   },
 });
 </script>
