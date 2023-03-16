@@ -1,12 +1,12 @@
-import { defineComponent, type PropType } from "vue";
+import { defineComponent, type PropType } from 'vue';
 import {
   type DataGridProviderFunction,
   type DataGridProviderPromiseResult,
   type FieldDefinition,
   type FieldDefinitionWithExtra,
   FieldType,
-  type GridEntityItem
-} from "@/datagrid-bvue";
+  type GridEntityItem,
+} from '@/datagrid-bvue';
 
 export default defineComponent({
   props: {
@@ -14,18 +14,18 @@ export default defineComponent({
       type: [Array, Function, Promise] as PropType<
         GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
-      required: true
+      required: true,
     },
     fields: {
       type: Array as PropType<FieldDefinitionWithExtra[]>,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       localFieldsDef: [] as FieldDefinition[],
       existingFields: [] as string[],
-      localItems: [] as GridEntityItem[]
+      localItems: [] as GridEntityItem[],
     };
   },
   computed: {
@@ -34,21 +34,21 @@ export default defineComponent({
         return this.fields.length > 0;
       }
       return false;
-    }
+    },
   },
   watch: {
     fields: {
       deep: true,
       handler() {
         this.$nextTick(this._fieldsUpdate);
-      }
+      },
     },
     localItems: {
       deep: true,
       handler() {
         this.$nextTick(this._fieldsUpdate);
-      }
-    }
+      },
+    },
   },
   beforeMount() {
     this._fieldsUpdate();
@@ -60,7 +60,7 @@ export default defineComponent({
       this.localFieldsDef = definitions;
     },
     _checkActionField(fields: any[]) {
-      const found = fields.find(field => field.identifier === "#action");
+      const found = fields.find(field => field.identifier === '#action');
       if (found !== undefined) {
         found.config.canView = false;
         found.config.canRead = true;
@@ -72,37 +72,37 @@ export default defineComponent({
     _transformToValidDefinition(fields: any[]) {
       fields.forEach(fieldDef => {
         if (fieldDef.config === undefined) {
-          console.warn("[DataGrid warn]: fields definition config missing,it will be generated");
+          console.warn('[DataGrid warn]: fields definition config missing,it will be generated');
           fieldDef.config = {
             canView: true,
             canRead: true,
             canEdit: false,
             canFilter: true,
-            canSort: true
+            canSort: true,
           };
           return;
         }
-        if (!Object.keys(fieldDef.config).includes("canView")) {
+        if (!Object.keys(fieldDef.config).includes('canView')) {
           console.warn(
-            "[DataGrid warn]: fields definition config does not contain a canView value, it will be set to true"
+            '[DataGrid warn]: fields definition config does not contain a canView value, it will be set to true',
           );
           fieldDef.config.canView = true;
         }
-        if (!Object.keys(fieldDef.config).includes("canRead")) {
+        if (!Object.keys(fieldDef.config).includes('canRead')) {
           console.warn(
-            "[DataGrid warn]: fields definition config does not contain a canRead value, it will be set to true"
+            '[DataGrid warn]: fields definition config does not contain a canRead value, it will be set to true',
           );
           fieldDef.config.canRead = true;
         }
-        if (!Object.keys(fieldDef.config).includes("canEdit")) {
+        if (!Object.keys(fieldDef.config).includes('canEdit')) {
           console.warn(
-            "[DataGrid warn]: fields definition config does not contain a canEdit value, it will be set to true"
+            '[DataGrid warn]: fields definition config does not contain a canEdit value, it will be set to true',
           );
           fieldDef.config.canEdit = true;
         }
-        if (!Object.keys(fieldDef.config).includes("canFilter")) {
+        if (!Object.keys(fieldDef.config).includes('canFilter')) {
           console.warn(
-            "[DataGrid warn]: fields definition config does not contain a canFilter value, it will be set to true"
+            '[DataGrid warn]: fields definition config does not contain a canFilter value, it will be set to true',
           );
           fieldDef.config.canFilter = true;
         }
@@ -113,28 +113,28 @@ export default defineComponent({
       for (const [key, value] of Object.entries(entity)) {
         const field: FieldDefinition = {
           identifier: key,
-          name: key.replaceAll("_", " "),
+          name: key.replaceAll('_', ' '),
           config: {
             canView: true,
             canEdit: true,
             canFilter: false,
             canRead: true,
-            canSort: true
+            canSort: true,
           },
-          type: FieldType.String
+          type: FieldType.String,
         };
         switch (typeof value) {
-          case "bigint":
-          case "number":
+          case 'bigint':
+          case 'number':
             field.type = FieldType.Number;
             break;
-          case "boolean":
+          case 'boolean':
             field.type = FieldType.Boolean;
             break;
-          case "symbol":
-          case "object":
+          case 'symbol':
+          case 'object':
             if (Array.isArray(value)) field.type = FieldType.Array;
-            else if (Object.prototype.toString.call(value) === "[object Date]") {
+            else if (Object.prototype.toString.call(value) === '[object Date]') {
               field.type = FieldType.Date;
             } else field.type = FieldType.OtherEntity;
             break;
@@ -157,7 +157,7 @@ export default defineComponent({
         []
       );
       this.existingFields = [
-        ...new Set(presentFieldsKeys.map((field: FieldDefinition) => field.identifier))
+        ...new Set(presentFieldsKeys.map((field: FieldDefinition) => field.identifier)),
       ];
       return presentFieldsKeys;
     },
@@ -177,8 +177,8 @@ export default defineComponent({
 
           const isGetter = Object.getOwnPropertyDescriptor(
             Object.getPrototypeOf(item),
-            field.identifier
-          )?.get
+            field.identifier,
+          )?.get;
           if (isGetter != null) {
             found = true;
           } else if (field.identifier in item) {
@@ -189,7 +189,7 @@ export default defineComponent({
         if (found) {
           existingFields.push(field.identifier);
         }
-      })
+      });
 
       this.existingFields = existingFields;
     },
@@ -204,6 +204,6 @@ export default defineComponent({
       }
       const fields = this._fieldsInspector();
       this._setLocalFieldsDefinition(fields);
-    }
-  }
-})
+    },
+  },
+});

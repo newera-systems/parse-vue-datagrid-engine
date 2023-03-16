@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -37,10 +37,10 @@ import {
   BIconCheckSquare,
   BIconX,
   BInputGroup,
-  BInputGroupAppend
-} from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
-import dayjs, { Dayjs } from "dayjs";
+  BInputGroupAppend,
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import dayjs, { Dayjs } from 'dayjs';
 
 export default defineComponent({
   components: {
@@ -50,36 +50,36 @@ export default defineComponent({
     BButton,
     BButtonGroup,
     BInputGroup,
-    BInputGroupAppend
+    BInputGroupAppend,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
       type: [String, Number, Date, Object] as PropType<
         string | number | Date | Dayjs | null | undefined
       >,
-      required: true
+      required: true,
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       isModified: false,
       valid: true,
       editValue: null as unknown as Date,
-      editMode: false
+      editMode: false,
     };
   },
   mounted() {
     if (
-      typeof this.rawValue === "object" &&
-      Object.prototype.toString.call(this.rawValue) === "[object Date]"
+      typeof this.rawValue === 'object' &&
+      Object.prototype.toString.call(this.rawValue) === '[object Date]'
     ) {
       this.editValue = dayjs(this.rawValue).toDate();
     } else {
@@ -91,22 +91,22 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         fieldKey: this.field.identifier,
-        newValue: this.editValue
+        newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
-    }
+      this.$emit('editionCanceled');
+    },
   },
   watch: {
     editValue(newVal) {
       this.isModified = newVal !== this.rawValue;
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

@@ -4,8 +4,9 @@ module.exports = {
     es2021: true
   },
   extends: [
-    "plugin:vue/vue3-essential",
-    "standard-with-typescript"
+    'plugin:vue/vue3-essential',
+    'standard-with-typescript',
+    'prettier',
   ],
   overrides: [],
   parserOptions: {

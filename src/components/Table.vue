@@ -114,8 +114,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { Component, defineComponent, PropType } from "vue";
-import Paginator from "@components/Paginator.vue";
+import Vue, { Component, defineComponent, PropType } from 'vue';
+import Paginator from '@components/Paginator.vue';
 import {
   BButton,
   BButtonGroup,
@@ -130,9 +130,9 @@ import {
   BInputGroup,
   BPopover,
   BTable,
-  BvTableFieldArray
-} from "bootstrap-vue";
-import ToolbarConfig from "@components/ToolbarConfig.vue";
+  BvTableFieldArray,
+} from 'bootstrap-vue';
+import ToolbarConfig from '@components/ToolbarConfig.vue';
 import {
   DataGridModifiedCell,
   DataGridProviderFunction,
@@ -143,17 +143,17 @@ import {
   GridEntityItem,
   GroupOperator,
   ModificationHandler,
-  ProviderContext
-} from "@/datagrid-bvue";
-import provider from "@/mixins/provider";
-import paginatorMixin from "@/mixins/paginator";
-import EditableCells from "@components/EditableCells.vue";
-import fieldDetector from "@/mixins/fieldDetector";
-import tableStyling from "@/mixins/tableStyling";
-import { editorComponentsList, viewerComponentsList } from "@/editFields/config";
-import RuleEngineFilter from "@components/RuleEngineFilter.vue";
-import tableTranslate from "@/translation/table";
-import VueI18n from "vue-i18n";
+  ProviderContext,
+} from '@/datagrid-bvue';
+import provider from '@/mixins/provider';
+import paginatorMixin from '@/mixins/paginator';
+import EditableCells from '@components/EditableCells.vue';
+import fieldDetector from '@/mixins/fieldDetector';
+import tableStyling from '@/mixins/tableStyling';
+import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
+import RuleEngineFilter from '@components/RuleEngineFilter.vue';
+import tableTranslate from '@/translation/table';
+import VueI18n from 'vue-i18n';
 
 function defaultModificationHandler(data: DataGridModifiedCell) {
   const { item, fieldKey, newValue } = data;
@@ -162,7 +162,7 @@ function defaultModificationHandler(data: DataGridModifiedCell) {
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "DataGridTable",
+  name: 'DataGridTable',
   i18n: new VueI18n(tableTranslate),
   mixins: [provider, paginatorMixin, fieldDetector, tableStyling],
   components: {
@@ -182,43 +182,43 @@ export default defineComponent({
     BIconGearWideConnected,
     Paginator,
     BPopover,
-    ToolbarConfig
+    ToolbarConfig,
   },
   props: {
     name: {
       type: String,
       required: true,
-      default: () => "Entity name"
+      default: () => 'Entity name',
     },
     target: {
       type: String,
-      default: () => ""
+      default: () => '',
     },
     items: {
       type: [Array, Function, Promise] as PropType<
         Array<GridEntityItem> | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
-      required: true
+      required: true,
     },
     paginationEntries: {
       type: Number,
-      default: 0
+      default: 0,
     },
     modificationHandler: {
-      type: Function as PropType<ModificationHandler>
+      type: Function as PropType<ModificationHandler>,
     },
     viewerConfig: {
       type: Object as PropType<Record<FieldType, Component>>,
-      default: () => viewerComponentsList
+      default: () => viewerComponentsList,
     },
     editorConfig: {
       type: Object as PropType<Record<FieldType, Component>>,
-      default: () => editorComponentsList
+      default: () => editorComponentsList,
     },
     initViewFilter: {
       type: Boolean,
-      default: () => false
-    }
+      default: () => false,
+    },
   },
   data() {
     return {
@@ -233,10 +233,10 @@ export default defineComponent({
         sortBy: null as unknown as string,
         sortDesc: true,
         withFilter: true,
-        FilterRule: null as FilterRuleInterface | null
+        FilterRule: null as FilterRuleInterface | null,
       } as ProviderContext,
       perPageOptions: [5, 10, 25, 50, 100],
-      localEntries: 0
+      localEntries: 0,
     };
   },
   mounted() {
@@ -249,24 +249,24 @@ export default defineComponent({
     columns(): BvTableFieldArray {
       return this.localFieldsDef
         .filter(f => {
-          if (f.identifier === "id" || f.identifier === "#action") {
+          if (f.identifier === 'id' || f.identifier === '#action') {
             return true;
           }
           return f.config.canView && f.config.canRead && this.existingFields.includes(f.identifier);
         })
         .map(f => {
-          const tableSortable = f.config.canSort && f.type !== "Pointer" && f.type !== "Array";
+          const tableSortable = f.config.canSort && f.type !== 'Pointer' && f.type !== 'Array';
           return {
             key: f.identifier,
-            label: f.identifier === "id" ? "#" : this.getTranslation(f.name),
-            sortable: tableSortable
+            label: f.identifier === 'id' ? '#' : this.getTranslation(f.name),
+            sortable: tableSortable,
           };
         });
     },
     filterableFields(): string[] {
       return this.localFieldsDef
         .filter(f => {
-          if (f.identifier === "id" || f.identifier === "#action") {
+          if (f.identifier === 'id' || f.identifier === '#action') {
             return false;
           }
           return f.config.canView && f.config.canFilter;
@@ -292,11 +292,11 @@ export default defineComponent({
         return false;
       }
       return this.context.FilterRule.conditions.children.length > 0;
-    }
+    },
   },
   methods: {
     goToItemEditor(item: GridEntityItem) {
-      this.$emit("goToEditor", item);
+      this.$emit('goToEditor', item);
     },
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin
@@ -318,9 +318,9 @@ export default defineComponent({
           canEdit: false,
           canFilter: false,
           canRead: false,
-          canSort: false
+          canSort: false,
         },
-        type: FieldType.String
+        type: FieldType.String,
       };
     },
     _defaultModificationHandler(data: DataGridModifiedCell) {
@@ -328,13 +328,13 @@ export default defineComponent({
       item[fieldKey] = newValue;
     },
     _modificationHandlerUpdate() {
-      if (typeof this.modificationHandler === "function") {
+      if (typeof this.modificationHandler === 'function') {
         if (this.modificationHandler.length >= 1) {
           this.localModificationHandler = this.modificationHandler;
           return;
         }
         console.warn(
-          "[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style"
+          '[DataGrid warn] ModificationHandler need one parameter at least. (data) => void style',
         );
       }
       this.localModificationHandler = this._defaultModificationHandler;
@@ -348,7 +348,7 @@ export default defineComponent({
     updateCell(modification: DataGridModifiedCell) {
       const p = this.localModificationHandler(modification);
       if (p) {
-        if (typeof p.then === "function") {
+        if (typeof p.then === 'function') {
           (p as Promise<void>).then(() => {
             this.$nextTick(() => {
               this._providerUpdate();
@@ -360,24 +360,24 @@ export default defineComponent({
           this._providerUpdate();
         });
       }
-      this.$emit("modified");
-    }
+      this.$emit('modified');
+    },
   },
   watch: {
     modificationHandler: {
       deep: true,
       handler() {
         this.$nextTick(this._modificationHandlerUpdate);
-      }
+      },
     },
     context: {
       deep: true,
       handler() {
         this._updatedContext();
-      }
-    }
-  }
-})
+      },
+    },
+  },
+});
 </script>
 
 <style scoped>

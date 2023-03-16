@@ -37,19 +37,19 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { RuleDefinition } from "query-builder-vue";
+import Vue, { defineComponent, PropType } from 'vue';
+import { RuleDefinition } from 'query-builder-vue';
 import {
   EngineRuleData,
   EngineSimpleRule,
   RegistrationGender,
   RegistrationLanguage,
-  SimpleRuleType
-} from "@/datagrid-bvue";
-import { Money } from "ts-money";
-import { BButton, BForm, BIconChevronDown, BIconXLg, BPopover } from "bootstrap-vue";
-import VueI18n from "vue-i18n";
-import filterTranslate from "@/translation/filter";
+  SimpleRuleType,
+} from '@/datagrid-bvue';
+import { Money } from 'ts-money';
+import { BButton, BForm, BIconChevronDown, BIconXLg, BPopover } from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
 
 export type RuleDataObject =
   | EngineRuleData<string, SimpleRuleType.Date>
@@ -70,35 +70,35 @@ export default defineComponent({
     BIconXLg,
     BPopover,
     BButton,
-    BForm
+    BForm,
   },
   props: {
     definition: {
       type: Object as PropType<RuleDefinition>,
-      required: true
+      required: true,
     },
     value: {
       type: Object as PropType<EngineSimpleRule | null>,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       editValue: null as unknown as RuleDataObject,
       id: `button-modify-${this.definition.identifier}-${Math.random().toString(36).substr(2, 9)}`,
-      showPopup: false
+      showPopup: false,
     };
   },
   computed: {
     status(): string {
       if (this.value?.value) {
-        if (typeof this.value?.value.value !== "undefined") {
+        if (typeof this.value?.value.value !== 'undefined') {
           return `${this.getOperatorTranslation(this.value.value.operator)} "${
             this.value.value.value
           }"`;
         }
       }
-      return this.$t("all").toString() ?? "all";
+      return this.$t('all').toString() ?? 'all';
     },
     isEmpty(): boolean {
       if (this.value?.value) {
@@ -107,20 +107,20 @@ export default defineComponent({
         }
       }
       return true;
-    }
+    },
   },
   methods: {
     clearRule() {
-      this.$emit("input", {
+      this.$emit('input', {
         identifier: this.definition.identifier,
-        value: null
+        value: null,
       });
     },
     updateRule() {
       this.showPopup = false;
-      this.$emit("input", {
+      this.$emit('input', {
         identifier: this.definition.identifier,
-        value: { ...this.editValue }
+        value: { ...this.editValue },
       } as EngineSimpleRule);
     },
     getTranslation(key: string, force = false): string {
@@ -139,9 +139,9 @@ export default defineComponent({
     },
     abort() {
       this.showPopup = false;
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style scoped>

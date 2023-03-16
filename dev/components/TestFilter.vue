@@ -21,62 +21,62 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 import {
   EngineSubOperators,
   FilterRuleInterface,
   GroupOperator,
   RuleActions,
-  SimpleRuleType
-} from "../../src/datagrid-bvue";
+  SimpleRuleType,
+} from '../../src/datagrid-bvue';
 
 export default defineComponent({
   data() {
     return {
-      title: "Rule Filter Component",
+      title: 'Rule Filter Component',
       filterBuild: null as unknown as FilterRuleInterface,
-      fieldList: ["firstName", "order", "language", "sophomore"]
+      fieldList: ['firstName', 'order', 'language', 'sophomore'],
     };
   },
   methods: {
     setFilter() {
       const ruleValue = {
         type: SimpleRuleType.String,
-        value: "hello test",
-        operator: EngineSubOperators.EqualTo
+        value: 'hello test',
+        operator: EngineSubOperators.EqualTo,
       };
       this.filterBuild = {
-        name: "Student list",
-        target: "Student",
+        name: 'Student list',
+        target: 'Student',
         conditions: {
           operatorIdentifier: GroupOperator.AND,
           children: [
             {
-              identifier: "firstName",
-              value: ruleValue
+              identifier: 'firstName',
+              value: ruleValue,
             },
             {
-              identifier: "lastName", // not in the field list
-              value: ruleValue
-            }
-          ]
+              identifier: 'lastName', // not in the field list
+              value: ruleValue,
+            },
+          ],
         },
         action: {
           type: RuleActions.LIST,
-          value: ""
-        }
-      }
-    }
+          value: '',
+        },
+      };
+    },
   },
   watch: {
     filterBuild: {
       handler: function(val) {
         // console.log('new customRule', val)
       },
-      deep: true
-    }
-  }
-})
+      deep: true,
+    },
+  },
+});
 </script>
 
 <style scoped></style>

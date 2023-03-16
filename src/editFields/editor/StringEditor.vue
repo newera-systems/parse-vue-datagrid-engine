@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -29,9 +29,9 @@ import {
   BIconCheckSquare,
   BIconX,
   BInputGroup,
-  BInputGroupAppend
-} from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
+  BInputGroupAppend,
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
 
 export default defineComponent({
   components: {
@@ -41,32 +41,32 @@ export default defineComponent({
     BButtonGroup,
     BInputGroup,
     BFormInput,
-    BInputGroupAppend
+    BInputGroupAppend,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
       type: [String, Number, Date, Boolean, Object] as PropType<
         string | number | unknown | null | undefined
-      >
+      >,
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       isModified: false,
-      editValue: null as unknown as string
+      editValue: null as unknown as string,
     };
   },
   mounted() {
-    if (typeof this.rawValue !== "string") {
-      this.editValue = this.rawValue?.toString() ?? "";
+    if (typeof this.rawValue !== 'string') {
+      this.editValue = this.rawValue?.toString() ?? '';
     } else {
       this.editValue = String(this.rawValue);
     }
@@ -76,22 +76,22 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         fieldKey: this.field.identifier,
-        newValue: this.editValue
+        newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
-    }
+      this.$emit('editionCanceled');
+    },
   },
   watch: {
-    editValue(newVal, oldValue) {
+    editValue(newVal) {
       this.isModified = newVal !== this.rawValue;
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

@@ -25,79 +25,74 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import {
-  DataGridModifiedCell,
-  FieldDefinitionWithExtra,
-  FieldType,
-  ProviderContext
-} from "../../src/datagrid-bvue";
+import { defineComponent } from 'vue';
+import { DataGridModifiedCell, FieldDefinitionWithExtra, FieldType, ProviderContext } from '../../src/datagrid-bvue';
 
 const defaultConfig = {
   canView: true,
   canRead: true,
   canEdit: false,
   canFilter: true,
-  canSort: true
-}
+  canSort: true,
+};
 export default defineComponent({
   data() {
     return {
       fields: [
         {
-          identifier: "#action",
-          name: "Actions",
+          identifier: '#action',
+          name: 'Actions',
           config: { ...defaultConfig },
-          type: FieldType.String
+          type: FieldType.String,
         },
         {
-          identifier: "firstName",
-          name: "First Name",
+          identifier: 'firstName',
+          name: 'First Name',
           config: { ...defaultConfig },
-          type: FieldType.String
+          type: FieldType.String,
         },
         {
           identifier: 'email',
           name: 'Email',
           config: { ...defaultConfig },
-          type: FieldType.String
+          type: FieldType.String,
         },
         {
           identifier: 'console',
           name: 'console',
           config: { ...defaultConfig },
-          type: FieldType.String
+          type: FieldType.String,
         },
         {
           identifier: 'note',
           name: 'Note',
           config: { ...defaultConfig },
-          type: FieldType.Percent
+          type: FieldType.Percent,
         },
         {
           identifier: 'account',
           name: 'Facture',
           config: { ...defaultConfig },
-          type: FieldType.Money
+          type: FieldType.Money,
         },
         {
           identifier: 'lang',
           name: 'langue',
           config: { ...defaultConfig },
-          type: FieldType.Lang
+          type: FieldType.Lang,
         },
         {
           identifier: 'status',
           name: 'Status',
           config: { ...defaultConfig, canEdit: true },
-          type: "InvoiceStatus"
+          type: 'InvoiceStatus',
         },
         {
-          identifier: "isRegistered",
-          name: "Is registered",
+          identifier: 'isRegistered',
+          name: 'Is registered',
           config: { ...defaultConfig },
-          type: FieldType.Boolean
-        }
+          type: FieldType.Boolean,
+        },
       ] as FieldDefinitionWithExtra[],
       items: [
         {
@@ -107,7 +102,7 @@ export default defineComponent({
           note: 0.93,
           account: 120000,
           lang: '',
-          status: "awaiting_payment"
+          status: 'awaiting_payment',
         },
         {
           id: Math.random().toString(36).substr(2, 9),
@@ -116,7 +111,7 @@ export default defineComponent({
           note: 0.76,
           account: 877090,
           lang: '',
-          status: "completed"
+          status: 'completed',
         },
         {
           id: Math.random().toString(36).substr(2, 9),
@@ -126,7 +121,7 @@ export default defineComponent({
           account: 120000,
           lang: 'en',
           status: 'cancelled_refunded',
-          isRegistered: false
+          isRegistered: false,
         },
         {
           id: Math.random().toString(36).substr(2, 9),
@@ -136,7 +131,7 @@ export default defineComponent({
           account: 9800000000,
           lang: 'en',
           status: 'completed',
-          isRegistered: true
+          isRegistered: true,
         },
         {
           id: Math.random().toString(36).substr(2, 9),
@@ -145,7 +140,7 @@ export default defineComponent({
           note: -0.08,
           account: 89000,
           lang: 'fr',
-          status: "completed"
+          status: 'completed',
         },
         {
           id: Math.random().toString(36).substr(2, 9),
@@ -156,20 +151,20 @@ export default defineComponent({
           account: 89000,
           lang: 'es',
           isRegistered: true,
-          status: "awaiting_payment"
+          status: 'awaiting_payment',
         },
         {
           id: Math.random().toString(36).substr(2, 9),
-          firstName: "Curry",
+          firstName: 'Curry',
           lastName: null,
-          email: "steph@warriors.com",
+          email: 'steph@warriors.com',
           note: 0,
           account: 67000,
-          status: "completed"
-        }
+          status: 'completed',
+        },
       ],
-      generatedRuleCode: null as unknown as string
-    }
+      generatedRuleCode: null as unknown as string,
+    };
   },
   computed: {},
   methods: {
@@ -184,15 +179,15 @@ export default defineComponent({
     },
     modificationHandler(data: DataGridModifiedCell) {
       const { item, fieldKey, newValue } = data;
-      console.log("modificationHandler", item, fieldKey, newValue);
+      console.log('modificationHandler', item, fieldKey, newValue);
       item[fieldKey] = newValue;
     },
     goToItemEditor(item) {
-      const msg = "open complete editor for item, " + JSON.stringify(item, null, 2);
+      const msg = 'open complete editor for item, ' + JSON.stringify(item, null, 2);
       alert(msg);
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style>

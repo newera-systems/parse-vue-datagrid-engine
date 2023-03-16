@@ -121,7 +121,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BAlert,
   BCol,
@@ -142,31 +142,27 @@ import {
   BRow,
   BTab,
   BTabs,
-  BvModalEvent
-} from "bootstrap-vue"
+  BvModalEvent,
+} from 'bootstrap-vue';
 import {
   EngineRuleGroup,
   EngineSimpleRule,
   FilterRuleInterface,
   GroupOperator,
   IDataGridPrototype,
-  RuleActions
-} from "@/datagrid-bvue";
-import QueryBuilder, {
-  OperatorDefinition,
-  QueryBuilderConfig,
-  RuleDefinition
-} from "query-builder-vue";
-import { RuleEngineConfig } from "@/rule/RuleElementCreator";
-import GroupOperatorSlot from "@components/builder/GroupOperatorSlot.vue";
-import GroupCtrlSlot from "@components/builder/GroupCtrlSlot.vue";
-import RuleSlot from "@components/builder/RuleSlot.vue";
-import VueI18n from "vue-i18n";
-import modalTranslation from "@/translation/modal";
+  RuleActions,
+} from '@/datagrid-bvue';
+import QueryBuilder, { OperatorDefinition, QueryBuilderConfig, RuleDefinition } from 'query-builder-vue';
+import { RuleEngineConfig } from '@/rule/RuleElementCreator';
+import GroupOperatorSlot from '@components/builder/GroupOperatorSlot.vue';
+import GroupCtrlSlot from '@components/builder/GroupCtrlSlot.vue';
+import RuleSlot from '@components/builder/RuleSlot.vue';
+import VueI18n from 'vue-i18n';
+import modalTranslation from '@/translation/modal';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "RuleEngineCreatorModal",
+  name: 'RuleEngineCreatorModal',
   i18n: new VueI18n(modalTranslation),
   components: {
     QueryBuilder,
@@ -191,64 +187,64 @@ export default defineComponent({
     BModal,
     BRow,
     BTab,
-    BTabs
+    BTabs,
   },
   props: {
     rule: {
       type: Object as PropType<FilterRuleInterface | null>,
-      default: null
+      default: null,
     },
     target: {
       type: String,
-      required: true
+      required: true,
     },
     modalTitle: {
       type: String,
-      default: "Add Rule"
+      default: 'Add Rule',
     },
     modalSize: {
       type: String,
-      default: "lg"
+      default: 'lg',
     },
     okText: {
       type: String,
-      default: "Create"
+      default: 'Create',
     },
     cancelText: {
       type: String,
-      default: "Cancel"
+      default: 'Cancel',
     },
     value: {
       type: Boolean,
-      default: false
+      default: false,
     },
     useEditor: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       localValue: {
-        name: "Name",
+        name: 'Name',
         target: this.target,
         conditions: {
-          operatorIdentifier: "AND",
-          children: []
+          operatorIdentifier: 'AND',
+          children: [],
         },
-        action: { type: RuleActions.LIST, value: "" }
+        action: { type: RuleActions.LIST, value: '' },
       } as FilterRuleInterface,
       actionOptions: Object.values(RuleActions),
       builderConfig: {
         operators: [
           {
             identifier: GroupOperator.AND,
-            name: "AND"
+            name: 'AND',
           },
           {
             identifier: GroupOperator.OR,
-            name: "OR"
-          }
+            name: 'OR',
+          },
         ] as OperatorDefinition[],
         rules: [],
         colors: [
@@ -270,18 +266,18 @@ export default defineComponent({
           '#ff5722',
           '#795548',
           '#9e9e9e',
-          "#607d8b"
+          '#607d8b',
         ],
         dragging: {
-          animation: 250
-        }
+          animation: 250,
+        },
       } as QueryBuilderConfig,
       groups: null,
       loading: false,
       targetError: false,
       id: `rule-creator-${Math.random().toString(36).substr(2, 9)}`,
-      testQuil: ""
-    }
+      testQuil: '',
+    };
   },
   computed: {
     modal(): BModal {
@@ -297,7 +293,7 @@ export default defineComponent({
         `R-${firstPart}-G${secondPart}-A${thirdPart}`,
         `R-${firstPart}-G${secondPart}`,
         `R-${firstPart}-A${thirdPart}`,
-        `R-${firstPart}`
+        `R-${firstPart}`,
       ];
     },
     validName(): boolean {
@@ -309,7 +305,7 @@ export default defineComponent({
         this.localValue.target
         ];
       if (!engine) {
-        console.error("[DataGrid Rule Modal] target rule config schema not found");
+        console.error('[DataGrid Rule Modal] target rule config schema not found');
         return null;
       }
       return engine;
@@ -328,12 +324,12 @@ export default defineComponent({
     },
     invalidIdentifier(): string[] {
       return this.presentIdentifier.filter(
-        identifier => !this.allowedIdentifier.includes(identifier)
+        identifier => !this.allowedIdentifier.includes(identifier),
       );
     },
     valid(): boolean {
       return this.validName && !this.targetError && this.invalidIdentifier.length === 0;
-    }
+    },
   },
   beforeMount() {
     if (this.rule) {
@@ -341,11 +337,11 @@ export default defineComponent({
     }
     if (!this.target || !this.localValue.target) {
       this.targetError = true;
-      throw new Error("[DataGrid] Modal creation Target is required");
+      throw new Error('[DataGrid] Modal creation Target is required');
     }
     if (!this.engine) {
       this.targetError = true;
-      throw new Error("[DataGrid] Modal creation Target is not valid");
+      throw new Error('[DataGrid] Modal creation Target is not valid');
     }
     this.builderConfig.rules = this.targetRules;
   },
@@ -353,10 +349,10 @@ export default defineComponent({
     getSimpleRules(rule: EngineRuleGroup): Array<EngineSimpleRule> {
       const children: Array<EngineSimpleRule> = [];
       for (const child of rule.children) {
-        if ("identifier" in child && child.identifier) {
+        if ('identifier' in child && child.identifier) {
           children.push(child);
         }
-        if ("operatorIdentifier" in child && child.operatorIdentifier) {
+        if ('operatorIdentifier' in child && child.operatorIdentifier) {
           children.push(...this.getSimpleRules(child));
         }
       }
@@ -365,25 +361,25 @@ export default defineComponent({
     onOk(bvModalEvt: BvModalEvent) {
       bvModalEvt.preventDefault();
       if (this.valid) {
-        this.$emit("edited", this.localValue);
-        this.$emit("input", false);
+        this.$emit('edited', this.localValue);
+        this.$emit('input', false);
       }
     },
     onCancel() {
-      this.$emit("cancel");
+      this.$emit('cancel');
     },
     onHidden() {
-      this.$emit("input", false);
+      this.$emit('input', false);
     },
     onShown() {
-      this.$emit("input", true);
+      this.$emit('input', true);
     },
     toggleModal() {
       this.modal.toggle();
     },
     onEditorInput(value: string) {
       this.localValue.action.value = value;
-    }
+    },
   },
   watch: {
     rule: {
@@ -392,11 +388,11 @@ export default defineComponent({
           this.localValue = { ...val };
         }
       },
-      deep: true
+      deep: true,
     },
     target(val) {
       this.localValue.target = val;
-    }
-  }
-})
+    },
+  },
+});
 </script>

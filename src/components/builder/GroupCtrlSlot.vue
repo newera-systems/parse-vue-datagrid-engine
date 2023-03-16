@@ -37,8 +37,8 @@
   </div>
 </template>
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { GroupCtrlSlotProps } from "query-builder-vue";
+import Vue, { defineComponent, PropType } from 'vue';
+import { GroupCtrlSlotProps } from 'query-builder-vue';
 import {
   BButton,
   BButtonGroup,
@@ -47,14 +47,14 @@ import {
   BDropdownHeader,
   BDropdownItem,
   BIconFolderPlus,
-  BIconPlusSquare
-} from "bootstrap-vue";
-import VueI18n from "vue-i18n";
-import modalTranslation from "@/translation/modal";
+  BIconPlusSquare,
+} from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
+import modalTranslation from '@/translation/modal';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "ModalGroupCtrlSlot",
+  name: 'ModalGroupCtrlSlot',
   i18n: new VueI18n(modalTranslation),
   components: {
     BButton,
@@ -64,28 +64,28 @@ export default defineComponent({
     BDropdownHeader,
     BDropdownItem,
     BIconFolderPlus,
-    BIconPlusSquare
+    BIconPlusSquare,
   },
   props: {
     groupCtrl: {
       type: Object as PropType<GroupCtrlSlotProps>,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      selectedRule: "",
-      expanded: false
+      selectedRule: '',
+      expanded: false,
     };
   },
   computed: {
     ruleName(): string {
-      if (this.selectedRule === "") {
-        return this.$t("Rule.selectId").toString() ?? "Select rule";
+      if (this.selectedRule === '') {
+        return this.$t('Rule.selectId').toString() ?? 'Select rule';
       }
       const name = this.groupCtrl.rules.find(rule => rule.identifier === this.selectedRule)?.name;
       return name ? this.getTranslation(name) : this.selectedRule;
-    }
+    },
   },
   methods: {
     setRule(rule: string) {
@@ -97,7 +97,7 @@ export default defineComponent({
         return;
       }
       this.groupCtrl.addRule(this.selectedRule);
-      this.selectedRule = "";
+      this.selectedRule = '';
     },
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin
@@ -105,9 +105,9 @@ export default defineComponent({
         return this.$t(key).toString() ?? key;
       }
       return key;
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style scoped>

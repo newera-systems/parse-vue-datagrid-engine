@@ -21,35 +21,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
-import { LocaleInterface, LOCALES } from "@/fieldsData";
+import { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import { LocaleInterface, LOCALES } from '@/fieldsData';
 
 export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
-    BIconDashCircle
+    BIconDashCircle,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
       type: [String, Number, Date, Boolean, Object] as PropType<
         string | number | unknown | null | undefined
-      >
+      >,
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true
+      required: true,
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -57,18 +57,18 @@ export default defineComponent({
       locales: Array.from(LOCALES.values()),
       lang: Array.from(LOCALES.values())[0],
       error: false,
-      isNull: false
+      isNull: false,
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = "undefined";
+      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = "null";
+      this.visibleData = 'null';
       this.isNull = true;
-    } else if (typeof this.rawValue !== "string") {
-      this.visibleData = this.rawValue?.toString() ?? "";
+    } else if (typeof this.rawValue !== 'string') {
+      this.visibleData = this.rawValue?.toString() ?? '';
       this.error = this.visibleData.length === 0;
     } else {
       this.visibleData = String(this.rawValue?.toString().trim());
@@ -78,16 +78,16 @@ export default defineComponent({
   methods: {
     setLang() {
       this.lang = this.locales.find((locale: LocaleInterface) =>
-        locale.possibleLocales.includes(this.visibleData.trim().toLowerCase())
+        locale.possibleLocales.includes(this.visibleData.trim().toLowerCase()),
       ) ?? {
         possibleLocales: [],
         name: this.visibleData,
-        code: "xx",
-        value: this.visibleData
+        code: 'xx',
+        value: this.visibleData,
       };
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

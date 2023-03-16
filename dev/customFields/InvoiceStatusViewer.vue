@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from 'vue';
 import {
   BAvatar,
   BIconClock,
@@ -31,19 +31,19 @@ import {
   BIconDashCircle,
   BIconQuestionOctagonFill,
   BIconX,
-  BTooltip
-} from "bootstrap-vue";
-import { FieldDefinitionWithExtra, GridEntityItem } from "../../src/datagrid-bvue";
+  BTooltip,
+} from 'bootstrap-vue';
+import { FieldDefinitionWithExtra, GridEntityItem } from '../../src/datagrid-bvue';
 
 export enum InvoiceStatus {
   // eslint-disable-next-line no-unused-vars
-  NONE = "",
+  NONE = '',
   // eslint-disable-next-line no-unused-vars
-  AWAITING_PAYMENT = "awaiting_payment",
+  AWAITING_PAYMENT = 'awaiting_payment',
   // eslint-disable-next-line no-unused-vars
-  COMPLETED = "completed",
+  COMPLETED = 'completed',
   // eslint-disable-next-line no-unused-vars
-  CANCELLED_REFUNDED = "cancelled_refunded",
+  CANCELLED_REFUNDED = 'cancelled_refunded',
 }
 
 export interface StatusInfo {
@@ -58,27 +58,27 @@ export const InvoiceStatusIcons: Record<InvoiceStatus, StatusInfo> = {
     id: InvoiceStatus.COMPLETED,
     variant: 'success',
     icon: 'DollarSignIcon',
-    label: "Paid"
+    label: 'Paid',
   },
   [InvoiceStatus.AWAITING_PAYMENT]: {
     id: InvoiceStatus.AWAITING_PAYMENT,
     variant: 'info',
     icon: 'DollarSignIcon',
-    label: "Awaiting payment"
+    label: 'Awaiting payment',
   },
   [InvoiceStatus.CANCELLED_REFUNDED]: {
     id: InvoiceStatus.CANCELLED_REFUNDED,
-    variant: "primary",
-    icon: "DollarSignIcon",
-    label: "Cancelled (Refunded)"
+    variant: 'primary',
+    icon: 'DollarSignIcon',
+    label: 'Cancelled (Refunded)',
   },
   [InvoiceStatus.NONE]: {
     id: InvoiceStatus.NONE,
-    variant: "primary",
-    icon: "XIcon",
-    label: "N/A"
-  }
-}
+    variant: 'primary',
+    icon: 'XIcon',
+    label: 'N/A',
+  },
+};
 
 export default defineComponent({
   components: {
@@ -88,33 +88,33 @@ export default defineComponent({
     BTooltip,
     BIconCurrencyDollar,
     BIconClock,
-    BIconX
+    BIconX,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
       type: String,
-      default: () => InvoiceStatus.NONE
+      default: () => InvoiceStatus.NONE,
     },
     field: {
       type: Object as PropType<FieldDefinitionWithExtra>,
-      required: true
+      required: true,
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      visibleData: "",
+      visibleData: '',
       error: false,
       isNull: false,
-      id: `StatusInfoIcon-${Math.random().toString(36).substr(2, 9)}`
+      id: `StatusInfoIcon-${Math.random().toString(36).substr(2, 9)}`,
     };
   },
   computed: {
@@ -132,20 +132,20 @@ export default defineComponent({
     },
     info(): StatusInfo {
       return InvoiceStatusIcons[this.status];
-    }
+    },
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = "undefined";
+      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = "null";
+      this.visibleData = 'null';
       this.isNull = true;
     } else {
       this.visibleData = this.rawValue?.trim();
     }
-  }
-})
+  },
+});
 </script>
 
 <style lang="scss" scoped>

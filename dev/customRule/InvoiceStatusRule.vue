@@ -10,14 +10,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import {
-  EngineSubOperators,
-  FieldInputMixin,
-  StringOperatorOptions
-} from "../../src/datagrid-bvue";
-import { InvoiceStatus } from "../customFields/InvoiceStatusViewer.vue";
-import { BFormGroup, BFormSelect, BInputGroup, BInputGroupPrepend } from "bootstrap-vue";
+import { defineComponent } from 'vue';
+import { EngineSubOperators, FieldInputMixin, StringOperatorOptions } from '../../src/datagrid-bvue';
+import { InvoiceStatus } from '../customFields/InvoiceStatusViewer.vue';
+import { BFormGroup, BFormSelect, BInputGroup, BInputGroupPrepend } from 'bootstrap-vue';
 
 export default defineComponent({
   mixins: [FieldInputMixin],
@@ -25,16 +21,16 @@ export default defineComponent({
     BFormGroup,
     BInputGroup,
     BInputGroupPrepend,
-    BFormSelect
+    BFormSelect,
   },
   data() {
     return {
-      content: "",
+      content: '',
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
-      options: Object.values(InvoiceStatus)
+      options: Object.values(InvoiceStatus),
     };
-  }
+  },
 });
 </script>
 

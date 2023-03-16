@@ -40,17 +40,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import {
-  BButton,
-  BButtonGroup,
-  BDropdown,
-  BDropdownItem,
-  BIconCheckSquare,
-  BIconX
-} from "bootstrap-vue";
-import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
-import { LocaleInterface, LOCALES } from "@/fieldsData";
+import { defineComponent, PropType } from 'vue';
+import { BButton, BButtonGroup, BDropdown, BDropdownItem, BIconCheckSquare, BIconX } from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import { LocaleInterface, LOCALES } from '@/fieldsData';
 
 export default defineComponent({
   components: {
@@ -59,34 +52,34 @@ export default defineComponent({
     BButton,
     BButtonGroup,
     BDropdown,
-    BDropdownItem
+    BDropdownItem,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
       type: [String, Number, Date, Boolean, Object] as PropType<
         string | number | unknown | null | undefined
-      >
+      >,
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       isModified: false,
       valid: true,
       editValue: null as unknown as string,
-      locales: Array.from(LOCALES.values()).filter((locale: LocaleInterface) => locale.code.length)
+      locales: Array.from(LOCALES.values()).filter((locale: LocaleInterface) => locale.code.length),
     };
   },
   beforeMount() {
-    if (typeof this.rawValue !== "string") {
-      this.editValue = this.rawValue?.toString() ?? "";
+    if (typeof this.rawValue !== 'string') {
+      this.editValue = this.rawValue?.toString() ?? '';
     } else {
       this.editValue = String(this.rawValue);
     }
@@ -96,37 +89,37 @@ export default defineComponent({
       const list = Array.from(LOCALES.values());
       return (
         list.find((locale: LocaleInterface) =>
-          locale.possibleLocales.includes(this.editValue.trim().toLowerCase())
+          locale.possibleLocales.includes(this.editValue.trim().toLowerCase()),
         ) ?? {
           possibleLocales: [],
           name: this.editValue,
-          code: "xx",
-          value: this.editValue
+          code: 'xx',
+          value: this.editValue,
         }
       );
-    }
+    },
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         fieldKey: this.field.identifier,
-        newValue: this.editValue
+        newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
-    }
+      this.$emit('editionCanceled');
+    },
   },
   watch: {
-    editValue(newVal, oldValue) {
+    editValue(newVal) {
       this.isModified = newVal !== this.rawValue;
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style lang="scss"></style>

@@ -1,11 +1,11 @@
-import { type Component } from "vue";
-import { type PluginObject } from "vue/types/plugin";
-import DataGridTable from "./components/Table.vue";
-import RuleEngineFilter from "@components/RuleEngineFilter.vue";
-import RuleEngineCreatorModal from "@components/RuleEngineCreatorModal.vue";
-import { editorComponentsList, viewerComponentsList } from "@/editFields/config";
-import { componentsList, RuleEngineConfig, type SchemaList } from "@/rule/RuleElementCreator";
-import { type Money } from "ts-money";
+import { type Component } from 'vue';
+import { type PluginObject } from 'vue/types/plugin';
+import DataGridTable from './components/Table.vue';
+import RuleEngineFilter from '@components/RuleEngineFilter.vue';
+import RuleEngineCreatorModal from '@components/RuleEngineCreatorModal.vue';
+import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
+import { componentsList, RuleEngineConfig, type SchemaList } from '@/rule/RuleElementCreator';
+import { type Money } from 'ts-money';
 
 export interface GridFieldOptions {
   canView: boolean;
@@ -48,7 +48,7 @@ export interface FieldDefinitionWithExtra extends FieldDefinition {
   specialIcon?: Component;
   onClickExternalRoutine?: (data: any) => Promise<void>;
   pointerName?: string;
-  lang?: "fr" | "en";
+  lang?: 'fr' | 'en';
 }
 
 export interface ProviderContext {
@@ -60,20 +60,20 @@ export interface ProviderContext {
   FilterRule?: FilterRuleInterface;
 }
 
-type indexObject = Record<string | number, any>
+type indexObject = Record<string | number, any>;
 
 export interface GridEntityItem extends indexObject {
   id: string;
 }
 
-export type DataGridProviderPromiseResult = Promise<GridEntityItem[] | null>
+export type DataGridProviderPromiseResult = Promise<GridEntityItem[] | null>;
 
-type ProviderCallBack = (items: GridEntityItem[]) => void
+type ProviderCallBack = (items: GridEntityItem[]) => void;
 
 export type DataGridProviderFunction = (
   ctx: ProviderContext,
-  callback: ProviderCallBack
-) => GridEntityItem[] | DataGridProviderPromiseResult | any
+  callback: ProviderCallBack,
+) => GridEntityItem[] | DataGridProviderPromiseResult | any;
 
 export interface DataGridModifiedCell {
   item: GridEntityItem;
@@ -81,7 +81,7 @@ export interface DataGridModifiedCell {
   newValue: any;
 }
 
-export type ModificationHandler = (data: DataGridModifiedCell) => void | Promise<void>
+export type ModificationHandler = (data: DataGridModifiedCell) => void | Promise<void>;
 
 export enum RuleActions {
   INSERT = 'insertText',
@@ -99,19 +99,19 @@ export interface RuleGroupAction {
 }
 
 export enum EngineSubOperators {
-  EqualTo = "equalTo",
-  NotEqual = "notEqualTo",
-  StartsWith = "startsWith",
-  EndsWith = "endsWith",
-  Matches = "matches",
-  GreaterThan = "greaterThan",
-  GreaterThanOrEqualTo = "greaterThanOrEqualTo",
-  LessThan = "lessThan",
-  LessThanOrEqualTo = "lessThanOrEqualTo",
-  Contains = "contains",
-  ContainsAll = "containsAll",
-  Before = "before",
-  After = "after",
+  EqualTo = 'equalTo',
+  NotEqual = 'notEqualTo',
+  StartsWith = 'startsWith',
+  EndsWith = 'endsWith',
+  Matches = 'matches',
+  GreaterThan = 'greaterThan',
+  GreaterThanOrEqualTo = 'greaterThanOrEqualTo',
+  LessThan = 'lessThan',
+  LessThanOrEqualTo = 'lessThanOrEqualTo',
+  Contains = 'contains',
+  ContainsAll = 'containsAll',
+  Before = 'before',
+  After = 'after',
 }
 
 export enum SimpleRuleType {
@@ -148,28 +148,28 @@ export const StringOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.NotEqual,
   EngineSubOperators.StartsWith,
   EngineSubOperators.EndsWith,
-  EngineSubOperators.Matches
-]
+  EngineSubOperators.Matches,
+];
 export const NumberOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.EqualTo,
   EngineSubOperators.NotEqual,
   EngineSubOperators.GreaterThan,
   EngineSubOperators.LessThan,
   EngineSubOperators.GreaterThanOrEqualTo,
-  EngineSubOperators.LessThanOrEqualTo
-]
+  EngineSubOperators.LessThanOrEqualTo,
+];
 export const BooleanOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.EqualTo,
-  EngineSubOperators.NotEqual
-]
+  EngineSubOperators.NotEqual,
+];
 export const MoneyOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.EqualTo,
   EngineSubOperators.NotEqual,
   EngineSubOperators.GreaterThan,
   EngineSubOperators.LessThan,
   EngineSubOperators.GreaterThanOrEqualTo,
-  EngineSubOperators.LessThanOrEqualTo
-]
+  EngineSubOperators.LessThanOrEqualTo,
+];
 export const DateOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.EqualTo,
   EngineSubOperators.NotEqual,
@@ -178,12 +178,12 @@ export const DateOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.GreaterThanOrEqualTo,
   EngineSubOperators.LessThanOrEqualTo,
   EngineSubOperators.Before,
-  EngineSubOperators.After
-]
+  EngineSubOperators.After,
+];
 export const MultiOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.Contains,
-  EngineSubOperators.ContainsAll
-]
+  EngineSubOperators.ContainsAll,
+];
 
 export interface EngineSimpleRule {
   identifier: string;
@@ -217,13 +217,13 @@ export enum GroupOperator {
 }
 
 export interface DataGridOptions {
-  lang?: "fr" | "en";
+  lang?: 'fr' | 'en';
   i18n?: boolean;
   projectName?: string;
   customFieldTypes?: Array<{
-    name: string
-    viewer: Component
-    editor: Component
+    name: string;
+    viewer: Component;
+    editor: Component;
   }>;
   calendarTime?: boolean;
   dateFormat?: string;
@@ -232,7 +232,7 @@ export interface DataGridOptions {
 }
 
 export interface IDataGridPrototype {
-  lang: "fr" | "en";
+  lang: 'fr' | 'en';
   i18n?: boolean;
   projectName: string;
   dateFormat: string;
@@ -253,19 +253,19 @@ function initAllSchemasConfig(schemas: SchemaList): Record<string, RuleEngineCon
 
 const DataGridPlugin: PluginObject<DataGridOptions> = {
   install(Vue, options) {
-    Vue.component("DataGridTable", DataGridTable);
-    Vue.component("RuleEngineFilter", RuleEngineFilter);
-    Vue.component("RuleEngineCreatorModal", RuleEngineCreatorModal);
+    Vue.component('DataGridTable', DataGridTable);
+    Vue.component('RuleEngineFilter', RuleEngineFilter);
+    Vue.component('RuleEngineCreatorModal', RuleEngineCreatorModal);
     const DataGrid: IDataGridPrototype = {
-      lang: "fr" as "fr" | "en",
+      lang: 'fr' as 'fr' | 'en',
       i18n: false,
-      projectName: "",
-      dateFormat: "ddd DD-MM-YY HH:mm",
+      projectName: '',
+      dateFormat: 'ddd DD-MM-YY HH:mm',
       calendarTime: true,
       _viewer: viewerComponentsList,
       _editors: editorComponentsList,
       _ruleSchemas: {},
-      ruleEngineConfigs: {}
+      ruleEngineConfigs: {},
     };
     Vue.prototype.$DataGrid = DataGrid;
     if (options?.lang !== undefined) {
@@ -284,7 +284,7 @@ const DataGridPlugin: PluginObject<DataGridOptions> = {
       options.customFieldTypes.forEach(field => {
         viewerComponentsList[field.name] = field.viewer;
         editorComponentsList[field.name] = field.editor;
-      })
+      });
     }
     if (options?.customRulesComponents != null) {
       for (const key of Object.keys(options.customRulesComponents)) {
@@ -295,12 +295,12 @@ const DataGridPlugin: PluginObject<DataGridOptions> = {
       Vue.prototype.$DataGrid._ruleSchemas = options?.ruleSchemas;
       Vue.prototype.$DataGrid.ruleEngineConfigs = initAllSchemasConfig(options?.ruleSchemas);
     }
-  }
-}
+  },
+};
 // Automatic installation if Vue has been added to the global scope.
-if (typeof window !== "undefined" && window.Vue !== undefined && window.Vue.use !== undefined) {
+if (typeof window !== 'undefined' && window.Vue !== undefined && window.Vue.use !== undefined) {
   window.Vue.use(DataGridPlugin);
 }
 
 export default DataGridPlugin;
-export * from "./namedExports";
+export * from './namedExports';

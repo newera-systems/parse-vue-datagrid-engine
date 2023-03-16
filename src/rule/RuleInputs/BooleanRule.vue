@@ -17,25 +17,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { BFormGroup, BInputGroup, BInputGroupPrepend } from "bootstrap-vue";
-import {
-  BooleanOperatorOptions,
-  EngineRuleData,
-  EngineSubOperators,
-  SimpleRuleType
-} from "@/datagrid-bvue";
-import fieldInput from "@/mixins/RuleFieldInput";
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
+import { defineComponent, PropType } from 'vue';
+import { BFormGroup, BInputGroup, BInputGroupPrepend } from 'bootstrap-vue';
+import { BooleanOperatorOptions, EngineRuleData, EngineSubOperators, SimpleRuleType } from '@/datagrid-bvue';
+import fieldInput from '@/mixins/RuleFieldInput';
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
 export default defineComponent({
-  name: "BooleanRule",
+  name: 'BooleanRule',
   mixins: [fieldInput],
   components: {
     BFormGroup,
     BInputGroup,
     BInputGroupPrepend,
-    OperatorDropdown
+    OperatorDropdown,
   },
   props: {
     value: {
@@ -44,24 +39,24 @@ export default defineComponent({
         ({
           type: SimpleRuleType.Boolean,
           value: true,
-          operator: EngineSubOperators.EqualTo
-        } as EngineRuleData<boolean, SimpleRuleType.Boolean>)
-    }
+          operator: EngineSubOperators.EqualTo,
+        } as EngineRuleData<boolean, SimpleRuleType.Boolean>),
+    },
   },
   data() {
     return {
       selected: true,
       operator: EngineSubOperators.EqualTo,
-      operatorList: BooleanOperatorOptions
+      operatorList: BooleanOperatorOptions,
     };
   },
   computed: {
     options(): { value: boolean; text: string }[] {
       return [
-        { value: true, text: this.getTranslation("yes") },
-        { value: false, text: this.getTranslation("no") }
+        { value: true, text: this.getTranslation('yes') },
+        { value: false, text: this.getTranslation('no') },
       ];
-    }
+    },
   },
   methods: {
     update() {
@@ -71,10 +66,10 @@ export default defineComponent({
       }
     },
     updateOutput() {
-      this.$emit("input", {
+      this.$emit('input', {
         type: SimpleRuleType.Boolean,
         value: this.selected,
-        operator: this.operator
+        operator: this.operator,
       } as EngineRuleData<boolean, SimpleRuleType.Boolean>);
     },
     getTranslation(key: string): string {
@@ -83,14 +78,14 @@ export default defineComponent({
         return this.$t(key).toString() ?? key;
       }
       return key;
-    }
+    },
   },
   watch: {
     selected() {
       this.updateOutput();
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

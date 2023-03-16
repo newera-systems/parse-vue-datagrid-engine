@@ -28,57 +28,52 @@
 </template>
 
 <script lang="ts">
-import { Component, defineComponent, PropType } from "vue";
-import { BButton, BIconLock, BIconPen, BIconPencilSquare, BIconX } from "bootstrap-vue";
-import {
-  DataGridModifiedCell,
-  FieldDefinitionWithExtra,
-  FieldType,
-  GridEntityItem
-} from "@/datagrid-bvue";
-import StringEditor from "@/editFields/editor/StringEditor.vue";
-import StringViewer from "@/editFields/viewer/StringViewer.vue";
-import ArrayViewer from "@/editFields/viewer/ArrayViewer.vue";
-import PointerViewer from "@/editFields/viewer/PointerViewer.vue";
+import { Component, defineComponent, PropType } from 'vue';
+import { BButton, BIconLock, BIconPen, BIconPencilSquare, BIconX } from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinitionWithExtra, FieldType, GridEntityItem } from '@/datagrid-bvue';
+import StringEditor from '@/editFields/editor/StringEditor.vue';
+import StringViewer from '@/editFields/viewer/StringViewer.vue';
+import ArrayViewer from '@/editFields/viewer/ArrayViewer.vue';
+import PointerViewer from '@/editFields/viewer/PointerViewer.vue';
 
 export default defineComponent({
-  name: "EditableCells",
+  name: 'EditableCells',
   components: {
     BIconPencilSquare,
     BIconX,
     BButton,
     BIconPen,
-    BIconLock
+    BIconLock,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
-      required: true
+      required: true,
     },
     field: {
       type: Object as PropType<FieldDefinitionWithExtra>,
-      required: true
+      required: true,
     },
     viewerConfig: {
       type: Object as PropType<Record<FieldType, Component>>,
-      required: true
+      required: true,
     },
     editorConfig: {
       type: Object as PropType<Record<FieldType, Component>>,
-      required: true
-    }
+      required: true,
+    },
   },
   created() {
-    this.buttonId = "edit-button-" + this.item.id + this.field.identifier;
+    this.buttonId = 'edit-button-' + this.item.id + this.field.identifier;
   },
   data() {
     return {
       modified: false,
       editMode: false,
-      buttonId: "edit-button"
+      buttonId: 'edit-button',
     };
   },
   computed: {
@@ -103,7 +98,7 @@ export default defineComponent({
         return this.editorConfig[this.field.type];
       }
       return StringEditor;
-    }
+    },
   },
   methods: {
     _startEdition() {
@@ -115,16 +110,16 @@ export default defineComponent({
       this.modified = true;
       this.editMode = false;
       this.$nextTick(() => {
-        this.$emit("cellModified", modification);
+        this.$emit('cellModified', modification);
       });
     },
     _onCloseEdition() {
       this.editMode = false;
     },
     saveModification() {
-    }
-  }
-})
+    },
+  },
+});
 </script>
 <style scoped>
 .writable {

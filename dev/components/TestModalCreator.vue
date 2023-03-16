@@ -42,23 +42,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { FilterRuleInterface } from "../../src/datagrid-bvue";
+import { defineComponent } from 'vue';
+import { FilterRuleInterface } from '../../src/datagrid-bvue';
 
 export default defineComponent({
   data() {
     return {
-      title: "Rule Creation Modal Component",
+      title: 'Rule Creation Modal Component',
       filterBuild: null as unknown as FilterRuleInterface,
       modalVisible: false,
-      useEditor: false
+      useEditor: false,
     };
   },
   methods: {
     toggleModal() {
       this.$refs.mod.toggleModal();
-    }
-  }
+    },
+  },
 });
 </script>
 

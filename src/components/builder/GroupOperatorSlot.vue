@@ -22,31 +22,31 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { GroupOperatorSlotProps } from "query-builder-vue";
-import { BCol, BDropdown, BDropdownItem, BRow } from "bootstrap-vue";
-import VueI18n from "vue-i18n";
-import filterTranslate from "@/translation/filter";
+import Vue, { defineComponent, PropType } from 'vue';
+import { GroupOperatorSlotProps } from 'query-builder-vue';
+import { BCol, BDropdown, BDropdownItem, BRow } from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "ModalGroupOperatorSlot",
+  name: 'ModalGroupOperatorSlot',
   i18n: new VueI18n(filterTranslate),
   components: {
     BCol,
     BDropdown,
     BDropdownItem,
-    BRow
+    BRow,
   },
   props: {
     groupOperator: {
       type: Object as PropType<GroupOperatorSlotProps>,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      expanded: false
+      expanded: false,
     };
   },
   methods: {
@@ -60,9 +60,9 @@ export default defineComponent({
         return this.$t(key).toString() ?? key;
       }
       return key;
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style scoped>

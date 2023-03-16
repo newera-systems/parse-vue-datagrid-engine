@@ -1,37 +1,32 @@
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
-import { defineComponent, type PropType } from "vue";
-import {
-  type EngineRuleData,
-  EngineSubOperators,
-  SimpleRuleType,
-  StringOperatorOptions
-} from "@/datagrid-bvue";
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { defineComponent, type PropType } from 'vue';
+import { type EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/datagrid-bvue';
 
 export default defineComponent({
   components: {
-    OperatorDropdown
+    OperatorDropdown,
   },
   props: {
     value: {
       type: Object as PropType<EngineRuleData<any, SimpleRuleType>>,
       default: () => ({
         type: SimpleRuleType.String,
-        value: "",
-        operator: EngineSubOperators.EqualTo
-      })
-    }
+        value: '',
+        operator: EngineSubOperators.EqualTo,
+      }),
+    },
   },
   data() {
     return {
-      content: "" as string,
+      content: '' as string,
       operator: EngineSubOperators.EqualTo,
-      operatorList: StringOperatorOptions
+      operatorList: StringOperatorOptions,
     };
   },
   watch: {
     value: {
       deep: true,
-      handler: "update"
+      handler: 'update',
     },
     operator: {
       deep: true,
@@ -39,7 +34,7 @@ export default defineComponent({
         if (newValue !== oldValue) {
           this.updateOutput();
         }
-      }
+      },
     },
     content: {
       deep: true,
@@ -47,8 +42,8 @@ export default defineComponent({
         if (newValue !== oldValue) {
           this.updateOutput();
         }
-      }
-    }
+      },
+    },
   },
   beforeMount(): void {
     this.update();
@@ -59,7 +54,7 @@ export default defineComponent({
         this.content = this.value.value;
         this.operator = this.value.operator;
       } catch (e) {
-        this.content = "";
+        this.content = '';
         this.operator = EngineSubOperators.EqualTo;
       }
     },
@@ -67,9 +62,9 @@ export default defineComponent({
       const val: EngineRuleData<string, SimpleRuleType.String> = {
         type: SimpleRuleType.String,
         value: this.content,
-        operator: this.operator
+        operator: this.operator,
       };
-      this.$emit("input", val);
-    }
-  }
-})
+      this.$emit('input', val);
+    },
+  },
+});

@@ -1,16 +1,16 @@
-import OperatorDropdown from "@/rule/RuleInputs/OperatorDropdown.vue";
-import { defineComponent, type PropType } from "vue";
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { defineComponent, type PropType } from 'vue';
 import {
   type EngineRuleData,
   EngineSubOperators,
   MultiOperatorOptions,
   RegistrationLanguage,
-  SimpleRuleType
-} from "@/datagrid-bvue";
+  SimpleRuleType,
+} from '@/datagrid-bvue';
 
 export default defineComponent({
   components: {
-    OperatorDropdown
+    OperatorDropdown,
   },
   props: {
     value: {
@@ -18,9 +18,9 @@ export default defineComponent({
       default: () => ({
         type: SimpleRuleType.Array,
         value: [],
-        operator: EngineSubOperators.Contains
-      })
-    }
+        operator: EngineSubOperators.Contains,
+      }),
+    },
   },
   data() {
     return {
@@ -28,26 +28,26 @@ export default defineComponent({
       lang: RegistrationLanguage.FR,
       operator: EngineSubOperators.Contains,
       operatorList: MultiOperatorOptions,
-      options: []
+      options: [],
     };
   },
   watch: {
     value: {
       deep: true,
-      handler: "update"
+      handler: 'update',
     },
     operator: {
       deep: true,
-      handler: "updateOutput"
+      handler: 'updateOutput',
     },
     content: {
       deep: true,
-      handler: "updateOutput"
-    }
+      handler: 'updateOutput',
+    },
   },
   created(): void {
     // @ts-expect-error lang exist on component
-    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? "fr";
+    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? 'fr';
   },
   beforeMount(): void {
     this.update();
@@ -66,9 +66,9 @@ export default defineComponent({
       const newValue: EngineRuleData<string[], SimpleRuleType.Array> = {
         type: SimpleRuleType.Array,
         value: this.content,
-        operator: this.operator
+        operator: this.operator,
       };
-      this.$emit("input", newValue);
-    }
-  }
-})
+      this.$emit('input', newValue);
+    },
+  },
+});

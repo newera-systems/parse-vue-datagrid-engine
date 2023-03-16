@@ -11,7 +11,7 @@ export default {
         filter: 'Filtrer',
         clearFilter: 'Effacer le filtre',
         configure: 'Configurer',
-        configuration: "Configuration de la grille"
+        configuration: 'Configuration de la grille',
       },
       Operator: {
         equalTo: 'Égal',
@@ -36,10 +36,10 @@ export default {
         startsWith: 'Commence par',
         endsWith: 'Finit par',
         isNull: 'Est nul',
-        isNotNull: "N'est pas nul",
+        isNotNull: 'N\'est pas nul',
         and: 'Et',
         or: 'Ou',
-        not: "Non"
+        not: 'Non',
       },
       loaded: 'Chargé',
       loading: 'Chargement',
@@ -61,7 +61,7 @@ export default {
       entries: 'Entrées',
       all: 'Tous',
       Entity: {
-        name: "Nom"
+        name: 'Nom',
       },
       order: 'Ordre',
       asc: 'Ascendant',
@@ -81,7 +81,7 @@ export default {
       visible: 'Visible',
       hidden: 'Caché',
       id: 'Id',
-      grid: "Grille"
+      grid: 'Grille',
     },
     en: {
       table: 'Table',
@@ -91,7 +91,7 @@ export default {
         filter: 'Filter',
         clearFilter: 'Clear filter',
         configure: 'Configure',
-        configuration: "Grid configuration"
+        configuration: 'Grid configuration',
       },
       Operator: {
         equalTo: 'Equal',
@@ -119,7 +119,7 @@ export default {
         isNotNull: 'Is not null',
         and: 'And',
         or: 'Or',
-        not: "Not"
+        not: 'Not',
       },
       loaded: 'Loaded',
       loading: 'Loading',
@@ -133,35 +133,35 @@ export default {
       filterBy: 'Filter by',
       perPage: 'Per page',
       page: 'Page',
-      of: "of",
-      next: "Next",
-      previous: "Previous",
-      first: "First",
-      last: "Last",
-      entries: "Entries",
-      all: "All",
+      of: 'of',
+      next: 'Next',
+      previous: 'Previous',
+      first: 'First',
+      last: 'Last',
+      entries: 'Entries',
+      all: 'All',
       Entity: {
-        name: "Name"
+        name: 'Name',
       },
-      order: "Order",
-      asc: "Ascendant",
-      desc: "Descendant",
-      visibilityAndOrder: "Visibility and order",
-      visibility: "Visibility",
-      show: "Show",
-      hide: "Hide",
-      showAll: "Show all",
-      hideAll: "Hide all",
-      showSelected: "Show selected",
-      filters: "Filters",
-      addFilter: "Add filter",
-      removeFilter: "Remove filter",
-      sort: "Sort",
-      sorting: "Sorting",
-      visible: "Visible",
-      hidden: "Hidden",
-      id: "Id",
-      grid: "Grid"
-    }
-  }
-}
+      order: 'Order',
+      asc: 'Ascendant',
+      desc: 'Descendant',
+      visibilityAndOrder: 'Visibility and order',
+      visibility: 'Visibility',
+      show: 'Show',
+      hide: 'Hide',
+      showAll: 'Show all',
+      hideAll: 'Hide all',
+      showSelected: 'Show selected',
+      filters: 'Filters',
+      addFilter: 'Add filter',
+      removeFilter: 'Remove filter',
+      sort: 'Sort',
+      sorting: 'Sorting',
+      visible: 'Visible',
+      hidden: 'Hidden',
+      id: 'Id',
+      grid: 'Grid',
+    },
+  },
+};

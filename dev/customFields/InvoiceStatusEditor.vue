@@ -23,14 +23,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { BButton, BButtonGroup, BFormSelect, BIconCheckSquare, BIconX } from "bootstrap-vue";
-import {
-  DataGridModifiedCell,
-  FieldDefinitionWithExtra,
-  GridEntityItem
-} from "../../src/datagrid-bvue";
-import { InvoiceStatus, InvoiceStatusIcons } from "./InvoiceStatusViewer.vue";
+import { defineComponent, PropType } from 'vue';
+import { BButton, BButtonGroup, BFormSelect, BIconCheckSquare, BIconX } from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinitionWithExtra, GridEntityItem } from '../../src/datagrid-bvue';
+import { InvoiceStatus, InvoiceStatusIcons } from './InvoiceStatusViewer.vue';
 
 export default defineComponent({
   components: {
@@ -38,31 +34,31 @@ export default defineComponent({
     BIconCheckSquare,
     BIconX,
     BButton,
-    BFormSelect
+    BFormSelect,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
-      type: String as PropType<string | null | undefined>
+      type: String as PropType<string | null | undefined>,
     },
     field: {
       type: Object as PropType<FieldDefinitionWithExtra>,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       isModified: false,
       editValue: InvoiceStatus.NONE,
-      list: Object.values(InvoiceStatusIcons)
+      list: Object.values(InvoiceStatusIcons),
     };
   },
   computed: {},
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.editValue = InvoiceStatus.NONE;
     } else if (this.rawValue === null) {
       this.editValue = InvoiceStatus.NONE;
@@ -77,22 +73,22 @@ export default defineComponent({
       if (!this.isModified) {
         return;
       }
-      this.$emit("editionSave", {
+      this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
-        newValue: this.editValue
+        newValue: this.editValue,
       } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit("editionCanceled");
-    }
+      this.$emit('editionCanceled');
+    },
   },
   watch: {
     editValue(newVal, oldValue) {
       this.isModified = newVal !== this.rawValue;
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

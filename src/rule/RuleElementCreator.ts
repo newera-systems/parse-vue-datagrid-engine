@@ -1,12 +1,12 @@
-import { type QueryBuilderConfig, type RuleDefinition } from "query-builder-vue";
-import { type Component } from "vue";
-import StringRule from "@/rule/RuleInputs/StringRule.vue";
-import NumberRule from "@/rule/RuleInputs/NumberRule.vue";
-import MoneyRule from "@/rule/RuleInputs/MoneyRule.vue";
-import LangRule from "@/rule/RuleInputs/LangRule.vue";
-import DateRule from "@/rule/RuleInputs/DateRule.vue";
-import BooleanRule from "@/rule/RuleInputs/BooleanRule.vue";
-import { GroupOperator, type RuleCompTypes } from "@/datagrid-bvue";
+import { type QueryBuilderConfig, type RuleDefinition } from 'query-builder-vue';
+import { type Component } from 'vue';
+import StringRule from '@/rule/RuleInputs/StringRule.vue';
+import NumberRule from '@/rule/RuleInputs/NumberRule.vue';
+import MoneyRule from '@/rule/RuleInputs/MoneyRule.vue';
+import LangRule from '@/rule/RuleInputs/LangRule.vue';
+import DateRule from '@/rule/RuleInputs/DateRule.vue';
+import BooleanRule from '@/rule/RuleInputs/BooleanRule.vue';
+import { GroupOperator, type RuleCompTypes } from '@/datagrid-bvue';
 
 export interface SchemaDefinition {
   identifier: string;
@@ -14,7 +14,7 @@ export interface SchemaDefinition {
   type: RuleCompTypes | string;
 }
 
-export type SchemaList = Record<string, SchemaDefinition[]>
+export type SchemaList = Record<string, SchemaDefinition[]>;
 
 export const componentsList: Record<RuleCompTypes | string, Component> = {
   Boolean: BooleanRule,
@@ -22,8 +22,8 @@ export const componentsList: Record<RuleCompTypes | string, Component> = {
   Number: NumberRule,
   Money: MoneyRule,
   Lang: LangRule,
-  Date: DateRule
-}
+  Date: DateRule,
+};
 
 export class RuleEngineConfig {
   public draggable: boolean;
@@ -43,28 +43,28 @@ export class RuleEngineConfig {
     return {
       operators: [
         {
-          name: "AND",
-          identifier: GroupOperator.AND
+          name: 'AND',
+          identifier: GroupOperator.AND,
         },
         {
-          name: "OR",
-          identifier: GroupOperator.OR
-        }
+          name: 'OR',
+          identifier: GroupOperator.OR,
+        },
       ],
       rules: this.rules,
-      colors: ["#6610f2", "#ff9f43", "#ffc107", "#ea5455"],
+      colors: ['#6610f2', '#ff9f43', '#ffc107', '#ea5455'],
       dragging: {
         animation: 300,
         disabled: this.draggable,
-        dragClass: "sortable-drag"
-      }
+        dragClass: 'sortable-drag',
+      },
     };
   }
 
   build(): void {
     const data = this.schemas[this.target];
     if (data === undefined) {
-      console.warn("[DataGrid Rule: Schema of the target not found]");
+      console.warn('[DataGrid Rule: Schema of the target not found]');
       return;
     }
     for (const rule of data) {
@@ -72,7 +72,7 @@ export class RuleEngineConfig {
         component: componentsList[rule.type],
         identifier: rule.identifier,
         name: rule.name,
-        initialValue: null
+        initialValue: null,
       });
     }
   }

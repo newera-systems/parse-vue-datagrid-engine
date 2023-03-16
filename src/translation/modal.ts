@@ -7,11 +7,11 @@ export default {
       Error: {
         target: 'Erreur sur la cible',
         source: 'Erreur sur la source',
-        identifier: "Il y a un problème avec l'identifiant",
-        identifierNotUnique: "L'identifiant n'est pas unique",
-        identifierNotValid: "L'identifiant n'est pas valide",
-        identifierNotValidForEntity: "L'identifiant n'est pas valide pour l'entité",
-        identifierHelpMsg: "S'il vous plaît vérifier les champs : {fields}"
+        identifier: 'Il y a un problème avec l\'identifiant',
+        identifierNotUnique: 'L\'identifiant n\'est pas unique',
+        identifierNotValid: 'L\'identifiant n\'est pas valide',
+        identifierNotValidForEntity: 'L\'identifiant n\'est pas valide pour l\'entité',
+        identifierHelpMsg: 'S\'il vous plaît vérifier les champs : {fields}',
       },
       Operator: {
         equalTo: 'Égal',
@@ -36,10 +36,10 @@ export default {
         startsWith: 'Commence par',
         endsWith: 'Finit par',
         isNull: 'Est nul',
-        isNotNull: "N'est pas nul",
+        isNotNull: 'N\'est pas nul',
         and: 'Et',
         or: 'Ou',
-        not: "Non"
+        not: 'Non',
       },
       caseSensitive: 'Sensible à la casse',
       Rule: {
@@ -52,16 +52,16 @@ export default {
         name: 'Nom de la règle',
         description: 'Description de la règle',
         condition: 'Condition',
-        creation: "Création de la règle"
+        creation: 'Création de la règle',
       },
       Form: {
-        nameError: "Le nom est obligatoire, il doit contenir {min} caractères minimum"
+        nameError: 'Le nom est obligatoire, il doit contenir {min} caractères minimum',
       },
       male: 'Homme',
       female: 'Femme',
       other: 'Autre',
       yes: 'Oui',
-      no: "Non"
+      no: 'Non',
     },
     en: {
       Error: {
@@ -71,7 +71,7 @@ export default {
         identifierNotUnique: 'The identifier is not unique',
         identifierNotValid: 'The identifier is not valid',
         identifierNotValidForEntity: 'The identifier is not valid for the entity',
-        identifierHelpMsg: "Please check the fields : {fields}"
+        identifierHelpMsg: 'Please check the fields : {fields}',
       },
       Operator: {
         equalTo: 'Equal',
@@ -99,29 +99,29 @@ export default {
         isNotNull: 'Is not null',
         and: 'And',
         or: 'Or',
-        not: "Not"
+        not: 'Not',
       },
       caseSensitive: 'Case sensitive',
       Rule: {
-        select: "Select a rule",
-        selectId: "Select an identifier",
-        add: "Add a rule",
-        remove: "Remove the rule",
-        addGroup: "Add a group",
-        removeGroup: "Remove the group",
-        name: "Rule name",
-        description: "Rule description",
-        condition: "Condition",
-        creation: "Rule Creation"
+        select: 'Select a rule',
+        selectId: 'Select an identifier',
+        add: 'Add a rule',
+        remove: 'Remove the rule',
+        addGroup: 'Add a group',
+        removeGroup: 'Remove the group',
+        name: 'Rule name',
+        description: 'Rule description',
+        condition: 'Condition',
+        creation: 'Rule Creation',
       },
       Form: {
-        nameError: "The name is required, it must contain {min} characters minimum"
+        nameError: 'The name is required, it must contain {min} characters minimum',
       },
-      male: "Male",
-      female: "Female",
-      other: "Other",
-      yes: "Yes",
-      no: "No"
-    }
-  }
-}
+      male: 'Male',
+      female: 'Female',
+      other: 'Other',
+      yes: 'Yes',
+      no: 'No',
+    },
+  },
+};

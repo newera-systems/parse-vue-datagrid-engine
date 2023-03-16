@@ -11,33 +11,33 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent, PropType } from "vue";
-import { BDropdown, BDropdownItem } from "bootstrap-vue";
-import { EngineSubOperators } from "@/datagrid-bvue";
-import VueI18n from "vue-i18n";
-import filterTranslate from "@/translation/filter";
+import Vue, { defineComponent, PropType } from 'vue';
+import { BDropdown, BDropdownItem } from 'bootstrap-vue';
+import { EngineSubOperators } from '@/datagrid-bvue';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: "OperatorSelectorDropdown",
+  name: 'OperatorSelectorDropdown',
   i18n: new VueI18n(filterTranslate),
   components: {
     BDropdown,
-    BDropdownItem
+    BDropdownItem,
   },
   props: {
     value: {
       type: String as PropType<EngineSubOperators>,
-      default: null
+      default: null,
     },
     options: {
       type: Array as PropType<EngineSubOperators[]>,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
-      operator: null as unknown as EngineSubOperators
+      operator: null as unknown as EngineSubOperators,
     };
   },
   mounted() {
@@ -49,7 +49,7 @@ export default defineComponent({
     },
     setOperation(index: number) {
       this.operator = this.options[index];
-      this.$emit("input", this.operator);
+      this.$emit('input', this.operator);
     },
     getTranslation(key: string, force = false): string {
       // @ts-expect-error DataGrid defined when using plugin
@@ -64,12 +64,12 @@ export default defineComponent({
         return key;
       }
       return t;
-    }
+    },
   },
   watch: {
     value() {
       this.update();
-    }
-  }
-})
+    },
+  },
+});
 </script>

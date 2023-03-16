@@ -1,12 +1,12 @@
-import { defineComponent, type PropType } from "vue";
-import Paginator from "@components/Paginator.vue";
+import { defineComponent, type PropType } from 'vue';
+import Paginator from '@components/Paginator.vue';
 import {
   type DataGridProviderFunction,
   type DataGridProviderPromiseResult,
   type FilterRuleInterface,
   type GridEntityItem,
-  type ProviderContext
-} from "@/datagrid-bvue";
+  type ProviderContext,
+} from '@/datagrid-bvue';
 
 export default defineComponent({
   components: { Paginator },
@@ -15,12 +15,12 @@ export default defineComponent({
       type: [Array, Function, Promise] as PropType<
         GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult
       >,
-      required: true
+      required: true,
     },
     paginationEntries: {
       type: Number,
-      default: () => 0
-    }
+      default: () => 0,
+    },
   },
   data() {
     const context: ProviderContext = {
@@ -29,14 +29,14 @@ export default defineComponent({
       withFilter: false,
       sortBy: null as unknown as string,
       sortDesc: true,
-      FilterRule: null as unknown as FilterRuleInterface
+      FilterRule: null as unknown as FilterRuleInterface,
     };
     return {
       context,
       perPageOptions: [5, 10, 25, 50, 100],
       localItems: [] as GridEntityItem[],
-      localEntries: 0
-    }
+      localEntries: 0,
+    };
   },
   computed: {
     paginatedItems(): GridEntityItem[] {
@@ -46,7 +46,7 @@ export default defineComponent({
         return this.localItems.slice(begin, end);
       }
       return this.localItems.slice(0, this.context.perPage);
-    }
+    },
   },
   watch: {
     localItems: {
@@ -57,13 +57,13 @@ export default defineComponent({
         } else {
           this.localEntries = newValue.length ?? 0;
         }
-      }
-    }
+      },
+    },
   },
   methods: {
     onFiltered(filteredItems: any[]): void {
       this.localEntries = filteredItems.length;
       this.context.currentPage = 1;
-    }
-  }
-})
+    },
+  },
+});

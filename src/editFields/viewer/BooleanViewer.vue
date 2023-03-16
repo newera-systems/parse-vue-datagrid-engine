@@ -24,53 +24,53 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { BFormCheckbox, BIconDashCircle, BIconQuestionOctagonFill } from "bootstrap-vue";
-import { FieldDefinition, GridEntityItem } from "@/datagrid-bvue";
+import { defineComponent, PropType } from 'vue';
+import { BFormCheckbox, BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
 
 export default defineComponent({
   components: {
     BFormCheckbox,
     BIconQuestionOctagonFill,
-    BIconDashCircle
+    BIconDashCircle,
   },
   props: {
     item: {
       type: Object as PropType<GridEntityItem>,
-      required: true
+      required: true,
     },
     rawValue: {
       type: [String, Number, Boolean, Object] as PropType<
         string | boolean | number | unknown | null | undefined
-      >
+      >,
     },
     field: {
       type: Object as PropType<FieldDefinition>,
-      required: true
+      required: true,
     },
     writable: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       visibleData: null as unknown as boolean,
       error: false,
-      isNull: false
+      isNull: false,
     };
   },
   mounted() {
-    if (typeof this.rawValue === "undefined") {
+    if (typeof this.rawValue === 'undefined') {
       this.error = true;
       this.visibleData = false;
     } else if (this.rawValue === null) {
       this.visibleData = false;
       this.isNull = true;
     } else this.visibleData = this.rawValue === true;
-  }
-})
+  },
+});
 </script>
 
 <style lang="scss" scoped>
