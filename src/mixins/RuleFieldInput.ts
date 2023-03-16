@@ -1,6 +1,11 @@
 import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 import { defineComponent, type PropType } from 'vue';
-import { type EngineRuleData, EngineSubOperators, SimpleRuleType, StringOperatorOptions } from '@/datagrid-bvue';
+import {
+  type EngineRuleData,
+  EngineSubOperators,
+  SimpleRuleType,
+  StringOperatorOptions,
+} from '@/datagrid-bvue';
 
 export default defineComponent({
   components: {

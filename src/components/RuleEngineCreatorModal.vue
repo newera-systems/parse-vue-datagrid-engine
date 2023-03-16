@@ -152,7 +152,11 @@ import {
   IDataGridPrototype,
   RuleActions,
 } from '@/datagrid-bvue';
-import QueryBuilder, { OperatorDefinition, QueryBuilderConfig, RuleDefinition } from 'query-builder-vue';
+import QueryBuilder, {
+  OperatorDefinition,
+  QueryBuilderConfig,
+  RuleDefinition,
+} from 'query-builder-vue';
 import { RuleEngineConfig } from '@/rule/RuleElementCreator';
 import GroupOperatorSlot from '@components/builder/GroupOperatorSlot.vue';
 import GroupCtrlSlot from '@components/builder/GroupCtrlSlot.vue';

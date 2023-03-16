@@ -19,7 +19,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { BFormGroup, BInputGroup, BInputGroupPrepend } from 'bootstrap-vue';
-import { BooleanOperatorOptions, EngineRuleData, EngineSubOperators, SimpleRuleType } from '@/datagrid-bvue';
+import {
+  BooleanOperatorOptions,
+  EngineRuleData,
+  EngineSubOperators,
+  SimpleRuleType,
+} from '@/datagrid-bvue';
 import fieldInput from '@/mixins/RuleFieldInput';
 import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 

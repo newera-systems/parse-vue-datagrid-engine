@@ -27,7 +27,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { DataGridModifiedCell, FieldDefinitionWithExtra, FieldType, ProviderContext } from '../../src/datagrid-bvue';
+import {
+  DataGridModifiedCell,
+  FieldDefinitionWithExtra,
+  FieldType,
+  ProviderContext,
+} from '../../src/datagrid-bvue';
 
 const defaultConfig = {
   canView: true,

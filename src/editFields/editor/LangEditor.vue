@@ -41,7 +41,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { BButton, BButtonGroup, BDropdown, BDropdownItem, BIconCheckSquare, BIconX } from 'bootstrap-vue';
+import {
+  BButton,
+  BButtonGroup,
+  BDropdown,
+  BDropdownItem,
+  BIconCheckSquare,
+  BIconX,
+} from 'bootstrap-vue';
 import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
 import { LocaleInterface, LOCALES } from '@/fieldsData';
 
