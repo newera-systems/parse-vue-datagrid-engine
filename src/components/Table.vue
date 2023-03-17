@@ -34,11 +34,7 @@
           >
             <BIconFunnel :class="hasARuleInFilter ? 'text-danger' : ''" width="24" />
           </b-button>
-          <b-button
-            id="RefreshButtonDataGrid"
-            variant="outline-primary"
-            @click="_updatedContext"
-          >
+          <b-button id="RefreshButtonDataGrid" variant="outline-primary" @click="_updatedContext">
             <BIconArrowClockwise width="24" />
           </b-button>
           <b-button id="data-grid-toolbox-button" variant="outline-primary">
@@ -59,13 +55,13 @@
         :footClone="footClone"
         :headVariant="headVariant"
         :hover="hover"
-        v-bind:items="paginatedItems"
+        :items="paginatedItems"
         :noCollapse="noCollapse"
         :outlined="outlined"
         :responsive="responsive"
         :small="small"
-        v-bind:sort-by="context.sortBy"
-        v-bind:sort-desc="context.sortDesc"
+        :sort-by="context.sortBy"
+        :sort-desc="context.sortDesc"
         :striped="striped"
         primary-key="id"
         show-empty
@@ -115,7 +111,7 @@
 
 <script lang="ts">
 import Vue, { Component, defineComponent, PropType } from 'vue';
-import Paginator from '@components/Paginator.vue';
+import Paginator from '@components/DataGridPaginator.vue';
 import {
   BButton,
   BButtonGroup,

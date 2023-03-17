@@ -1,5 +1,5 @@
 import { defineComponent, type PropType } from 'vue';
-import Paginator from '@components/Paginator.vue';
+import Paginator from '@components/DataGridPaginator.vue';
 import {
   type DataGridProviderFunction,
   type DataGridProviderPromiseResult,

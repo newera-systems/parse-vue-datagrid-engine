@@ -49,12 +49,8 @@ export default defineComponent({
     BIconChevronRight,
     BPagination,
   },
-  model: {
-    event: 'change',
-    prop: 'currentPage',
-  },
   props: {
-    currentPage: {
+    value: {
       type: Number,
       default: () => 1,
       required: true,
@@ -92,20 +88,15 @@ export default defineComponent({
   },
   methods: {
     update() {
-      this.currentPageNumber = this.currentPage;
+      this.currentPageNumber = this.value;
       this.entriesNumber = this.entries;
       this.perPageNumber = this.perPage;
     },
   },
   watch: {
     currentPageNumber() {
-      if (this.currentPageNumber !== this.currentPage) {
-        this.$emit('change', this.currentPageNumber);
-      }
-    },
-    currentPage(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.update();
+      if (this.currentPageNumber !== this.value) {
+        this.$emit('input', this.currentPageNumber);
       }
     },
     entries(newValue, oldValue) {
