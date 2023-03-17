@@ -42,7 +42,6 @@ import { defineComponent } from 'vue';
 import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
 
 export default defineComponent({
-  name: 'DataGridPagePaginator',
   components: {
     BCol,
     BRow,
@@ -104,14 +103,20 @@ export default defineComponent({
         this.$emit('change', this.currentPageNumber);
       }
     },
-    currentPage() {
-      this.update();
+    currentPage(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.update();
+      }
     },
-    entries() {
-      this.update();
+    entries(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.update();
+      }
     },
-    perPage() {
-      this.update();
+    perPage(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.update();
+      }
     },
   },
 });
