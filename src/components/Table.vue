@@ -111,7 +111,6 @@
 
 <script lang="ts">
 import Vue, { Component, defineComponent, PropType } from 'vue';
-import DataGridPaginator from '@components/DataGridPaginator.vue';
 import {
   BButton,
   BButtonGroup,
@@ -176,7 +175,6 @@ export default defineComponent({
     BIconFunnel,
     BIconArrowClockwise,
     BIconGearWideConnected,
-    DataGridPaginator,
     BPopover,
     ToolbarConfig,
   },
