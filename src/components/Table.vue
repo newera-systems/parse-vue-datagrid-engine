@@ -37,7 +37,7 @@
           <b-button
             id="RefreshButtonDataGrid"
             variant="outline-primary"
-            @click="() => _updatedContext()"
+            @click="_updatedContext"
           >
             <BIconArrowClockwise width="24" />
           </b-button>
@@ -221,20 +221,21 @@ export default defineComponent({
     },
   },
   data() {
+    const context: ProviderContext = {
+      currentPage: 1,
+      perPage: 25,
+      withFilter: this.showFilter,
+      sortBy: null as unknown as string,
+      sortDesc: true,
+      FilterRule: null as unknown as FilterRuleInterface,
+    };
     return {
       localBusy: true,
       localItems: [] as Array<GridEntityItem>,
       localFieldsDef: [] as FieldDefinition[],
       localModificationHandler: defaultModificationHandler as ModificationHandler,
       cellKeyRemount: 1,
-      context: {
-        currentPage: 1,
-        perPage: 25,
-        sortBy: null as unknown as string,
-        sortDesc: true,
-        withFilter: this.showFilter,
-        FilterRule: null as FilterRuleInterface | null,
-      } as ProviderContext,
+      context,
       perPageOptions: [5, 10, 25, 50, 100],
       localEntries: 0,
     };
