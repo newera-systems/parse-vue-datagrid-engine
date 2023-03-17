@@ -1,21 +1,15 @@
 import { defineComponent, type PropType } from 'vue';
 import {
-  type DataGridProviderFunction,
-  type DataGridProviderPromiseResult,
   type FieldDefinition,
   type FieldDefinitionWithExtra,
   FieldType,
   type GridEntityItem,
 } from '@/datagrid-bvue';
+// @ts-expect-error - lodash is not a module
+import _ from 'lodash';
 
 export default defineComponent({
   props: {
-    items: {
-      type: [Array, Function, Promise] as PropType<
-        GridEntityItem[] | DataGridProviderFunction | DataGridProviderPromiseResult
-      >,
-      required: true,
-    },
     fields: {
       type: Array as PropType<FieldDefinitionWithExtra[]>,
       default: () => [],
@@ -38,20 +32,21 @@ export default defineComponent({
   },
   watch: {
     fields: {
+      immediate: true,
       deep: true,
-      handler() {
-        this.$nextTick(this._fieldsUpdate);
+      handler(newValue, oldValue) {
+        if (!_.isEqual(newValue, oldValue)) {
+          this._fieldsUpdate();
+        }
       },
     },
     localItems: {
-      deep: true,
-      handler() {
-        this.$nextTick(this._fieldsUpdate);
+      handler(newVal: GridEntityItem[], oldVal: GridEntityItem[]) {
+        if (!_.isEqual(newVal, oldVal)) {
+          this._fieldsUpdate();
+        }
       },
     },
-  },
-  beforeMount() {
-    this._fieldsUpdate();
   },
   methods: {
     _setLocalFieldsDefinition(definitions: FieldDefinition[]) {
@@ -150,7 +145,8 @@ export default defineComponent({
         (acc, entity) => {
           const fields = this._constructAdaptedFields(entity);
           const toAdd = fields.filter(
-            field => acc.find((f: FieldDefinition) => f.identifier === field.identifier) == null
+            field =>
+              acc.find((f: FieldDefinition) => f.identifier === field.identifier) === undefined
           );
           return [...acc, ...toAdd];
         },
@@ -164,7 +160,7 @@ export default defineComponent({
     _checkExistingFields(fields: FieldDefinition[]) {
       const existingFields: string[] = [];
 
-      if (!Array.isArray(this.localItems)) {
+      if (this.localItems.length === 0) {
         this.existingFields = fields.map(field => field.identifier);
         return;
       }
@@ -194,16 +190,13 @@ export default defineComponent({
       this.existingFields = existingFields;
     },
     _fieldsUpdate() {
-      if (!Array.isArray(this.localItems)) {
-        return;
-      }
       if (this.hasFieldsOption) {
         this._checkExistingFields(this.fields);
         this._setLocalFieldsDefinition([...this.fields]);
-        return;
+      } else {
+        const fields = this._fieldsInspector();
+        this._setLocalFieldsDefinition(fields);
       }
-      const fields = this._fieldsInspector();
-      this._setLocalFieldsDefinition(fields);
     },
   },
 });

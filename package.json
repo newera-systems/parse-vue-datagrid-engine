@@ -52,6 +52,7 @@
     "bootstrap-vue": "^2.23.1",
     "dayjs": "^1.11.6",
     "flag-icons": "^6.6.6",
+    "lodash": "^4.17.21",
     "query-builder-vue": "^1.2.0",
     "ts-money": "^0.4.8",
     "vue-i18n": "^8",
@@ -61,6 +62,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.7",
     "@types/jest": "^29.2.3",
+    "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.9",
     "@types/vue-select": "^3.16.2",
     "@typescript-eslint/eslint-plugin": "^5.43.0",

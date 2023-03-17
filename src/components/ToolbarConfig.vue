@@ -10,9 +10,9 @@
           </tr>
         </thead>
         <draggable v-model="fieldsUpdated" class="cursor-move" tag="tbody">
-          <tr v-for="(field, index) in fieldsUpdated" :key="field.identifier">
+          <tr v-for="field in fieldsUpdated" :key="field.identifier" class="draggable-row">
             <template v-if="field.config.canView && existingFields.includes(field.identifier)">
-              <td>{{ index }}</td>
+              <td><BIconGripVertical /></td>
               <td>{{ getTranslation(field.name) }}</td>
               <td>
                 <b-form-checkbox v-model="field.config.canRead" class="custom-control-secondary" />
@@ -70,9 +70,11 @@
 import Vue, { defineComponent, PropType } from 'vue';
 import draggable from 'vuedraggable';
 import { FieldDefinition } from '@/datagrid-bvue';
-import { BFormCheckbox, BTab, BTabs } from 'bootstrap-vue';
+import { BFormCheckbox, BTab, BTabs, BIconGripVertical } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import tableTranslate from '@/translation/table';
+// @ts-expect-error - lodash is not a module
+import _ from 'lodash';
 
 Vue.use(VueI18n);
 export default defineComponent({
@@ -80,6 +82,7 @@ export default defineComponent({
   i18n: new VueI18n(tableTranslate),
   components: {
     draggable,
+    BIconGripVertical,
     BTabs,
     BTab,
     BFormCheckbox,
@@ -98,11 +101,8 @@ export default defineComponent({
   },
   data() {
     return {
-      fieldsUpdated: [] as FieldDefinition[],
+      fieldsUpdated: [...this.value],
     };
-  },
-  beforeMount() {
-    this.fieldsUpdated = this.value;
   },
   methods: {
     update() {
@@ -123,6 +123,21 @@ export default defineComponent({
         this.update();
       },
     },
+    value: {
+      deep: true,
+      immediate: true,
+      handler(newValue) {
+        if (!_.isEqual(newValue, this.fieldsUpdated)) {
+          this.fieldsUpdated = [...newValue];
+        }
+      },
+    },
   },
 });
 </script>
+
+<style scoped>
+.draggable-row:hover {
+  cursor: grab;
+}
+</style>

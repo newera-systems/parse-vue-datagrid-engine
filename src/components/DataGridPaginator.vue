@@ -40,6 +40,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
+// @ts-expect-error - lodash is not a module
+import _ from 'lodash';
 
 export default defineComponent({
   components: {
@@ -71,9 +73,6 @@ export default defineComponent({
       perPageNumber: this.perPage,
     };
   },
-  mounted() {
-    this.update();
-  },
   computed: {
     startingIndex(): number {
       return this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1);
@@ -86,22 +85,30 @@ export default defineComponent({
       return maxEnd;
     },
   },
-  methods: {
-    update() {
-      this.currentPageNumber = this.value;
-      this.entriesNumber = this.entries;
-      this.perPageNumber = this.perPage;
-    },
-  },
   watch: {
-    currentPageNumber() {
-      if (this.currentPageNumber !== this.value) {
-        this.$emit('input', this.currentPageNumber);
+    currentPageNumber(newValue) {
+      if (!_.isEqual(newValue, this.value)) {
+        this.$emit('input', newValue);
       }
     },
     perPageNumber(newValue) {
-      if (this.perPageNumber !== this.perPage) {
-        this.$emit("update:perPage", newValue);
+      if (!_.isEqual(this.perPage, newValue)) {
+        this.$emit('update:perPage', newValue);
+      }
+    },
+    value(newValue) {
+      if (!_.isEqual(this.currentPageNumber, newValue)) {
+        this.currentPageNumber = newValue;
+      }
+    },
+    entries(newValue) {
+      if (!_.isEqual(this.entriesNumber, newValue)) {
+        this.entriesNumber = newValue;
+      }
+    },
+    perPage(newValue) {
+      if (!_.isEqual(this.perPageNumber, newValue)) {
+        this.perPageNumber = newValue;
       }
     },
   },

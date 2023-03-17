@@ -17,10 +17,6 @@ export default defineComponent({
       >,
       required: true,
     },
-    paginationEntries: {
-      type: Number,
-      default: () => 0,
-    },
   },
   data() {
     const context: ProviderContext = {
@@ -35,34 +31,25 @@ export default defineComponent({
       context,
       perPageOptions: [5, 10, 25, 50, 100],
       localItems: [] as GridEntityItem[],
-      localEntries: 0,
+      localTotalEntries: 0,
     };
   },
   computed: {
     paginatedItems(): GridEntityItem[] {
-      if (Array.isArray(this.items)) {
-        const begin = (this.context.currentPage - 1) * this.context.perPage;
-        const end = this.context.currentPage * this.context.perPage;
+      if (typeof this.items !== 'function') {
+        const begin = this.context.currentPage * this.context.perPage - (this.context.perPage - 1);
+        let end = this.context.currentPage * this.context.perPage;
+        if (end > this.localItems.length) {
+          end = this.localItems.length;
+        }
         return this.localItems.slice(begin, end);
       }
       return this.localItems.slice(0, this.context.perPage);
     },
   },
-  watch: {
-    localItems: {
-      deep: true,
-      handler(newValue: GridEntityItem[]) {
-        if (this.paginationEntries > 0 && !Array.isArray(this.items)) {
-          this.localEntries = this.paginationEntries;
-        } else {
-          this.localEntries = newValue.length ?? 0;
-        }
-      },
-    },
-  },
   methods: {
     onFiltered(filteredItems: any[]): void {
-      this.localEntries = filteredItems.length;
+      this.localTotalEntries = filteredItems.length;
       this.context.currentPage = 1;
     },
   },

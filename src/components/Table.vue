@@ -68,7 +68,7 @@
       >
         <template #cell()="data">
           <template v-if="data.field.key === '#action'">
-            <slot :index="data.index" :item="localItems[data.index]" name="action" />
+            <slot :index="data.index" :item="paginatedItems[data.index]" name="action" />
           </template>
           <template v-else-if="data.field.key === 'id'">
             <b-button
@@ -82,7 +82,6 @@
           </template>
           <EditableCells
             v-else
-            :key="cellKeyRemount"
             :editor-config="editorConfig"
             :field="_getFieldDefinition(data.field.key)"
             :item="data.item"
@@ -94,7 +93,7 @@
       </b-table>
       <DataGridPaginator
         v-model="context.currentPage"
-        :entries="localEntries"
+        :entries="localTotalEntries"
         :per-page.sync="context.perPage"
       />
       <b-popover
@@ -130,8 +129,6 @@ import {
 import ToolbarConfig from '@components/ToolbarConfig.vue';
 import {
   DataGridModifiedCell,
-  DataGridProviderFunction,
-  DataGridProviderPromiseResult,
   FieldDefinition,
   FieldType,
   FilterRuleInterface,
@@ -188,16 +185,6 @@ export default defineComponent({
       type: String,
       default: () => '',
     },
-    items: {
-      type: [Array, Function, Promise] as PropType<
-        Array<GridEntityItem> | DataGridProviderFunction | DataGridProviderPromiseResult
-      >,
-      required: true,
-    },
-    paginationEntries: {
-      type: Number,
-      default: 0,
-    },
     modificationHandler: {
       type: Function as PropType<ModificationHandler>,
     },
@@ -224,14 +211,8 @@ export default defineComponent({
       FilterRule: null as unknown as FilterRuleInterface,
     };
     return {
-      localBusy: true,
-      localItems: [] as Array<GridEntityItem>,
-      localFieldsDef: [] as FieldDefinition[],
       localModificationHandler: defaultModificationHandler as ModificationHandler,
-      cellKeyRemount: 1,
       context,
-      perPageOptions: [5, 10, 25, 50, 100],
-      localEntries: 0,
     };
   },
   mounted() {
@@ -336,7 +317,7 @@ export default defineComponent({
     },
     // when the provider is a function, we need to call it to update the data
     _updatedContext() {
-      if (this.hasProviderFunction) {
+      if (typeof this.items === 'function') {
         this._providerUpdate();
       }
     },
