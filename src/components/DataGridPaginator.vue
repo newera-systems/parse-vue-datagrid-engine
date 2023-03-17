@@ -66,9 +66,9 @@ export default defineComponent({
   },
   data() {
     return {
-      currentPageNumber: 1,
-      entriesNumber: 1,
-      perPageNumber: 1,
+      currentPageNumber: this.value,
+      entriesNumber: this.entries,
+      perPageNumber: this.perPage,
     };
   },
   mounted() {
@@ -99,14 +99,9 @@ export default defineComponent({
         this.$emit('input', this.currentPageNumber);
       }
     },
-    entries(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.update();
-      }
-    },
-    perPage(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.update();
+    perPageNumber(newValue) {
+      if (this.perPageNumber !== this.perPage) {
+        this.$emit("update:perPage", newValue);
       }
     },
   },

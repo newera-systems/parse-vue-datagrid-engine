@@ -92,10 +92,10 @@
           />
         </template>
       </b-table>
-      <paginator
+      <DataGridPaginator
         v-model="context.currentPage"
         :entries="localEntries"
-        :per-page="context.perPage"
+        :per-page.sync="context.perPage"
       />
       <b-popover
         custom-class="table-config-popover"
@@ -111,7 +111,7 @@
 
 <script lang="ts">
 import Vue, { Component, defineComponent, PropType } from 'vue';
-import Paginator from '@components/DataGridPaginator.vue';
+import DataGridPaginator from '@components/DataGridPaginator.vue';
 import {
   BButton,
   BButtonGroup,
@@ -176,7 +176,7 @@ export default defineComponent({
     BIconFunnel,
     BIconArrowClockwise,
     BIconGearWideConnected,
-    Paginator,
+    DataGridPaginator,
     BPopover,
     ToolbarConfig,
   },
