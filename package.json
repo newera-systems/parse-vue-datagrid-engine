@@ -4,9 +4,9 @@
   "description": "DataGrid based on bootstrap vue",
   "keywords": [
     "datagrid",
-    "bootstrap",
-    "vue",
-    "vuejs",
+    "Bootstrap v4",
+    "Bootstrap for Vue",
+    "Vue",
     "table"
   ],
   "author": "NewEra Systems",
@@ -28,7 +28,7 @@
   "main": "./dist/datagrid-bvue.umd.cjs",
   "module": "./dist/datagrid-bvue.js",
   "types": "./dist/datagrid-bvue.d.ts",
-  "typings": "./dist/datagrid-bvue.d.ts",
+  "style": "./dist/style.css",
   "exports": {
     ".": {
       "types": "./dist/datagrid-bvue.d.ts",
@@ -37,7 +37,6 @@
     },
     "./package.json": "./package.json"
   },
-  "style": "./dist/style.css",
   "files": [
     "dist",
     "src",
