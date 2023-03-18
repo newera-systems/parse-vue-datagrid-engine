@@ -40,7 +40,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
-// @ts-expect-error - lodash is not a module
 import _ from 'lodash';
 
 export default defineComponent({

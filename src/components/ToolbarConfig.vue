@@ -73,7 +73,6 @@ import { FieldDefinition } from '@/datagrid-bvue';
 import { BFormCheckbox, BTab, BTabs, BIconGripVertical } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import tableTranslate from '@/translation/table';
-// @ts-expect-error - lodash is not a module
 import _ from 'lodash';
 
 Vue.use(VueI18n);
