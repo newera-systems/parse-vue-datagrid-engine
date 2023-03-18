@@ -5,7 +5,6 @@ import {
   FieldType,
   type GridEntityItem,
 } from '@/datagrid-bvue';
-// @ts-expect-error - lodash is not a module
 import _ from 'lodash';
 
 export default defineComponent({
