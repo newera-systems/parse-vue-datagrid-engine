@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { mount } from '@vue/test-utils';
-import Paginator from '@/components/Paginator.vue';
+import Paginator from '@/components/DataGridPaginator.vue';
 import { waitNextTick } from '../utils';
 import { Component } from 'vue';
 import Table from '@components/Table.vue';
@@ -14,7 +14,7 @@ describe('Table', () => {
         const TestedComponent: Component = Paginator;
         const wrapper = mount(TestedComponent, {
           propsData: {
-            currentPage: 1,
+            value: 1,
             perPage: 25,
             entries: 13,
           },
@@ -30,7 +30,7 @@ describe('Table', () => {
         const TestedComponent: Component = Paginator;
         const wrapper = mount(TestedComponent, {
           propsData: {
-            currentPage: 3,
+            value: 3,
             perPage: 27,
             entries: 1134,
           },
@@ -46,7 +46,7 @@ describe('Table', () => {
         const TestedComponent: Component = Paginator;
         const wrapper = mount(TestedComponent, {
           propsData: {
-            currentPage: 13,
+            value: 13,
             perPage: 3,
             entries: 1134,
           },

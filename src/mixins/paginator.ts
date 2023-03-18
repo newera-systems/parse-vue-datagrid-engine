@@ -37,7 +37,7 @@ export default defineComponent({
   computed: {
     paginatedItems(): GridEntityItem[] {
       if (typeof this.items !== 'function') {
-        const begin = this.context.currentPage * this.context.perPage - (this.context.perPage - 1);
+        const begin = (this.context.currentPage - 1) * this.context.perPage;
         let end = this.context.currentPage * this.context.perPage;
         if (end > this.localItems.length) {
           end = this.localItems.length;
