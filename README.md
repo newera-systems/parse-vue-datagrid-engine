@@ -61,6 +61,8 @@ yarn add yarn add https://github.com/newera-systems/parse-vue-datagrid-engine.gi
 ```
 
 ```typescript
+// Importing styles
+import 'datagrid-bvue/style.css';
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

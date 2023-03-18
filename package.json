@@ -35,6 +35,8 @@
       "import": "./dist/datagrid-bvue.js",
       "require": "./dist/datagrid-bvue.umd.cjs"
     },
+    "./style.css": "./dist/style.css",
+    "./dist/style.css": "./dist/style.css",
     "./package.json": "./package.json"
   },
   "files": [
