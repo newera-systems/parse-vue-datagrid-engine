@@ -1,19 +1,17 @@
 <template>
   <div class="d-cell-viewer-language">
     <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">null</small>
       <BIconDashCircle variant="info" />
     </span>
     <div v-else class="d-inline-flex">
@@ -26,22 +24,15 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {
-  BIconDashCircle,
-  BIconLock,
-  BIconPen,
-  BIconQuestionOctagonFill,
-} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
-import {LocaleInterface, LOCALES} from '@/fieldsData'
+import { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import { LocaleInterface, LOCALES } from '@/fieldsData';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
-    BIconPen,
-    BIconLock,
   },
   props: {
     item: {
@@ -70,22 +61,27 @@ export default Vue.extend({
       lang: Array.from(LOCALES.values())[0],
       error: false,
       isNull: false,
-    }
+      verbose: false,
+    };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = 'undefined'
+      this.error = true;
+      this.visibleData = '';
     } else if (this.rawValue === null) {
-      this.visibleData = 'null'
-      this.isNull = true
+      this.visibleData = '';
+      this.isNull = true;
     } else if (typeof this.rawValue !== 'string') {
-      this.visibleData = this.rawValue?.toString() ?? ''
-      this.error = this.visibleData.length === 0
+      this.visibleData = this.rawValue?.toString() ?? '';
+      this.error = this.visibleData.length === 0;
     } else {
-      this.visibleData = String(this.rawValue?.toString().trim())
+      this.visibleData = String(this.rawValue?.toString().trim());
     }
-    this.setLang()
+    this.setLang();
   },
   methods: {
     setLang() {
@@ -96,10 +92,10 @@ export default Vue.extend({
         name: this.visibleData,
         code: 'xx',
         value: this.visibleData,
-      }
+      };
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,9 +1,5 @@
 <template>
-  <b-dropdown
-    :text="getOperatorTranslation(operator)"
-    right
-    variant="outline-primary"
-  >
+  <b-dropdown :text="getOperatorTranslation(operator)" right variant="outline-primary">
     <b-dropdown-item
       v-for="(op, index) of options"
       :key="`op-${index}`"
@@ -15,14 +11,15 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BDropdown, BDropdownItem} from 'bootstrap-vue'
-import {EngineSubOperators} from '@/index'
-import VueI18n from 'vue-i18n'
-import filterTranslate from '@/translation/filter'
+import Vue, { defineComponent, PropType } from 'vue';
+import { BDropdown, BDropdownItem } from 'bootstrap-vue';
+import { EngineSubOperators } from '@/datagrid-bvue';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
 
-Vue.use(VueI18n)
-export default Vue.extend({
+Vue.use(VueI18n);
+export default defineComponent({
+  name: 'OperatorSelectorDropdown',
   i18n: new VueI18n(filterTranslate),
   components: {
     BDropdown,
@@ -35,44 +32,44 @@ export default Vue.extend({
     },
     options: {
       type: Array as PropType<EngineSubOperators[]>,
-      default: [],
+      default: () => [],
     },
   },
   data() {
     return {
       operator: null as unknown as EngineSubOperators,
-    }
+    };
   },
   mounted() {
-    this.update()
+    this.update();
   },
   methods: {
     update() {
-      this.operator = this.value
+      this.operator = this.value;
     },
     setOperation(index: number) {
-      this.operator = this.options[index]
-      this.$emit('input', this.operator)
+      this.operator = this.options[index];
+      this.$emit('input', this.operator);
     },
     getTranslation(key: string, force = false): string {
       // @ts-expect-error DataGrid defined when using plugin
       if (this?.$DataGrid?.i18n || force) {
-        return this.$t(key).toString() ?? key
+        return this.$t(key).toString() ?? key;
       }
-      return key
+      return key;
     },
     getOperatorTranslation(key: EngineSubOperators): string {
-      const t = this.getTranslation(`Operator.${key}`, true)
+      const t = this.getTranslation(`Operator.${key}`, true);
       if (t === `Operator.${key}`) {
-        return key
+        return key;
       }
-      return t
+      return t;
     },
   },
   watch: {
     value() {
-      this.update()
+      this.update();
     },
   },
-})
+});
 </script>

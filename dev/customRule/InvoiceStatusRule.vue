@@ -10,36 +10,20 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
+import { defineComponent } from 'vue';
 import {
   EngineSubOperators,
-  StringOperatorOptions,
   FieldInputMixin,
-} from '../../src'
-import {
-  BFormGroup,
-  BFormInput,
-  BFormSelect,
-  BInputGroup,
-  BInputGroupAppend,
-  BInputGroupPrepend,
-} from 'bootstrap-vue'
+  StringOperatorOptions,
+} from '../../src/datagrid-bvue';
+import { InvoiceStatus } from '../customFields/InvoiceStatusViewer.vue';
+import { BFormGroup, BFormSelect, BInputGroup, BInputGroupPrepend } from 'bootstrap-vue';
 
-export enum InvoiceStatus {
-  NONE = '',
-  AWAITING_PAYMENT = 'awaiting_payment',
-  COMPLETED = 'completed',
-  CANCELLED_REFUNDED = 'cancelled_refunded',
-}
-
-export default Vue.extend({
+export default defineComponent({
   mixins: [FieldInputMixin],
   components: {
     BFormGroup,
-    BFormInput,
     BInputGroup,
-    BInputGroupAppend,
     BInputGroupPrepend,
     BFormSelect,
   },
@@ -49,9 +33,9 @@ export default Vue.extend({
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
       options: Object.values(InvoiceStatus),
-    }
+    };
   },
-})
+});
 </script>
 
 <style lang="scss" scoped></style>

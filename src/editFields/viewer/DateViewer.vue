@@ -1,16 +1,14 @@
 <template>
   <div class="d-cell-viewer-date">
     <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">null</small> <BIconDashCircle variant="info" />
@@ -22,15 +20,15 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BIconDashCircle, BIconQuestionOctagonFill} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
-import dayjs, {Dayjs} from 'dayjs'
-import calendar from 'dayjs/plugin/calendar'
+import { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import dayjs, { Dayjs } from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
 
-dayjs.extend(calendar)
+dayjs.extend(calendar);
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -58,31 +56,39 @@ export default Vue.extend({
   data() {
     return {
       visibleData: null as unknown as dayjs.Dayjs,
+      verbose: false,
       isNull: false,
       error: false,
-    }
+    };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.isNull = true
+      this.isNull = true;
     } else {
-      this.visibleData = dayjs(this.rawValue)
+      this.visibleData = dayjs(this.rawValue);
     }
   },
   methods: {
     displayDate(): string {
+      if (this.error || this.isNull) {
+        return '';
+      }
       // @ts-expect-error DataGrid is  set by plugin config
       if (this.$DataGrid.calendarTime) {
-        return this.visibleData?.calendar()
+        return this.visibleData?.calendar();
       } else {
         // @ts-expect-error DataGrid is  set by plugin config
-        return this.visibleData.format(this.$DataGrid.dateFormat)
+        return this.visibleData.format(this.$DataGrid.dateFormat);
       }
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

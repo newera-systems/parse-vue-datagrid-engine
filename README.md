@@ -2,8 +2,17 @@
   Parse - DatagridBvue
 </h1>
 <h4 align='center'>
-  v1.0.0
+  v0.1.0
 </h4>
+<h5 align='center'>
+
+[![Jest Tests on Node 16.x and 18.x](https://github.com/newera-systems/parse-vue-datagrid-engine/actions/workflows/test.yml/badge.svg)](https://github.com/newera-systems/parse-vue-datagrid-engine/actions/workflows/test.yml)
+
+</h5>
+<h5 align="center">
+ <a href="https://newera-systems.github.io/parse-vue-datagrid-engine">Demo</a>
+</h5>
+
 <p align='center'>
   <a href='#datagrid-table'>Datagrid Table</a> |
   <a href='#rule-engine-filter'>Rule engine Filter</a> |
@@ -48,16 +57,18 @@ Available features:
 ## Installation
 
 ```shell
-yarn add yarn add https://github.com/newera-systems/parse-vue-datagrid-engine.git#datagrid-bvue
+yarn add yarn add https://github.com/newera-systems/parse-vue-datagrid-engine.git#master
 ```
 
 ```typescript
+// Importing styles
+import 'datagrid-bvue/style.css';
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
-import DataGridPlugin from 'DataGridBvue'
+import DataGridPlugin from 'datagrid-bvue'
 Vue.use(DataGridPlugin, {
   ruleSchemas: {
     Student: [
@@ -159,9 +170,9 @@ Complete Example can be found in the dev folder.
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing datagrid',
@@ -208,9 +219,9 @@ export default Vue.extend({
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing datagrid',
@@ -241,8 +252,8 @@ export default Vue.extend({
       alert(msg)
     },
     // you can use a custom modification handler
-    async modificationHandler({item, field_key, newValue}) {
-      item[field_key] = newValue
+    async modificationHandler({item, fieldKey, newValue}) {
+      item[fieldKey] = newValue
     },
     modificationStart() {
       // a call to the modification handler was emitted
@@ -265,10 +276,10 @@ export default Vue.extend({
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 import {Money} from 'ts-money/build'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing page',
@@ -421,6 +432,10 @@ B-Table style props available:
     <th>Types</th>
   </thead>
   <tbody>
+    <tr>
+      <td>showFilter</td>
+      <td>Boolean</td>
+    </tr>
      <tr>
          <td>striped</td>
          <td>Boolean</td>
@@ -474,9 +489,9 @@ B-Table style props available:
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Testing datagrid',
@@ -518,7 +533,7 @@ export default Vue.extend({
 
 To use the filter you need to add the target name that matches the schema name
 
-//index.ts
+//datagrid-bvue.ts
 
 ```typescript
 Vue.use(DataGridPlugin, {
@@ -603,9 +618,9 @@ Vue.use(DataGridPlugin, {
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { defineComponent } from 'vue'
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       title: 'Rule Creation Modal Tester',

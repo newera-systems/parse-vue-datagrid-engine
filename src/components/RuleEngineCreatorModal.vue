@@ -26,11 +26,7 @@
         <b-form @submit.prevent>
           <b-row>
             <b-col>
-              <b-form-group
-                :label="$t('Rule.name')"
-                label-cols-md="4"
-                label-for="modal-rule-name"
-              >
+              <b-form-group :label="$t('Rule.name')" label-cols-md="4" label-for="modal-rule-name">
                 <b-input-group
                   :class="validName ? 'is-valid' : 'is-invalid'"
                   class="input-group-merge"
@@ -48,7 +44,7 @@
                 </b-input-group>
                 <b-form-datalist id="rule-input-list" :options="nameOptions" />
                 <b-form-invalid-feedback :state="validName">
-                  {{ $t('Form.nameError', {min: 4}) }}
+                  {{ $t('Form.nameError', { min: 4 }) }}
                 </b-form-invalid-feedback>
               </b-form-group>
             </b-col>
@@ -57,9 +53,7 @@
         <p v-if="invalidIdentifier.length !== 0">
           <b-alert show variant="danger">
             <b-icon-x-circle-fill class="mr-1" />
-            {{ $t('Error.identifierNotValidForEntity') }} "{{
-              localValue.target
-            }}",
+            {{ $t('Error.identifierNotValidForEntity') }} "{{ localValue.target }}",
             <br />
             {{
               $t('Error.identifierHelpMsg', {
@@ -68,11 +62,7 @@
             }}
           </b-alert>
         </p>
-        <query-builder
-          v-else
-          v-model="localValue.conditions"
-          :config="builderConfig"
-        >
+        <query-builder v-else v-model="localValue.conditions" :config="builderConfig">
           <template #groupOperator="props">
             <group-operator-slot :group-operator="props" />
           </template>
@@ -95,11 +85,7 @@
           <b-form class="mt-2" @submit.prevent>
             <b-row>
               <b-col>
-                <b-form-group
-                  label="Action"
-                  label-cols-md="4"
-                  label-for="modal-rule-action-type"
-                >
+                <b-form-group label="Action" label-cols-md="4" label-for="modal-rule-action-type">
                   <b-form-select
                     id="modal-rule-action-type"
                     v-model="localValue.action.type"
@@ -110,11 +96,7 @@
             </b-row>
             <b-row>
               <b-col v-if="!useEditor">
-                <b-form-group
-                  label="Value"
-                  label-cols-md="4"
-                  label-for="modal-rule-action-value"
-                >
+                <b-form-group label="Value" label-cols-md="4" label-for="modal-rule-action-value">
                   <b-form-textarea
                     id="modal-rule-action-value"
                     v-model="localValue.action.value"
@@ -125,9 +107,9 @@
               </b-col>
               <b-col v-else>
                 <slot
-                  name="editor"
-                  :value="localValue.action.value"
                   :onEditorInput="onEditorInput"
+                  :value="localValue.action.value"
+                  name="editor"
                 />
               </b-col>
             </b-row>
@@ -139,7 +121,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import Vue, { defineComponent, PropType } from 'vue';
 import {
   BAlert,
   BCol,
@@ -161,7 +143,7 @@ import {
   BTab,
   BTabs,
   BvModalEvent,
-} from 'bootstrap-vue'
+} from 'bootstrap-vue';
 import {
   EngineRuleGroup,
   EngineSimpleRule,
@@ -169,22 +151,22 @@ import {
   GroupOperator,
   IDataGridPrototype,
   RuleActions,
-} from '@/index'
+} from '@/datagrid-bvue';
 import QueryBuilder, {
   OperatorDefinition,
   QueryBuilderConfig,
   RuleDefinition,
-} from 'query-builder-vue'
-import {RuleEngineConfig} from '@/rule/RuleElementCreator'
-import GroupOperatorSlot from '@components/builder/GroupOperatorSlot.vue'
-import GroupCtrlSlot from '@components/builder/GroupCtrlSlot.vue'
-import RuleSlot from '@components/builder/RuleSlot.vue'
-import VueI18n from 'vue-i18n'
-import modalTranslation from '@/translation/modal'
+} from 'query-builder-vue';
+import { RuleEngineConfig } from '@/rule/RuleElementCreator';
+import GroupOperatorSlot from '@components/builder/GroupOperatorSlot.vue';
+import GroupCtrlSlot from '@components/builder/GroupCtrlSlot.vue';
+import RuleSlot from '@components/builder/RuleSlot.vue';
+import VueI18n from 'vue-i18n';
+import modalTranslation from '@/translation/modal';
 
-Vue.use(VueI18n)
-export default Vue.extend({
-  name: 'RuleEngineEditModal',
+Vue.use(VueI18n);
+export default defineComponent({
+  name: 'RuleEngineCreatorModal',
   i18n: new VueI18n(modalTranslation),
   components: {
     QueryBuilder,
@@ -254,7 +236,7 @@ export default Vue.extend({
           operatorIdentifier: 'AND',
           children: [],
         },
-        action: {type: RuleActions.LIST, value: ''},
+        action: { type: RuleActions.LIST, value: '' },
       } as FilterRuleInterface,
       actionOptions: Object.values(RuleActions),
       builderConfig: {
@@ -299,124 +281,122 @@ export default Vue.extend({
       targetError: false,
       id: `rule-creator-${Math.random().toString(36).substr(2, 9)}`,
       testQuil: '',
-    }
+    };
   },
   computed: {
     modal(): BModal {
-      return this.$refs.ruleCreatorModal as BModal
+      return this.$refs.ruleCreatorModal as BModal;
     },
     nameOptions(): string[] {
-      const firstPart = this.rule ? this.rule.name : this.localValue.name.trim()
+      const firstPart = this.rule ? this.rule.name : this.localValue.name.trim();
       const secondPart = this.rule
         ? this.rule.conditions.children.length
-        : this.localValue.conditions.children.length
-      const thirdPart = this.rule
-        ? this.rule.action.type
-        : this.localValue.action.type
+        : this.localValue.conditions.children.length;
+      const thirdPart = this.rule ? this.rule.action.type : this.localValue.action.type;
       return [
         `R-${firstPart}-G${secondPart}-A${thirdPart}`,
         `R-${firstPart}-G${secondPart}`,
         `R-${firstPart}-A${thirdPart}`,
         `R-${firstPart}`,
-      ]
+      ];
     },
     validName(): boolean {
-      return this.localValue.name.length >= 4
+      return this.localValue.name.length >= 4;
+    },
+    engine(): RuleEngineConfig | null {
+      // @ts-expect-error DataGrid is  set by plugin config
+      const engine: RuleEngineConfig = (this.$DataGrid as IDataGridPrototype).ruleEngineConfigs[
+        this.localValue.target
+      ];
+      if (!engine) {
+        console.error('[DataGrid Rule Modal] target rule config schema not found');
+        return null;
+      }
+      return engine;
     },
     targetRules(): RuleDefinition[] {
-      // @ts-expect-error DataGrid is  set by plugin config
-      const engine: RuleEngineConfig = (this.$DataGrid as IDataGridPrototype)
-        .ruleEngineConfigs[this.localValue.target]
-      if (!engine) {
-        console.error(
-          '[DataGrid Rule Modal] target rule config schema not found'
-        )
-        this.targetError = true
-      } else {
-        this.targetError = false
-        return engine.rules
+      if (!this.engine) {
+        return [];
       }
-      return []
+      return this.engine.rules;
     },
     allowedIdentifier(): string[] {
-      return this.targetRules.map((rule) => rule.identifier)
+      return this.targetRules.map(rule => rule.identifier);
     },
     presentIdentifier(): string[] {
-      return this.getSimpleRules(this.localValue.conditions).map(
-        (rule) => rule.identifier
-      )
+      return this.getSimpleRules(this.localValue.conditions).map(rule => rule.identifier);
     },
     invalidIdentifier(): string[] {
       return this.presentIdentifier.filter(
-        (identifier) => !this.allowedIdentifier.includes(identifier)
-      )
+        identifier => !this.allowedIdentifier.includes(identifier)
+      );
     },
     valid(): boolean {
-      return (
-        this.validName &&
-        !this.targetError &&
-        this.invalidIdentifier.length === 0
-      )
+      return this.validName && !this.targetError && this.invalidIdentifier.length === 0;
     },
   },
   beforeMount() {
     if (this.rule) {
-      this.localValue = {...this.rule}
+      this.localValue = { ...this.rule };
     }
     if (!this.target || !this.localValue.target) {
-      this.targetError = true
-      throw new Error('[DataGrid] Modal creation Target is required')
+      this.targetError = true;
+      throw new Error('[DataGrid] Modal creation Target is required');
     }
-    this.builderConfig.rules = this.targetRules
+    if (!this.engine) {
+      this.targetError = true;
+      throw new Error('[DataGrid] Modal creation Target is not valid');
+    }
+    this.builderConfig.rules = this.targetRules;
   },
   methods: {
     getSimpleRules(rule: EngineRuleGroup): Array<EngineSimpleRule> {
-      const children: Array<EngineSimpleRule> = []
+      const children: Array<EngineSimpleRule> = [];
       for (const child of rule.children) {
         if ('identifier' in child && child.identifier) {
-          children.push(child)
+          children.push(child);
         }
         if ('operatorIdentifier' in child && child.operatorIdentifier) {
-          children.push(...this.getSimpleRules(child))
+          children.push(...this.getSimpleRules(child));
         }
       }
-      return children
+      return children;
     },
     onOk(bvModalEvt: BvModalEvent) {
-      bvModalEvt.preventDefault()
+      bvModalEvt.preventDefault();
       if (this.valid) {
-        this.$emit('edited', this.localValue)
-        this.$emit('input', false)
+        this.$emit('edited', this.localValue);
+        this.$emit('input', false);
       }
     },
     onCancel() {
-      this.$emit('cancel')
+      this.$emit('cancel');
     },
     onHidden() {
-      this.$emit('input', false)
+      this.$emit('input', false);
     },
     onShown() {
-      this.$emit('input', true)
+      this.$emit('input', true);
     },
     toggleModal() {
-      this.modal.toggle()
+      this.modal.toggle();
     },
     onEditorInput(value: string) {
-      this.localValue.action.value = value
+      this.localValue.action.value = value;
     },
   },
   watch: {
     rule: {
       handler: function (val) {
         if (val) {
-          this.localValue = {...val}
+          this.localValue = { ...val };
         }
       },
       deep: true,
     },
     target(val) {
-      this.localValue.target = val
+      this.localValue.target = val;
     },
   },
-})
+});
 </script>

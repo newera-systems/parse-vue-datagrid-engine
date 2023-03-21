@@ -1,7 +1,9 @@
 <template>
   <div class="mx-4">
-    <h1>{{ title }}</h1>
-
+    <h1 class="text-center pt-1">
+      {{ title }}
+    </h1>
+    <hr />
     <TestTable />
     <hr />
     <TestFilter />
@@ -11,17 +13,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import TestModalCreator from './components/TestModalCreator.vue'
-import TestFilter from './components/TestFilter.vue'
-import TestTable from './components/TestTable.vue'
+import { defineComponent } from 'vue';
+import TestModalCreator from './components/TestModalCreator.vue';
+import TestFilter from './components/TestFilter.vue';
+import TestTable from './components/TestTable.vue';
 
-export default Vue.extend({
-  components: {TestModalCreator, TestFilter, TestTable},
+export default defineComponent({
+  components: { TestModalCreator, TestFilter, TestTable },
   data() {
     return {
       title: 'DataGrid Bvue',
-    }
+    };
   },
-})
+});
 </script>

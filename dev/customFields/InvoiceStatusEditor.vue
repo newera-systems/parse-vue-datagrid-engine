@@ -4,19 +4,9 @@
     @keyup.esc.stop="discardChanges"
     @keyup.enter.stop="saveModification"
   >
-    <b-form-select
-      v-model="editValue"
-      :options="list"
-      value-field="id"
-      text-field="label"
-    />
+    <b-form-select v-model="editValue" :options="list" text-field="label" value-field="id" />
     <b-button-group>
-      <b-button
-        class="btn-icon"
-        size="sm"
-        variant="danger"
-        @click="discardChanges"
-      >
+      <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
         <BIconX size="16" variant="white" />
       </b-button>
       <b-button
@@ -33,26 +23,17 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {
-  BButton,
-  BButtonGroup,
-  BFormCheckbox,
-  BFormSelect,
-  BIconCheckSquare,
-  BIconX,
-} from 'bootstrap-vue'
+import { defineComponent, PropType } from 'vue';
+import { BButton, BButtonGroup, BFormSelect, BIconCheckSquare, BIconX } from 'bootstrap-vue';
 import {
   DataGridModifiedCell,
   FieldDefinitionWithExtra,
   GridEntityItem,
-} from '@/index'
-import {InvoiceStatus} from '../customRule/InvoiceStatusRule.vue'
-import {InvoiceStatusIcons} from './InvoiceStatusViewer.vue'
+} from '../../src/datagrid-bvue';
+import { InvoiceStatus, InvoiceStatusIcons } from './InvoiceStatusViewer.vue';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
-    BFormCheckbox,
     BButtonGroup,
     BIconCheckSquare,
     BIconX,
@@ -77,43 +58,41 @@ export default Vue.extend({
       isModified: false,
       editValue: InvoiceStatus.NONE,
       list: Object.values(InvoiceStatusIcons),
-    }
+    };
   },
   computed: {},
   mounted() {
     if (typeof this.rawValue === 'undefined') {
-      this.editValue = InvoiceStatus.NONE
+      this.editValue = InvoiceStatus.NONE;
     } else if (this.rawValue === null) {
-      this.editValue = InvoiceStatus.NONE
+      this.editValue = InvoiceStatus.NONE;
     } else {
-      const managedList: InvoiceStatus[] = Object.values(
-        InvoiceStatusIcons
-      ).map((i) => i.id)
-      const val = (this.rawValue?.trim() as InvoiceStatus) ?? InvoiceStatus.NONE
-      this.editValue = managedList.includes(val) ? val : InvoiceStatus.NONE
+      const managedList: InvoiceStatus[] = Object.values(InvoiceStatusIcons).map(i => i.id);
+      const val = (this.rawValue?.trim() as InvoiceStatus) ?? InvoiceStatus.NONE;
+      this.editValue = managedList.includes(val) ? val : InvoiceStatus.NONE;
     }
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
-        return
+        return;
       }
       this.$emit('editionSave', {
         item: this.item,
         field_key: this.field.identifier,
         newValue: this.editValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit('editionCanceled');
     },
   },
   watch: {
     editValue(newVal, oldValue) {
-      this.isModified = newVal !== this.rawValue
+      this.isModified = newVal !== this.rawValue;
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

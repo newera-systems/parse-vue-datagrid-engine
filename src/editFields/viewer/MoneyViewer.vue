@@ -1,19 +1,20 @@
 <template>
   <div class="d-cell-viewer-money">
     <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">null</small> <BIconDashCircle variant="info" />
+    </span>
+    <span v-else-if="!verbose && (error || isNull)" class="d-inline-flex text-muted">
+      <small class="pr-1">-</small>
     </span>
     <span v-else class="d-inline-flex">
       {{ visibleData }}
@@ -25,12 +26,12 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BIconDashCircle, BIconQuestionOctagonFill} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
-import {Money} from 'ts-money'
+import { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import { Money } from 'ts-money';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -59,22 +60,27 @@ export default Vue.extend({
       isNull: false,
       error: false,
       currency: 'CAD',
-    }
+      verbose: false,
+    };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.isNull = true
+      this.isNull = true;
     } else if (typeof this.rawValue === 'object') {
-      this.visibleData = this.rawValue
-      this.currency = this.rawValue.currency ?? 'CAD'
+      this.visibleData = this.rawValue;
+      this.currency = this.rawValue.currency ?? 'CAD';
     } else {
-      const amount = Number(this.rawValue) ?? 0
-      this.visibleData = new Money(amount, this.currency)
+      const amount = Number(this.rawValue) ?? 0;
+      this.visibleData = new Money(amount, this.currency);
     }
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,16 +1,14 @@
 <template>
   <div class="d-cell-viewer-invoice">
     <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">null</small> <BIconDashCircle variant="info" />
@@ -28,27 +26,34 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import { defineComponent, PropType } from 'vue';
 import {
   BAvatar,
-  BIcon,
   BIconClock,
   BIconCurrencyDollar,
   BIconDashCircle,
-  BIconLock,
-  BIconPen,
   BIconQuestionOctagonFill,
   BIconX,
   BTooltip,
-} from 'bootstrap-vue'
-import {FieldDefinitionWithExtra, GridEntityItem} from '@/index'
-import {InvoiceStatus} from '../customRule/InvoiceStatusRule.vue'
+} from 'bootstrap-vue';
+import { FieldDefinitionWithExtra, GridEntityItem } from '../../src/datagrid-bvue';
+
+export enum InvoiceStatus {
+  // eslint-disable-next-line no-unused-vars
+  NONE = '',
+  // eslint-disable-next-line no-unused-vars
+  AWAITING_PAYMENT = 'awaiting_payment',
+  // eslint-disable-next-line no-unused-vars
+  COMPLETED = 'completed',
+  // eslint-disable-next-line no-unused-vars
+  CANCELLED_REFUNDED = 'cancelled_refunded',
+}
 
 export interface StatusInfo {
-  id: InvoiceStatus
-  variant: string
-  icon: string
-  label: string
+  id: InvoiceStatus;
+  variant: string;
+  icon: string;
+  label: string;
 }
 
 export const InvoiceStatusIcons: Record<InvoiceStatus, StatusInfo> = {
@@ -76,15 +81,12 @@ export const InvoiceStatusIcons: Record<InvoiceStatus, StatusInfo> = {
     icon: 'XIcon',
     label: 'N/A',
   },
-}
+};
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
-    BIconPen,
-    BIconLock,
-    BIcon,
     BAvatar,
     BTooltip,
     BIconCurrencyDollar,
@@ -116,37 +118,40 @@ export default Vue.extend({
       error: false,
       isNull: false,
       id: `StatusInfoIcon-${Math.random().toString(36).substr(2, 9)}`,
-    }
+      verbose: false,
+    };
   },
   computed: {
     status(): InvoiceStatus {
       switch (this.visibleData) {
         case InvoiceStatus.AWAITING_PAYMENT:
-          return InvoiceStatus.AWAITING_PAYMENT
+          return InvoiceStatus.AWAITING_PAYMENT;
         case InvoiceStatus.COMPLETED:
-          return InvoiceStatus.COMPLETED
+          return InvoiceStatus.COMPLETED;
         case InvoiceStatus.CANCELLED_REFUNDED:
-          return InvoiceStatus.CANCELLED_REFUNDED
+          return InvoiceStatus.CANCELLED_REFUNDED;
         default:
-          return InvoiceStatus.NONE
+          return InvoiceStatus.NONE;
       }
     },
     info(): StatusInfo {
-      return InvoiceStatusIcons[this.status]
+      return InvoiceStatusIcons[this.status];
     },
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = 'undefined'
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.visibleData = 'null'
-      this.isNull = true
+      this.isNull = true;
     } else {
-      this.visibleData = this.rawValue?.trim()
+      this.visibleData = this.rawValue?.trim();
     }
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

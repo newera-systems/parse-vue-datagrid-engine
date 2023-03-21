@@ -12,12 +12,7 @@
       switch
     />
     <b-button-group>
-      <b-button
-        class="btn-icon"
-        size="sm"
-        variant="danger"
-        @click="discardChanges"
-      >
+      <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
         <BIconX size="16" variant="white" />
       </b-button>
       <b-button
@@ -34,17 +29,11 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {
-  BButton,
-  BButtonGroup,
-  BFormCheckbox,
-  BIconCheckSquare,
-  BIconX,
-} from 'bootstrap-vue'
-import {DataGridModifiedCell, FieldDefinition, GridEntityItem} from '@/index'
+import { defineComponent, PropType } from 'vue';
+import { BButton, BButtonGroup, BFormCheckbox, BIconCheckSquare, BIconX } from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BFormCheckbox,
     BButtonGroup,
@@ -72,36 +61,36 @@ export default Vue.extend({
       isModified: false,
       valid: true,
       editValue: null as unknown as boolean,
-    }
+    };
   },
   mounted() {
     if (typeof this.rawValue === 'undefined') {
-      this.editValue = false
+      this.editValue = false;
     } else if (this.rawValue === null) {
-      this.editValue = false
-    } else this.editValue = this.rawValue === true
+      this.editValue = false;
+    } else this.editValue = this.rawValue === true;
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
-        return
+        return;
       }
       this.$emit('editionSave', {
         item: this.item,
-        field_key: this.field.identifier,
+        fieldKey: this.field.identifier,
         newValue: this.editValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit('editionCanceled');
     },
   },
   watch: {
-    editValue(newVal, oldValue) {
-      this.isModified = newVal !== this.rawValue
+    editValue(newVal) {
+      this.isModified = newVal !== this.rawValue;
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

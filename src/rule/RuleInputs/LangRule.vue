@@ -17,79 +17,67 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {
-  BFormGroup,
-  BFormInput,
-  BFormRadioGroup,
-  BInputGroup,
-  BInputGroupAppend,
-  BInputGroupPrepend,
-} from 'bootstrap-vue'
+import { defineComponent, PropType } from 'vue';
+import { BFormGroup, BFormRadioGroup, BInputGroup, BInputGroupPrepend } from 'bootstrap-vue';
 import {
   BooleanOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
-  RegistrationLanguage,
   SimpleRuleType,
-} from '@/index'
-import fieldInput from '@/mixins/RuleFieldInput'
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue'
-import {LOCALES} from '@/fieldsData'
+} from '@/datagrid-bvue';
+import fieldInput from '@/mixins/RuleFieldInput';
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { Language, LOCALES } from '@/fieldsData';
 
-export default Vue.extend({
+export default defineComponent({
+  name: 'LangRule',
   mixins: [fieldInput],
   components: {
     BFormGroup,
-    BFormInput,
     BInputGroup,
-    BInputGroupAppend,
     BInputGroupPrepend,
     BFormRadioGroup,
     OperatorDropdown,
   },
   props: {
     value: {
-      type: Object as PropType<
-        EngineRuleData<RegistrationLanguage, SimpleRuleType.String>
-      >,
-      default() {
-        return {
+      type: Object as PropType<EngineRuleData<Language, SimpleRuleType.String>>,
+      default: () =>
+        ({
           type: SimpleRuleType.String,
-          value: RegistrationLanguage.NONE,
+          value: Language.NONE,
           operator: EngineSubOperators.EqualTo,
-        }
-      },
+        } as EngineRuleData<Language, SimpleRuleType.String>),
     },
   },
   data() {
     return {
-      lang: RegistrationLanguage.NONE,
+      lang: Language.NONE,
       operator: EngineSubOperators.EqualTo,
       operatorList: BooleanOperatorOptions,
-    }
+    };
   },
   computed: {
-    langOptions(): Array<{value: string; text: string}> {
-      const acceptedLanguages = ['fr', 'en'] as string[]
+    langOptions(): Array<{ value: string; text: string }> {
+      const acceptedLanguages = ['fr', 'en'] as string[];
       return Array.from(LOCALES.values())
-        .filter((locale) => acceptedLanguages.includes(locale.value))
-        .map((locale) => ({
+        .filter(locale => acceptedLanguages.includes(locale.value))
+        .map(locale => ({
           value: locale.value,
           text: locale.name,
-        }))
+        }));
     },
   },
   methods: {
     update() {
       try {
         if (this.value) {
-          this.lang = this.value.value
-          this.operator = this.value.operator
+          this.lang = this.value.value;
+          this.operator = this.value.operator;
         }
       } catch (e) {
-        this.lang = RegistrationLanguage.NONE
-        this.operator = EngineSubOperators.EqualTo
+        this.lang = Language.NONE;
+        this.operator = EngineSubOperators.EqualTo;
       }
     },
     updateOutput() {
@@ -97,15 +85,15 @@ export default Vue.extend({
         type: SimpleRuleType.String,
         value: this.lang,
         operator: this.operator,
-      } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>)
+      } as EngineRuleData<Language, SimpleRuleType.String>);
     },
   },
   watch: {
     lang() {
-      this.updateOutput()
+      this.updateOutput();
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

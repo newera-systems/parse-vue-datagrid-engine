@@ -7,8 +7,7 @@
         sm="6"
       >
         <span class="text-muted">
-          {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }}
-          {{ $t('entries') }}
+          {{ startingIndex }} - {{ endingIndex }} | Total {{ entriesNumber }} {{ $t('entries') }}
         </span>
       </b-col>
       <!-- Pagination -->
@@ -19,7 +18,6 @@
       >
         <b-pagination
           v-model="currentPageNumber"
-          :current-page="currentPage"
           :per-page="perPageNumber"
           :total-rows="entriesNumber"
           first-number
@@ -40,17 +38,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import {
-  BCol,
-  BIconChevronLeft,
-  BIconChevronRight,
-  BPagination,
-  BRow,
-} from 'bootstrap-vue'
+import { defineComponent } from 'vue';
+import { BCol, BIconChevronLeft, BIconChevronRight, BPagination, BRow } from 'bootstrap-vue';
+import _ from 'lodash';
 
-export default Vue.extend({
-  name: 'DataGridPagePaginator',
+export default defineComponent({
   components: {
     BCol,
     BRow,
@@ -58,71 +50,66 @@ export default Vue.extend({
     BIconChevronRight,
     BPagination,
   },
-  model: {
-    event: 'change',
-    prop: 'currentPage',
-  },
   props: {
-    currentPage: {
+    value: {
       type: Number,
-      default: 1,
+      default: () => 1,
       required: true,
     },
     perPage: {
       type: Number,
-      default: 25,
+      default: () => 25,
     },
     entries: {
       type: Number,
-      default: 0,
+      default: () => 0,
     },
   },
   data() {
     return {
-      currentPageNumber: 1,
-      entriesNumber: 1,
-      perPageNumber: 1,
-    }
-  },
-  mounted() {
-    this.update()
+      currentPageNumber: this.value,
+      entriesNumber: this.entries,
+      perPageNumber: this.perPage,
+    };
   },
   computed: {
     startingIndex(): number {
-      return (
-        this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1)
-      )
+      return this.currentPageNumber * this.perPageNumber - (this.perPageNumber - 1);
     },
     endingIndex(): number {
-      const maxEnd = this.currentPageNumber * this.perPageNumber
+      const maxEnd = this.currentPageNumber * this.perPageNumber;
       if (maxEnd > this.entries) {
-        return this.entries
+        return this.entries;
       }
-      return maxEnd
-    },
-  },
-  methods: {
-    update() {
-      this.currentPageNumber = this.currentPage
-      this.entriesNumber = this.entries
-      this.perPageNumber = this.perPage
+      return maxEnd;
     },
   },
   watch: {
-    currentPageNumber() {
-      if (this.currentPageNumber !== this.currentPage) {
-        this.$emit('change', this.currentPageNumber)
+    currentPageNumber(newValue) {
+      if (!_.isEqual(newValue, this.value)) {
+        this.$emit('input', newValue);
       }
     },
-    currentPage() {
-      this.update()
+    perPageNumber(newValue) {
+      if (!_.isEqual(this.perPage, newValue)) {
+        this.$emit('update:perPage', newValue);
+      }
     },
-    entries() {
-      this.update()
+    value(newValue) {
+      if (!_.isEqual(this.currentPageNumber, newValue)) {
+        this.currentPageNumber = newValue;
+      }
     },
-    perPage() {
-      this.update()
+    entries(newValue) {
+      if (!_.isEqual(this.entriesNumber, newValue)) {
+        this.entriesNumber = newValue;
+      }
+    },
+    perPage(newValue) {
+      if (!_.isEqual(this.perPageNumber, newValue)) {
+        this.perPageNumber = newValue;
+      }
     },
   },
-})
+});
 </script>

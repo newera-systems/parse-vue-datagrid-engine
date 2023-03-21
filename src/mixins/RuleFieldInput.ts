@@ -1,74 +1,32 @@
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue'
-import {PropType} from 'vue'
+import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { defineComponent, type PropType } from 'vue';
 import {
-  EngineRuleData,
+  type EngineRuleData,
   EngineSubOperators,
   SimpleRuleType,
   StringOperatorOptions,
-} from '@/index'
+} from '@/datagrid-bvue';
 
-export default {
+export default defineComponent({
   components: {
     OperatorDropdown,
   },
   props: {
     value: {
-      type: Object as PropType<EngineRuleData<string, SimpleRuleType.String>>,
-      default(): {
-        type: SimpleRuleType
-        value: string
-        operator: EngineSubOperators
-      } {
-        return {
-          type: SimpleRuleType.String,
-          value: '',
-          operator: EngineSubOperators.EqualTo,
-        }
-      },
+      type: Object as PropType<EngineRuleData<any, SimpleRuleType>>,
+      default: () => ({
+        type: SimpleRuleType.String,
+        value: '',
+        operator: EngineSubOperators.EqualTo,
+      }),
     },
   },
-  data(): {
-    content: string
-    operator: EngineSubOperators
-    operatorList: EngineSubOperators[]
-  } {
+  data() {
     return {
-      content: '',
+      content: '' as string,
       operator: EngineSubOperators.EqualTo,
       operatorList: StringOperatorOptions,
-    }
-  },
-  beforeMount(): void {
-    // @ts-expect-error function exist on component
-    this.update()
-  },
-  methods: {
-    update(): void {
-      try {
-        // @ts-expect-error value exist on component
-        if (this.value) {
-          // @ts-expect-error content exist on component
-          this.content = this.value.value
-          // @ts-expect-error operator exist on component
-          this.operator = this.value.operator
-        }
-      } catch (e) {
-        // @ts-expect-error content exist on component
-        this.content = ''
-        // @ts-expect-error operator exist on component
-        this.operator = EngineSubOperators.EqualTo
-      }
-    },
-    updateOutput(): void {
-      // @ts-expect-error emit exist on component
-      this.$emit('input', {
-        type: SimpleRuleType.String,
-        // @ts-expect-error content exist on component
-        value: this.content,
-        // @ts-expect-error operator exist on component
-        operator: this.operator,
-      } as EngineRuleData<string, SimpleRuleType.String>)
-    },
+    };
   },
   watch: {
     value: {
@@ -77,11 +35,41 @@ export default {
     },
     operator: {
       deep: true,
-      handler: 'updateOutput',
+      handler: function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.updateOutput();
+        }
+      },
     },
     content: {
       deep: true,
-      handler: 'updateOutput',
+      handler: function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.updateOutput();
+        }
+      },
     },
   },
-}
+  beforeMount(): void {
+    this.update();
+  },
+  methods: {
+    update(): void {
+      try {
+        this.content = this.value.value;
+        this.operator = this.value.operator;
+      } catch (e) {
+        this.content = '';
+        this.operator = EngineSubOperators.EqualTo;
+      }
+    },
+    updateOutput(): void {
+      const val: EngineRuleData<string, SimpleRuleType.String> = {
+        type: SimpleRuleType.String,
+        value: this.content,
+        operator: this.operator,
+      };
+      this.$emit('input', val);
+    },
+  },
+});

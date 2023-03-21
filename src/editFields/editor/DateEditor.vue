@@ -11,12 +11,7 @@
     />
     <b-input-group-append>
       <b-button-group>
-        <b-button
-          class="btn-icon"
-          size="sm"
-          variant="danger"
-          @click="discardChanges"
-        >
+        <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
           <BIconX size="16" variant="white" />
         </b-button>
         <b-button
@@ -34,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -43,11 +38,11 @@ import {
   BIconX,
   BInputGroup,
   BInputGroupAppend,
-} from 'bootstrap-vue'
-import {DataGridModifiedCell, FieldDefinition, GridEntityItem} from '@/index'
-import dayjs, {Dayjs} from 'dayjs'
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import dayjs, { Dayjs } from 'dayjs';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BFormDatepicker,
     BIconCheckSquare,
@@ -79,39 +74,39 @@ export default Vue.extend({
       valid: true,
       editValue: null as unknown as Date,
       editMode: false,
-    }
+    };
   },
   mounted() {
     if (
       typeof this.rawValue === 'object' &&
       Object.prototype.toString.call(this.rawValue) === '[object Date]'
     ) {
-      this.editValue = dayjs(this.rawValue).toDate()
+      this.editValue = dayjs(this.rawValue).toDate();
     } else {
-      this.editValue = dayjs(this.rawValue).toDate() ?? new Date()
+      this.editValue = dayjs(this.rawValue).toDate() ?? new Date();
     }
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
-        return
+        return;
       }
       this.$emit('editionSave', {
         item: this.item,
-        field_key: this.field.identifier,
+        fieldKey: this.field.identifier,
         newValue: this.editValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit('editionCanceled');
     },
   },
   watch: {
     editValue(newVal) {
-      this.isModified = newVal !== this.rawValue
+      this.isModified = newVal !== this.rawValue;
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

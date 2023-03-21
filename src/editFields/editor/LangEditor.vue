@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="d-inline-flex"
-    @keyup.esc.stop="discardChanges"
-    @keyup.enter.stop="saveModification"
-  >
+  <div class="d-inline-flex" @keyup.esc.stop="discardChanges" @keyup.enter.stop="saveModification">
     <b-dropdown class="dropdown-language" variant="outline-primary">
       <template #button-content>
         <template v-if="selectedLang.code.length">
@@ -16,7 +12,7 @@
         :key="localeObj.code"
         @click="
           () => {
-            editValue = localeObj.value
+            editValue = localeObj.value;
           }
         "
       >
@@ -27,12 +23,7 @@
       </b-dropdown-item>
     </b-dropdown>
     <b-button-group class="ml-1">
-      <b-button
-        class="btn-icon"
-        size="sm"
-        variant="danger"
-        @click="discardChanges"
-      >
+      <b-button class="btn-icon" size="sm" variant="danger" @click="discardChanges">
         <BIconX size="16" variant="white" />
       </b-button>
       <b-button
@@ -49,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import { defineComponent, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -57,11 +48,11 @@ import {
   BDropdownItem,
   BIconCheckSquare,
   BIconX,
-} from 'bootstrap-vue'
-import {DataGridModifiedCell, FieldDefinition, GridEntityItem} from '@/index'
-import {LocaleInterface, LOCALES} from '@/fieldsData'
+} from 'bootstrap-vue';
+import { DataGridModifiedCell, FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
+import { LocaleInterface, LOCALES } from '@/fieldsData';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconCheckSquare,
     BIconX,
@@ -90,21 +81,19 @@ export default Vue.extend({
       isModified: false,
       valid: true,
       editValue: null as unknown as string,
-      locales: Array.from(LOCALES.values()).filter(
-        (locale: LocaleInterface) => locale.code.length
-      ),
-    }
+      locales: Array.from(LOCALES.values()).filter((locale: LocaleInterface) => locale.code.length),
+    };
   },
   beforeMount() {
     if (typeof this.rawValue !== 'string') {
-      this.editValue = this.rawValue?.toString() ?? ''
+      this.editValue = this.rawValue?.toString() ?? '';
     } else {
-      this.editValue = String(this.rawValue)
+      this.editValue = String(this.rawValue);
     }
   },
   computed: {
     selectedLang(): LocaleInterface {
-      const list = Array.from(LOCALES.values())
+      const list = Array.from(LOCALES.values());
       return (
         list.find((locale: LocaleInterface) =>
           locale.possibleLocales.includes(this.editValue.trim().toLowerCase())
@@ -114,30 +103,30 @@ export default Vue.extend({
           code: 'xx',
           value: this.editValue,
         }
-      )
+      );
     },
   },
   methods: {
     saveModification() {
       if (!this.isModified) {
-        return
+        return;
       }
       this.$emit('editionSave', {
         item: this.item,
-        field_key: this.field.identifier,
+        fieldKey: this.field.identifier,
         newValue: this.editValue,
-      } as DataGridModifiedCell)
+      } as DataGridModifiedCell);
     },
     discardChanges() {
-      this.$emit('editionCanceled')
+      this.$emit('editionCanceled');
     },
   },
   watch: {
-    editValue(newVal, oldValue) {
-      this.isModified = newVal !== this.rawValue
+    editValue(newVal) {
+      this.isModified = newVal !== this.rawValue;
     },
   },
-})
+});
 </script>
 
 <style lang="scss"></style>

@@ -1,19 +1,17 @@
 <template>
   <div>
     <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">null</small>
       <BIconDashCircle variant="info" />
     </span>
     <span v-else class="d-inline-flex">
@@ -23,11 +21,11 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {BIconDashCircle, BIconQuestionOctagonFill} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
+import { defineComponent, PropType } from 'vue';
+import { BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BIconQuestionOctagonFill,
     BIconDashCircle,
@@ -57,36 +55,39 @@ export default Vue.extend({
       visibleData: null as unknown as string,
       error: false,
       isNull: false,
-    }
+      verbose: false,
+    };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = 'undefined'
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.visibleData = 'null'
-      this.isNull = true
+      this.isNull = true;
     } else if (typeof this.rawValue === 'object') {
       if (Array.isArray(this.rawValue)) {
-        this.visibleData = 'Tableau'
+        this.visibleData = 'Tableau';
       } else {
-        this.visibleData = this.rawValue?.toString() ?? ''
-        this.error = this.visibleData.length === 0
+        this.visibleData = this.rawValue?.toString() ?? '';
+        this.error = this.visibleData.length === 0;
       }
     } else if (typeof this.rawValue !== 'string') {
-      this.visibleData = this.rawValue?.toString() ?? ''
-      this.error = this.visibleData.length === 0
+      this.visibleData = this.rawValue?.toString() ?? '';
+      this.error = this.visibleData.length === 0;
     } else {
-      this.visibleData = String(this.rawValue?.toString())
+      this.visibleData = String(this.rawValue?.toString());
     }
   },
   methods: {
-    truncateString(str: string, length: number) {
+    truncateString(str: string | null, length: number) {
       if (str === null || str === undefined) {
-        return ''
+        return '';
       }
-      return str.length > length ? str.substring(0, length - 3) + '...' : str
+      return str.length > length ? str.substring(0, length - 3) + '...' : str;
     },
   },
-})
+});
 </script>

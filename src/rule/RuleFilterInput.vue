@@ -10,43 +10,46 @@
       {{ getTranslation(definition.name) }}:
       <strong class="">{{ status }}</strong>
       <BIconChevronDown class="mx-1" />
-      <BIconXLg
-        v-show="!isEmpty"
-        class="text-danger mx-1 scale"
-        @click.prevent.stop="clearRule"
-      />
     </b-button>
+    <BIconXLg v-show="!isEmpty" class="text-danger mx-1 scale" @click.prevent.stop="clearRule" />
     <b-popover
-      :show.sync="showPopup"
+      :show="showPopup"
       :target="id"
       custom-class="big-custom-popover"
+      placement="bottom"
       triggers="focus"
       variant="primary"
-      @keyup.enter.stop="updateRule"
     >
       <template #title>{{ getTranslation(definition.name) }}</template>
-      <component :is="definition.component" v-model="editValue" />
-      <b-button type="submit" variant="success" @click="updateRule">
-        {{ $t('update') }}
-      </b-button>
+      <div
+        class="d-inline-flex align-items-start justify-content-center"
+        @submit.prevent.stop="updateRule"
+        @keydown.enter.prevent.stop="updateRule"
+        @keydown.esc.prevent.stop="abort"
+      >
+        <component :is="definition.component" ref="ruleComponent" v-model="editValue" />
+        <b-button class="ml-1" type="submit" variant="success" @click="updateRule">
+          {{ $t('update') }}
+        </b-button>
+      </div>
     </b-popover>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {RuleDefinition} from 'query-builder-vue'
+import Vue, { defineComponent, PropType } from 'vue';
+import { RuleDefinition } from 'query-builder-vue';
 import {
   EngineRuleData,
   EngineSimpleRule,
   RegistrationGender,
-  RegistrationLanguage,
   SimpleRuleType,
-} from '@/index'
-import {Money} from 'ts-money'
-import {BButton, BIconChevronDown, BIconXLg, BPopover} from 'bootstrap-vue'
-import VueI18n from 'vue-i18n'
-import filterTranslate from '@/translation/filter'
+} from '@/datagrid-bvue';
+import { Money } from 'ts-money';
+import { BButton, BForm, BIconChevronDown, BIconXLg, BPopover } from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
+import filterTranslate from '@/translation/filter';
+import { Language } from '@/fieldsData';
 
 export type RuleDataObject =
   | EngineRuleData<string, SimpleRuleType.Date>
@@ -56,10 +59,10 @@ export type RuleDataObject =
   | EngineRuleData<Array<string>, SimpleRuleType.Array>
   | EngineRuleData<Money, SimpleRuleType.Money>
   | EngineRuleData<RegistrationGender, SimpleRuleType.String>
-  | EngineRuleData<RegistrationLanguage, SimpleRuleType.String>
+  | EngineRuleData<Language, SimpleRuleType.String>;
 
-Vue.use(VueI18n)
-export default Vue.extend({
+Vue.use(VueI18n);
+export default defineComponent({
   name: 'RuleFilterInput',
   i18n: new VueI18n(filterTranslate),
   components: {
@@ -67,6 +70,7 @@ export default Vue.extend({
     BIconXLg,
     BPopover,
     BButton,
+    BForm,
   },
   props: {
     definition: {
@@ -81,11 +85,9 @@ export default Vue.extend({
   data() {
     return {
       editValue: null as unknown as RuleDataObject,
-      id: `button-modify-${this.definition.identifier}-${Math.random()
-        .toString(36)
-        .substr(2, 9)}`,
+      id: `button-modify-${this.definition.identifier}-${Math.random().toString(36).substr(2, 9)}`,
       showPopup: false,
-    }
+    };
   },
   computed: {
     status(): string {
@@ -93,18 +95,18 @@ export default Vue.extend({
         if (typeof this.value?.value.value !== 'undefined') {
           return `${this.getOperatorTranslation(this.value.value.operator)} "${
             this.value.value.value
-          }"`
+          }"`;
         }
       }
-      return this.$t('all').toString() ?? 'all'
+      return this.$t('all').toString() ?? 'all';
     },
     isEmpty(): boolean {
       if (this.value?.value) {
         if (this.value.value.operator || this.value.value.value) {
-          return false
+          return false;
         }
       }
-      return true
+      return true;
     },
   },
   methods: {
@@ -112,31 +114,34 @@ export default Vue.extend({
       this.$emit('input', {
         identifier: this.definition.identifier,
         value: null,
-      })
+      });
     },
     updateRule() {
-      this.showPopup = false
+      this.showPopup = false;
       this.$emit('input', {
         identifier: this.definition.identifier,
-        value: {...this.editValue},
-      } as EngineSimpleRule)
+        value: { ...this.editValue },
+      } as EngineSimpleRule);
     },
     getTranslation(key: string, force = false): string {
       // @ts-expect-error DataGrid defined when using plugin
       if (this?.$DataGrid?.i18n || force) {
-        return this.$t(key).toString() ?? key
+        return this.$t(key).toString() ?? key;
       }
-      return key
+      return key;
     },
     getOperatorTranslation(key: string): string {
-      const t = this.getTranslation(`Operator.${key}`, true)
+      const t = this.getTranslation(`Operator.${key}`, true);
       if (t === `Operator.${key}`) {
-        return key
+        return key;
       }
-      return t
+      return t;
+    },
+    abort() {
+      this.showPopup = false;
     },
   },
-})
+});
 </script>
 
 <style scoped>

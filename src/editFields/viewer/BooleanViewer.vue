@@ -1,19 +1,17 @@
 <template>
   <div class="d-cell-viewer-boolean">
     <span
-      v-if="error"
-      :class="
-        writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'
-      "
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">null</small>
       <BIconDashCircle variant="info" />
     </span>
     <b-form-checkbox
@@ -29,23 +27,15 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {
-  BFormCheckbox,
-  BIconDashCircle,
-  BIconLock,
-  BIconPen,
-  BIconQuestionOctagonFill,
-} from 'bootstrap-vue'
-import {FieldDefinition, GridEntityItem} from '@/index'
+import { defineComponent, PropType } from 'vue';
+import { BFormCheckbox, BIconDashCircle, BIconQuestionOctagonFill } from 'bootstrap-vue';
+import { FieldDefinition, GridEntityItem } from '@/datagrid-bvue';
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     BFormCheckbox,
     BIconQuestionOctagonFill,
     BIconDashCircle,
-    BIconPen,
-    BIconLock,
   },
   props: {
     item: {
@@ -72,18 +62,21 @@ export default Vue.extend({
       visibleData: null as unknown as boolean,
       error: false,
       isNull: false,
-    }
+      verbose: false,
+    };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
-      this.error = true
-      this.visibleData = false
+      this.error = true;
     } else if (this.rawValue === null) {
-      this.visibleData = false
-      this.isNull = true
-    } else this.visibleData = this.rawValue === true
+      this.isNull = true;
+    } else this.visibleData = this.rawValue === true;
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>
