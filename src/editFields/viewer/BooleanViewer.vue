@@ -1,14 +1,17 @@
 <template>
   <div class="d-cell-viewer-boolean">
-    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
-      <small class="pr-1">{{ visibleData }}</small>
+    <span
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
+    >
+      <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">null</small>
       <BIconDashCircle variant="info" />
     </span>
     <b-form-checkbox
@@ -59,14 +62,17 @@ export default defineComponent({
       visibleData: null as unknown as boolean,
       error: false,
       isNull: false,
+      verbose: false,
     };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = false;
     } else if (this.rawValue === null) {
-      this.visibleData = false;
       this.isNull = true;
     } else this.visibleData = this.rawValue === true;
   },

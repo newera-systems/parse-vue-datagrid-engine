@@ -23,12 +23,11 @@ import {
   BooleanOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
-  RegistrationLanguage,
   SimpleRuleType,
 } from '@/datagrid-bvue';
 import fieldInput from '@/mixins/RuleFieldInput';
 import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
-import { LOCALES } from '@/fieldsData';
+import { Language, LOCALES } from '@/fieldsData';
 
 export default defineComponent({
   name: 'LangRule',
@@ -42,18 +41,18 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: Object as PropType<EngineRuleData<RegistrationLanguage, SimpleRuleType.String>>,
+      type: Object as PropType<EngineRuleData<Language, SimpleRuleType.String>>,
       default: () =>
         ({
           type: SimpleRuleType.String,
-          value: RegistrationLanguage.NONE,
+          value: Language.NONE,
           operator: EngineSubOperators.EqualTo,
-        } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>),
+        } as EngineRuleData<Language, SimpleRuleType.String>),
     },
   },
   data() {
     return {
-      lang: RegistrationLanguage.NONE,
+      lang: Language.NONE,
       operator: EngineSubOperators.EqualTo,
       operatorList: BooleanOperatorOptions,
     };
@@ -77,7 +76,7 @@ export default defineComponent({
           this.operator = this.value.operator;
         }
       } catch (e) {
-        this.lang = RegistrationLanguage.NONE;
+        this.lang = Language.NONE;
         this.operator = EngineSubOperators.EqualTo;
       }
     },
@@ -86,7 +85,7 @@ export default defineComponent({
         type: SimpleRuleType.String,
         value: this.lang,
         operator: this.operator,
-      } as EngineRuleData<RegistrationLanguage, SimpleRuleType.String>);
+      } as EngineRuleData<Language, SimpleRuleType.String>);
     },
   },
   watch: {

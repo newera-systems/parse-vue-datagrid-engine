@@ -1,11 +1,14 @@
 <template>
   <div class="d-cell-viewer-date">
-    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
+    <span
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
+    >
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">null</small> <BIconDashCircle variant="info" />
@@ -53,11 +56,16 @@ export default defineComponent({
   data() {
     return {
       visibleData: null as unknown as dayjs.Dayjs,
+      verbose: false,
       isNull: false,
       error: false,
     };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
       this.error = true;
     } else if (this.rawValue === null) {
@@ -68,6 +76,9 @@ export default defineComponent({
   },
   methods: {
     displayDate(): string {
+      if (this.error || this.isNull) {
+        return '';
+      }
       // @ts-expect-error DataGrid is  set by plugin config
       if (this.$DataGrid.calendarTime) {
         return this.visibleData?.calendar();

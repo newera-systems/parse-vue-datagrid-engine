@@ -28,6 +28,7 @@ const testItems = [
 describe('editFields', () => {
   const $DataGrid = {
     lang: 'fr',
+    verbose: true,
     projectName: '',
     dateFormat: 'ddd DD-MM-YY HH:mm',
     calendarTime: true,

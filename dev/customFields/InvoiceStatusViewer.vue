@@ -1,11 +1,14 @@
 <template>
   <div class="d-cell-viewer-invoice">
-    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
+    <span
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
+    >
       <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">null</small> <BIconDashCircle variant="info" />
@@ -115,6 +118,7 @@ export default defineComponent({
       error: false,
       isNull: false,
       id: `StatusInfoIcon-${Math.random().toString(36).substr(2, 9)}`,
+      verbose: false,
     };
   },
   computed: {
@@ -134,12 +138,14 @@ export default defineComponent({
       return InvoiceStatusIcons[this.status];
     },
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = 'null';
       this.isNull = true;
     } else {
       this.visibleData = this.rawValue?.trim();

@@ -4,9 +4,9 @@ import {
   type EngineRuleData,
   EngineSubOperators,
   MultiOperatorOptions,
-  RegistrationLanguage,
   SimpleRuleType,
 } from '@/datagrid-bvue';
+import { Language } from '@/fieldsData';
 
 export default defineComponent({
   components: {
@@ -25,7 +25,7 @@ export default defineComponent({
   data() {
     return {
       content: [] as string[],
-      lang: RegistrationLanguage.FR,
+      lang: Language.FR,
       operator: EngineSubOperators.Contains,
       operatorList: MultiOperatorOptions,
       options: [],
@@ -47,7 +47,7 @@ export default defineComponent({
   },
   created(): void {
     // @ts-expect-error lang exist on component
-    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? 'fr';
+    this.lang = (this.$DataGrid.lang as Language) ?? 'fr';
   },
   beforeMount(): void {
     this.update();

@@ -43,13 +43,13 @@ import {
   EngineRuleData,
   EngineSimpleRule,
   RegistrationGender,
-  RegistrationLanguage,
   SimpleRuleType,
 } from '@/datagrid-bvue';
 import { Money } from 'ts-money';
 import { BButton, BForm, BIconChevronDown, BIconXLg, BPopover } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import filterTranslate from '@/translation/filter';
+import { Language } from '@/fieldsData';
 
 export type RuleDataObject =
   | EngineRuleData<string, SimpleRuleType.Date>
@@ -59,7 +59,7 @@ export type RuleDataObject =
   | EngineRuleData<Array<string>, SimpleRuleType.Array>
   | EngineRuleData<Money, SimpleRuleType.Money>
   | EngineRuleData<RegistrationGender, SimpleRuleType.String>
-  | EngineRuleData<RegistrationLanguage, SimpleRuleType.String>;
+  | EngineRuleData<Language, SimpleRuleType.String>;
 
 Vue.use(VueI18n);
 export default defineComponent({

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { BFormGroup, BInputGroup, BInputGroupPrepend } from 'bootstrap-vue';
+import { BFormGroup, BFormRadioGroup, BInputGroup, BInputGroupPrepend } from 'bootstrap-vue';
 import {
   BooleanOperatorOptions,
   EngineRuleData,
@@ -33,6 +33,7 @@ export default defineComponent({
   mixins: [fieldInput],
   components: {
     BFormGroup,
+    BFormRadioGroup,
     BInputGroup,
     BInputGroupPrepend,
     OperatorDropdown,
@@ -79,7 +80,7 @@ export default defineComponent({
     },
     getTranslation(key: string): string {
       // @ts-expect-error DataGrid defined when using plugin
-      if (this?.$DataGrid?.i18n) {
+      if (this.$DataGrid?.i18n) {
         return this.$t(key).toString() ?? key;
       }
       return key;

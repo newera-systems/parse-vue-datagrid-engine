@@ -1,14 +1,17 @@
 <template>
   <div>
-    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
-      <small class="pr-1">{{ visibleData }}</small>
+    <span
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
+    >
+      <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">null</small>
       <BIconDashCircle variant="info" />
     </span>
     <span v-else class="d-inline-flex">
@@ -52,14 +55,17 @@ export default defineComponent({
       visibleData: null as unknown as string,
       error: false,
       isNull: false,
+      verbose: false,
     };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = 'null';
       this.isNull = true;
     } else if (typeof this.rawValue === 'object') {
       if (Array.isArray(this.rawValue)) {
@@ -76,7 +82,7 @@ export default defineComponent({
     }
   },
   methods: {
-    truncateString(str: string, length: number) {
+    truncateString(str: string | null, length: number) {
       if (str === null || str === undefined) {
         return '';
       }

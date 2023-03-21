@@ -60,7 +60,7 @@ export default defineComponent({
         {
           identifier: 'email',
           name: 'Email',
-          config: { ...defaultConfig },
+          config: { ...defaultConfig, canEdit: true },
           type: FieldType.String,
         },
         {
@@ -115,7 +115,7 @@ export default defineComponent({
           firstName: 'Neymar',
           email: 'neymar@brazil.com',
           note: 0.76,
-          account: 877090,
+          account: null,
           lang: '',
           status: 'completed',
         },
@@ -152,7 +152,6 @@ export default defineComponent({
           id: Math.random().toString(36).substr(2, 9),
           firstName: 'Lionel',
           lastName: undefined,
-          email: 'lionnel@psg.fr',
           note: 1.0,
           account: 89000,
           lang: 'es',
@@ -165,6 +164,7 @@ export default defineComponent({
           lastName: null,
           email: 'steph@warriors.com',
           note: 0,
+          lang: null,
           account: 67000,
           status: 'completed',
         },

@@ -6,6 +6,7 @@ import RuleEngineCreatorModal from '@components/RuleEngineCreatorModal.vue';
 import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
 import { componentsList, RuleEngineConfig, type SchemaList } from '@/rule/RuleElementCreator';
 import { type Money } from 'ts-money';
+import { type Language } from '@/fieldsData';
 
 export interface GridFieldOptions {
   canView: boolean;
@@ -137,12 +138,6 @@ export enum RegistrationGender {
   FEMALE = 'female',
 }
 
-export enum RegistrationLanguage {
-  NONE = '',
-  FR = 'fr',
-  EN = 'en',
-}
-
 export const StringOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.EqualTo,
   EngineSubOperators.NotEqual,
@@ -196,7 +191,7 @@ export interface EngineSimpleRule {
     | EngineRuleData<string[], SimpleRuleType.Array>
     | EngineRuleData<Money, SimpleRuleType.Money>
     | EngineRuleData<RegistrationGender, SimpleRuleType.String>
-    | EngineRuleData<RegistrationLanguage, SimpleRuleType.String>;
+    | EngineRuleData<Language, SimpleRuleType.String>;
 }
 
 export interface EngineRuleGroup {
@@ -217,8 +212,9 @@ export enum GroupOperator {
 }
 
 export interface DataGridOptions {
-  lang?: 'fr' | 'en';
-  i18n?: boolean;
+  lang?: 'fr' | 'en'; // language
+  i18n?: boolean; // use i18n or not (default: true)
+  verbose?: boolean; // verbose mode for debug, showing null and undefined values (default: false)
   projectName?: string;
   customFieldTypes?: Array<{
     name: string;
@@ -226,20 +222,21 @@ export interface DataGridOptions {
     editor: Component;
   }>;
   calendarTime?: boolean;
-  dateFormat?: string;
+  dateFormat?: string; // default: 'ddd DD-MM-YY HH:mm'
   customRulesComponents?: Record<RuleCompTypes | string, Component>;
   ruleSchemas: SchemaList;
 }
 
 export interface IDataGridPrototype {
-  lang: 'fr' | 'en';
-  i18n?: boolean;
+  lang: 'fr' | 'en'; // language
+  i18n?: boolean; // use i18n or not
+  verbose?: boolean; // verbose mode for debug, showing null and undefined values
   projectName: string;
   dateFormat: string;
-  calendarTime: boolean;
-  _viewer: Record<FieldType | string, Component>;
-  _editors: Record<FieldType | string, Component>;
-  _ruleSchemas: SchemaList;
+  calendarTime: boolean; // default: true
+  _viewer: Record<FieldType | string, Component>; // field types viewer components
+  _editors: Record<FieldType | string, Component>; // field types editors components
+  _ruleSchemas: SchemaList; // rule schemas list for rule engine component
   ruleEngineConfigs: Record<string, RuleEngineConfig>;
 }
 
@@ -259,6 +256,7 @@ const DataGridPlugin: PluginObject<DataGridOptions> = {
     const DataGrid: IDataGridPrototype = {
       lang: 'fr' as 'fr' | 'en',
       i18n: false,
+      verbose: false,
       projectName: '',
       dateFormat: 'ddd DD-MM-YY HH:mm',
       calendarTime: true,
@@ -270,6 +268,9 @@ const DataGridPlugin: PluginObject<DataGridOptions> = {
     Vue.prototype.$DataGrid = DataGrid;
     if (options?.lang !== undefined) {
       Vue.prototype.$DataGrid.lang = options.lang;
+    }
+    if (options?.verbose !== undefined) {
+      Vue.prototype.$DataGrid.verbose = options.verbose;
     }
     if (options?.i18n !== undefined) {
       Vue.prototype.$DataGrid.i18n = options.i18n;

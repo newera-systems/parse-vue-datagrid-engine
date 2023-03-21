@@ -42,10 +42,10 @@ import {
   DateOperatorOptions,
   EngineRuleData,
   EngineSubOperators,
-  RegistrationLanguage,
   SimpleRuleType,
 } from '@/datagrid-bvue';
 import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import { Language } from '@/fieldsData';
 
 export default defineComponent({
   name: 'DateRule',
@@ -76,7 +76,7 @@ export default defineComponent({
   data() {
     return {
       dateContent: '',
-      lang: RegistrationLanguage.FR,
+      lang: Language.FR,
       DateType: SimpleRuleType.Date,
       typeList: [SimpleRuleType.Date, SimpleRuleType.Day],
       config: {
@@ -98,7 +98,7 @@ export default defineComponent({
   },
   created() {
     // @ts-expect-error DataGrid is  set by plugin config
-    this.lang = (this.$DataGrid.lang as RegistrationLanguage) ?? RegistrationLanguage.FR;
+    this.lang = (this.$DataGrid.lang as Language) ?? Language.FR;
   },
   mounted() {
     this.update();

@@ -1,11 +1,14 @@
 <template>
   <div>
-    <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
+    <span
+      v-if="error && verbose"
+      :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'"
+    >
       <small class="pr-1">undefined|NaN</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
-      v-else-if="isNull"
+      v-else-if="isNull && verbose"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
       <small class="pr-1">null</small> <BIconDashCircle variant="info" />
@@ -58,6 +61,7 @@ export default defineComponent({
       error: false,
       isNull: false,
       locales: 'CA-fr',
+      verbose: false,
     };
   },
   created() {
@@ -67,8 +71,10 @@ export default defineComponent({
       // @ts-expect-error DataGrid is  set by plugin configuration
       this.locales = (this.$DataGrid as IDataGridPrototype).lang ?? 'CA-fr';
     }
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
   },
-  mounted() {
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
       this.error = true;
     } else if (this.rawValue === null) {
@@ -81,7 +87,10 @@ export default defineComponent({
     }
   },
   methods: {
-    getPercentage() {
+    getPercentage(): string {
+      if (this.error || this.isNull) {
+        return '';
+      }
       const formatter = new Intl.NumberFormat(this.locales, {
         style: 'percent',
         minimumFractionDigits: 0,

@@ -6,6 +6,11 @@ export interface LocaleInterface {
   value: string;
 }
 
+export enum Language {
+  NONE = '',
+  FR = 'fr',
+  EN = 'en',
+}
 export const LOCALES = new Map<string, LocaleInterface>();
 LOCALES.set('', {
   possibleLocales: ['', 'null', 'undefined', 'vide', 'vazio', 'vacío', 'empty'],

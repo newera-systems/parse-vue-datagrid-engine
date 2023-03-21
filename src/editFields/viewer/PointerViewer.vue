@@ -1,14 +1,14 @@
 <template>
   <div class="d-cell-viewer-pointer">
     <span v-if="error" :class="writable ? 'd-inline-flex text-danger' : 'd-inline-flex text-muted'">
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">undefined</small>
       <BIconQuestionOctagonFill variant="danger" />
     </span>
     <span
       v-else-if="isNull"
       :class="writable ? 'd-inline-flex text-info' : 'd-inline-flex text-muted'"
     >
-      <small class="pr-1">{{ visibleData }}</small>
+      <small class="pr-1">null</small>
       <BIconDashCircle variant="info" />
     </span>
     <div v-else class="d-inline-flex align-items-center" @dblclick.stop="_handleClick">
@@ -56,14 +56,17 @@ export default defineComponent({
       icon: null as unknown as Component,
       error: false,
       isNull: false,
+      verbose: false,
     };
   },
-  mounted() {
+  created() {
+    // @ts-expect-error DataGrid is  set by plugin config
+    this.verbose = this.$DataGrid.verbose ?? false;
+  },
+  beforeMount() {
     if (typeof this.rawValue === 'undefined') {
       this.error = true;
-      this.visibleData = 'undefined';
     } else if (this.rawValue === null) {
-      this.visibleData = 'null';
       this.isNull = true;
     } else if (this.field.pointerName) {
       this.visibleData = this.field.pointerName;
