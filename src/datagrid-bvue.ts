@@ -128,7 +128,6 @@ export enum SimpleRuleType {
 export interface EngineRuleData<V, T> {
   type: T;
   value: V;
-  caseSensitive?: boolean;
   operator: EngineSubOperators;
 }
 
