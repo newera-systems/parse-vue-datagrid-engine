@@ -56,9 +56,20 @@ Available features:
 
 ## Installation
 
+### Install with npm
 ```shell
-yarn add yarn add https://github.com/newera-systems/parse-vue-datagrid-engine.git#master
+npm install datagrid-bvue
 ```
+### Install with yarn
+```shell
+yarn add datagrid-bvue
+```
+
+### Demo folder
+
+You can find a demo folder with a complete example.
+[Demo](https://github.com/newera-systems/parse-vue-datagrid-engine/tree/master/dev)
+
 
 ```typescript
 // Importing styles
@@ -68,6 +79,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
+// setups the plugin with some options
 import DataGridPlugin from 'datagrid-bvue'
 Vue.use(DataGridPlugin, {
   ruleSchemas: {
@@ -118,44 +130,14 @@ FilterRuleInterface Object.
 
 ## Usage
 
-can add an "#action" as a field to use
-
-```vue
-<template #action="{item, index}">
-  action slot
-  {{ index }} {{ item }}
-</template>
-```
-
-```typescript
-// add an extra field to use in the action slot
-const fields = {
-  identifier: '#action',
-  name: 'Actions',
-  config: {
-    canView: true,
-    canRead: true,
-    canEdit: false,
-    canFilter: true,
-    canSort: true,
-  },
-  type: FieldType.String,
-}
-```
-
 ### Datagrid Table
-
-
-Complete Example can be found in the dev folder.
 
 #### Extra (provider function, fields type autodetect and pagination) 
 - Autodetect fields type with correct edition component in the cell 
 - Extra slot for actions
 - Provider for async data and Database connection 
-  - Generated pagination, can be also used with provider  function by adding paginationEntries 
-      ```typescript
-      paginationEntries // number of total entries for pagination using provider function
-      ```
+  - Generated pagination, can be also used with provider  function by adding "paginationEntries" props.
+    ```paginationEntries // number of total entries for pagination using provider function```
 
 ```vue
 <template>
@@ -529,12 +511,39 @@ export default defineComponent({
 </script>
 ```
 
+#### Actions slot
+
+An action slot "#action" is available for each row. You can use it to add
+buttons or other actions.
+
+```vue
+<template #action="{item, index}">
+  action slot
+  {{ index }} {{ item }}
+</template>
+```
+
+```typescript
+// add an extra field to use in the action slot
+const fields = {
+  identifier: '#action',
+  name: 'Actions',
+  config: {
+    canView: true,
+    canRead: true,
+    canEdit: false,
+    canFilter: true,
+    canSort: true,
+  },
+  type: FieldType.String,
+}
+```
+
 ### Rule Engine Filter
 
-To use the filter you need to add the target name that matches the schema name
+To use the filter you need to add the target name that matches the schema name 
 
-//datagrid-bvue.ts
-
+// config
 ```typescript
 Vue.use(DataGridPlugin, {
   ruleSchemas: {
@@ -546,8 +555,7 @@ Vue.use(DataGridPlugin, {
 })
 ```
 
-//App.vue
-
+// usage
 ```vue
 <DataGridTable
   name="42 School"
@@ -636,18 +644,4 @@ export default defineComponent({
   },
 })
 </script>
-```
-
-## Development
-
-- Vite for development
-
-```shell
-  yarn dev
-```
-
-- ts-jest for testing
-
-```shell
-  yarn test
 ```
