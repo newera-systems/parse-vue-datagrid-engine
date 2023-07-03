@@ -604,7 +604,7 @@ Vue.use(DataGridPlugin, {
       :use-editor="useEditor"
       :rule="filterBuild"
       target="Invoice"
-      @edited="
+      @update:rule="
         (filterEdited) => {
           filterBuild = filterEdited
         }
