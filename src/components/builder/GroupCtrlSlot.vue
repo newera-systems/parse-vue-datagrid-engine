@@ -54,7 +54,7 @@ import modalTranslation from '@/translation/modal';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: 'ModalGroupCtrlSlot',
+  name: 'group-ctrl-slot',
   i18n: new VueI18n(modalTranslation),
   components: {
     BButton,
