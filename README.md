@@ -2,7 +2,7 @@
   Parse - DatagridBvue
 </h1>
 <h4 align='center'>
-  v0.1.0
+  v0.1.1
 </h4>
 <h5 align='center'>
 
@@ -604,7 +604,7 @@ Vue.use(DataGridPlugin, {
       :use-editor="useEditor"
       :rule="filterBuild"
       target="Invoice"
-      @edited="
+      @update:rule="
         (filterEdited) => {
           filterBuild = filterEdited
         }

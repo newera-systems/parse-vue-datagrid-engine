@@ -153,7 +153,7 @@ function defaultModificationHandler(data: DataGridModifiedCell) {
 }
 
 Vue.use(VueI18n);
-export default defineComponent({
+export default Vue.extend({
   name: 'DataGridTable',
   i18n: new VueI18n(tableTranslate),
   mixins: [provider, paginatorMixin, fieldDetector, tableStyling],
