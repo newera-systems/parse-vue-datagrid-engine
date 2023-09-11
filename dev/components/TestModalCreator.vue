@@ -4,7 +4,11 @@
     <div class="d-inline-flex">
       <button class="btn btn-primary ml-4" @click="toggleModal">Toggle Modal</button>
       <button
-        class="btn btn-sm btn-secondary ml-4"
+        class="btn btn-sm ml-4"
+        :class="{
+          'btn-outline-primary': !useEditor,
+          'btn-primary': useEditor,
+        }"
         @click="
           () => {
             useEditor = !useEditor;
@@ -20,7 +24,7 @@
       :rule="filterBuild"
       :use-editor="useEditor"
       target="Invoice"
-      @edited="
+      @update:rule="
         filterEdited => {
           filterBuild = filterEdited;
         }

@@ -2,7 +2,7 @@ import { type Component } from 'vue';
 import { type PluginObject } from 'vue/types/plugin';
 import DataGridTable from './components/Table.vue';
 import RuleEngineFilter from '@components/RuleEngineFilter.vue';
-import RuleEngineCreatorModal from '@components/RuleEngineCreatorModal.vue';
+import RuleEditorModal from '@components/RuleEditorModal.vue';
 import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
 import { componentsList, RuleEngineConfig, type SchemaList } from '@/rule/RuleElementCreator';
 import { type Money } from 'ts-money';
@@ -251,7 +251,7 @@ const DataGridPlugin: PluginObject<DataGridOptions> = {
   install(Vue, options) {
     Vue.component('DataGridTable', DataGridTable);
     Vue.component('RuleEngineFilter', RuleEngineFilter);
-    Vue.component('RuleEngineCreatorModal', RuleEngineCreatorModal);
+    Vue.component('RuleEngineCreatorModal', RuleEditorModal);
     const DataGrid: IDataGridPrototype = {
       lang: 'fr' as 'fr' | 'en',
       i18n: false,

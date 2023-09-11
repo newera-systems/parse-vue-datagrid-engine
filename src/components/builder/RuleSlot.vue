@@ -19,7 +19,7 @@ import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
-  name: 'ModalRuleCtrlSlot',
+  name: 'RuleSlot-Builders',
   props: {
     ruleCtrl: {
       type: Object as PropType<RuleSlotProps>,

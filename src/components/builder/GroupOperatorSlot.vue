@@ -24,15 +24,16 @@
 <script lang="ts">
 import Vue, { defineComponent, PropType } from 'vue';
 import { GroupOperatorSlotProps } from 'query-builder-vue';
-import { BCol, BDropdown, BDropdownItem, BRow } from 'bootstrap-vue';
+import { BButton, BCol, BDropdown, BDropdownItem, BRow } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import filterTranslate from '@/translation/filter';
 
 Vue.use(VueI18n);
 export default defineComponent({
-  name: 'ModalGroupOperatorSlot',
+  name: 'group-operator-slot',
   i18n: new VueI18n(filterTranslate),
   components: {
+    BButton,
     BCol,
     BDropdown,
     BDropdownItem,
