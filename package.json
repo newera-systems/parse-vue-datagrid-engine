@@ -55,6 +55,7 @@
     "flag-icons": "^6.6.6",
     "lodash": "^4.17.21",
     "query-builder-vue": "^1.2.0",
+    "reflect-metadata": "^0.1.13",
     "ts-money": "^0.4.8",
     "vue-i18n": "^8",
     "vue-select": "^3.20.0",

@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { Component, defineComponent, PropType } from 'vue';
+import Vue, { Component, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
