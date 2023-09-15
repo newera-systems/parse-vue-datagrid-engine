@@ -7,7 +7,7 @@
       pill
       size="sm"
     >
-      {{ getTranslation(definition.name) }}:
+      <field-name-printer :definition="definition"></field-name-printer> :
       <strong class="">{{ status }}</strong>
       <BIconChevronDown class="mx-1" />
     </b-button>
@@ -20,7 +20,9 @@
       triggers="focus"
       variant="primary"
     >
-      <template #title>{{ getTranslation(definition.name) }}</template>
+      <template #title>
+        <field-name-printer :definition="definition"></field-name-printer>
+      </template>
       <div
         class="d-inline-flex align-items-start justify-content-center"
         @submit.prevent.stop="updateRule"
@@ -38,7 +40,7 @@
 
 <script lang="ts">
 import Vue, { defineComponent, PropType } from 'vue';
-import { RuleDefinition } from 'query-builder-vue';
+import { RuleDefinitionWithChain } from '@/rule/RuleElementCreator';
 import {
   EngineRuleData,
   EngineSimpleRule,
@@ -46,10 +48,18 @@ import {
   SimpleRuleType,
 } from '@/datagrid-bvue';
 import { Money } from 'ts-money';
-import { BButton, BForm, BIconChevronDown, BIconXLg, BPopover } from 'bootstrap-vue';
+import {
+  BButton,
+  BForm,
+  BIconChevronDown,
+  BIconXLg,
+  BPopover,
+  BIconChevronRight,
+} from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import filterTranslate from '@/translation/filter';
 import { Language } from '@/fieldsData';
+import FieldNamePrinter from '@components/FieldNamePrinter.vue';
 
 export type RuleDataObject =
   | EngineRuleData<string, SimpleRuleType.Date>
@@ -66,15 +76,17 @@ export default defineComponent({
   name: 'RuleFilterInput',
   i18n: new VueI18n(filterTranslate),
   components: {
+    FieldNamePrinter,
     BIconChevronDown,
     BIconXLg,
     BPopover,
     BButton,
     BForm,
+    BIconChevronRight,
   },
   props: {
     definition: {
-      type: Object as PropType<RuleDefinition>,
+      type: Object as PropType<RuleDefinitionWithChain>,
       required: true,
     },
     value: {

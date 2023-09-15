@@ -12,7 +12,7 @@
             :variant="selectedRule === rule.identifier ? 'primary' : 'dark'"
             @click="setRule(rule.identifier)"
           >
-            {{ getTranslation(rule.name) }}
+            <FieldNamePrinter :definition="{ name: rule.name, chain: rule.chain }" />
           </BDropdownItem>
         </BDropdown>
         <BButton
@@ -51,12 +51,14 @@ import {
 } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import modalTranslation from '@/translation/modal';
+import FieldNamePrinter from '@components/FieldNamePrinter.vue';
 
 Vue.use(VueI18n);
 export default defineComponent({
   name: 'group-ctrl-slot',
   i18n: new VueI18n(modalTranslation),
   components: {
+    FieldNamePrinter,
     BButton,
     BButtonGroup,
     BButtonToolbar,

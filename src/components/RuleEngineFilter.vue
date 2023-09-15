@@ -28,8 +28,7 @@ import {
   IDataGridPrototype,
   RuleActions,
 } from '@/datagrid-bvue';
-import { RuleEngineConfig } from '@/rule/RuleElementCreator';
-import { RuleDefinition } from 'query-builder-vue';
+import { RuleDefinitionWithChain, RuleEngineConfig } from '@/rule/RuleElementCreator';
 import VueI18n from 'vue-i18n';
 import filterTranslate from '@/translation/filter';
 
@@ -100,7 +99,7 @@ export default defineComponent({
       }
       return engine;
     },
-    allowedRules(): Array<RuleDefinition> {
+    allowedRules(): Array<RuleDefinitionWithChain> {
       if (!this.engine) {
         console.error('[DataGrid Filter] target rule config schema not found');
         return [];

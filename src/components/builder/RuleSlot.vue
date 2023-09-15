@@ -1,7 +1,7 @@
 <template>
   <div class="w-100">
     <div>
-      <span>{{ ruleName }}</span>
+      <FieldNamePrinter :definition="{ name: ruleName, chain: chain }" />
     </div>
     <div class="w-100">
       <component
@@ -17,9 +17,11 @@
 import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
 
 import { defineComponent, PropType } from 'vue';
+import FieldNamePrinter from '@components/FieldNamePrinter.vue';
 
 export default defineComponent({
   name: 'RuleSlot-Builders',
+  components: { FieldNamePrinter },
   props: {
     ruleCtrl: {
       type: Object as PropType<RuleSlotProps>,
@@ -32,17 +34,10 @@ export default defineComponent({
   },
   computed: {
     ruleName(): string {
-      const name = this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.name;
-      return name ? this.getTranslation(name) : '??';
+      return this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.name ?? '??';
     },
-  },
-  methods: {
-    getTranslation(key: string): string {
-      // @ts-expect-error DataGrid defined when using plugin
-      if (this?.$DataGrid?.i18n) {
-        return this.$t(key).toString() ?? key;
-      }
-      return key;
+    chain(): string[] {
+      return this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.chain ?? [];
     },
   },
 });
