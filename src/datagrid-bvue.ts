@@ -43,6 +43,7 @@ export interface FieldDefinition {
   config: GridFieldOptions;
   type: FieldType;
   targetClass?: string;
+  chain?: string[];
 }
 
 export interface FieldDefinitionWithExtra extends FieldDefinition {
