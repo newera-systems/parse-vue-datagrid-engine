@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { BFormGroup, BFormInput, BInputGroup, BInputGroupPrepend, BIconCone } from 'bootstrap-vue';
-import { EngineRuleData, EngineSubOperators, SimpleRuleType } from '@/datagrid-bvue';
+import { EngineRuleData, SimpleRuleType } from '@/datagrid-bvue';
 
 export default defineComponent({
   name: 'OtherRule',
@@ -26,12 +26,6 @@ export default defineComponent({
   props: {
     value: {
       type: Object as PropType<EngineRuleData<string, SimpleRuleType.String>>,
-      default: () =>
-        ({
-          type: SimpleRuleType.String,
-          value: null,
-          operator: EngineSubOperators.EqualTo,
-        } as EngineRuleData<string, SimpleRuleType.String>),
     },
   },
   data() {
@@ -46,7 +40,7 @@ export default defineComponent({
     update(): void {
       try {
         if (this.value) {
-          this.content = JSON.stringify(this.value.value);
+          this.content = JSON.stringify(this.value?.value);
         }
       } catch (e) {
         this.content = '';

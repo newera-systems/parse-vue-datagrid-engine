@@ -17,6 +17,7 @@
     "prebuild": "rimraf dist",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
     "build:demo": "vite build --mode development",
+    "build:decorator": "vite build --mode decorator",
     "test:unit": "jest",
     "test": "yarn test:unit",
     "preview": "vite preview --mode development",

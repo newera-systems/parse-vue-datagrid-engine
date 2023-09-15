@@ -12,7 +12,7 @@
             :variant="selectedRule === rule.identifier ? 'primary' : 'dark'"
             @click="setRule(rule.identifier)"
           >
-            <FieldNamePrinter :definition="{ name: rule.name, chain: rule.chain }" />
+            <FieldNamePrinter :definition="getDefinition(rule)" />
           </BDropdownItem>
         </BDropdown>
         <BButton
@@ -52,6 +52,7 @@ import {
 import VueI18n from 'vue-i18n';
 import modalTranslation from '@/translation/modal';
 import FieldNamePrinter from '@components/FieldNamePrinter.vue';
+import { RuleDefinitionWithChain } from '@/rule/RuleElementCreator';
 
 Vue.use(VueI18n);
 export default defineComponent({
@@ -107,6 +108,9 @@ export default defineComponent({
         return this.$t(key).toString() ?? key;
       }
       return key;
+    },
+    getDefinition(rule: RuleDefinitionWithChain): { name: string; chain: string[] } {
+      return { name: rule.name, chain: rule.chain ?? [] };
     },
   },
 });

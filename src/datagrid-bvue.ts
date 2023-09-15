@@ -305,4 +305,4 @@ if (typeof window !== 'undefined' && window.Vue !== undefined && window.Vue.use 
 
 export default DataGridPlugin;
 export * from './namedExports';
-export * from './ParseModelDecorator/index';
+export * from '@/ModelDecorator/index';
