@@ -8,131 +8,199 @@ export interface GridOptions {
   canFilter: boolean;
   canSort: boolean;
 }
-export const defaultConfig: GridOptions = {
+export const defaultConfig: Readonly<GridOptions> = {
   canView: true,
   canRead: true,
   canEdit: false,
   canFilter: true,
   canSort: false,
-};
+} as const;
 
-type DataGridModels = new (...args: any[]) => any;
+interface DataGridModelClass {
+  new (...args: any[]): any;
+  className?: string;
+}
 
 interface FieldDefinitionModel {
   identifier: string;
   name: string;
   config: GridOptions;
   type: string;
-  linkedEntityClass?: DataGridModels;
+  linkedEntityClass?: DataGridModelClass;
 }
 
-interface FieldOptions extends Partial<GridOptions> {
-  linkedEntityClass?: DataGridModels;
-  name?: string;
+export interface FieldData extends FieldDefinitionModel {
+  chain: string[];
 }
 
-const registeredEntities: Set<DataGridModels> = new Set<DataGridModels>();
+export interface FieldOptions {
+  canView?: boolean;
+  canRead?: boolean;
+  canEdit?: boolean;
+  canFilter?: boolean;
+  canSort?: boolean;
+  linkedEntityClass?: DataGridModelClass;
+  label?: string;
+}
+
+interface RegisteredModelData {
+  classConstructor: DataGridModelClass;
+  entityLabel: string;
+  entityIdentifier: string;
+}
+
+const registeredEntities: Map<string, RegisteredModelData> = new Map<string, RegisteredModelData>();
+
+export function DataGridModel() {
+  return function (target: DataGridModelClass) {
+    const className = target.className ?? target.name;
+    const data = {
+      classConstructor: target,
+      entityLabel: className,
+      entityIdentifier: className,
+    };
+    registeredEntities.set(data.entityIdentifier, data);
+  };
+}
+
+function getModelMetadata(entityClass: DataGridModelClass): RegisteredModelData {
+  const identifier = entityClass.className ?? entityClass.name;
+  const data = registeredEntities.get(identifier);
+  if (data === undefined) {
+    throw new Error(`Entity ${identifier} not found`);
+  }
+  return data;
+}
+
+function getEntityIdentifier(entityClass: DataGridModelClass): string {
+  return getModelMetadata(entityClass).entityIdentifier;
+}
+
+function getEntityClass(entityId: string): DataGridModelClass {
+  const data = registeredEntities.get(entityId);
+  if (data === undefined) {
+    throw new Error(`Entity ${entityId} not found`);
+  }
+  return data.classConstructor;
+}
 
 export function DataGridField(type: string, options: FieldOptions = {}) {
-  return function (target: CallableFunction, propertyKey: string) {
-    registeredEntities.add(target.constructor as any);
+  return function (target: InstanceType<DataGridModelClass>, propertyKey: string) {
     const existingFields: FieldDefinitionModel[] =
-      Reflect.getMetadata('dataGrid:fields', target) ?? [];
+      Reflect.getMetadata('dataGrid:fields', target.constructor) ?? [];
     const linkedEntityClass = options.linkedEntityClass;
-    const name = options.name ?? `Entity.${target.constructor.name}.${propertyKey}`;
+    const label = options.label ?? propertyKey;
     delete options.linkedEntityClass;
-    delete options.name;
+    delete options.label;
     const config = Object.assign({}, defaultConfig, options as Partial<GridOptions>);
     existingFields.push({
       identifier: propertyKey,
-      name,
+      name: label,
       type,
       config,
       linkedEntityClass,
     });
-    Reflect.defineMetadata('dataGrid:fields', existingFields, target);
+    Reflect.defineMetadata('dataGrid:fields', existingFields, target.constructor);
   };
 }
 
 function resolveFieldsForEntity(
-  entityClass: DataGridModels,
+  entityClass: DataGridModelClass,
   prefix = '',
-  seenClasses: DataGridModels[] = []
-): FieldDefinitionModel[] {
-  // If this class has been seen before, don't process it again.
-  if (seenClasses.includes(entityClass)) {
+  seenClasses: string[] = []
+): FieldData[] {
+  const entityId = getEntityIdentifier(entityClass);
+  if (seenClasses.includes(entityId)) {
     return [];
   }
-  // Add the current class to the list of seen classes.
-  seenClasses.push(entityClass);
-  const fields: FieldDefinitionModel[] =
-    Reflect.getMetadata('dataGrid:fields', entityClass.prototype) ?? [];
-  const resolvedFields: FieldDefinitionModel[] = [];
+  seenClasses.push(entityId); // Storing just the class identifier in seenClasses
+  const fields: FieldDefinitionModel[] = Reflect.getMetadata('dataGrid:fields', entityClass) ?? [];
+  const resolvedFields: FieldData[] = [];
   for (const field of fields) {
+    const currentPrefix = prefix !== '' ? `${prefix}.${field.identifier}` : field.identifier;
     if (field.type === 'Pointer' && field.linkedEntityClass !== undefined) {
-      // If we have a Pointer type with linkedEntityClass, fetch its fields recursively.
       const nestedFields = resolveFieldsForEntity(
         field.linkedEntityClass,
-        field.identifier,
-        seenClasses
+        currentPrefix,
+        seenClasses.slice()
       );
       resolvedFields.push(...nestedFields);
     } else {
       const newField = {
-        identifier: prefix !== '' ? `${prefix}.${field.identifier}` : field.identifier,
+        identifier: currentPrefix,
         name: field.name,
         type: field.type,
         config: field.config,
+        chain: seenClasses.slice(), // Add chain property based on seenClasses
       };
       resolvedFields.push(newField);
     }
   }
   return resolvedFields;
 }
-export function getFieldsForEntity(entityClass: DataGridModels): FieldDefinitionModel[] {
+
+export function getFieldsForEntity(entityClass: DataGridModelClass): FieldData[] {
   return resolveFieldsForEntity(entityClass);
 }
 
-export function getAllRegisteredEntities(): DataGridModels[] {
-  return Array.from(registeredEntities);
+export function getAllRegisteredEntitiesData(): RegisteredModelData[] {
+  return Array.from(registeredEntities.values());
 }
-export function getAllRegisteredEntitiesNames(): string[] {
-  return Array.from(registeredEntities).map(entityClass => entityClass.name);
+export function getAllRegisteredModelLabels(): string[] {
+  return getAllRegisteredEntitiesData().map(({ entityLabel }) => entityLabel);
 }
-export function getFieldsForEntityNamed(entityName: string): FieldDefinitionModel[] {
-  const entityClass = getAllRegisteredEntities().find(
-    entityClass => entityClass.name === entityName
-  );
+export function getAllRegisteredModelIdentifiers(): string[] {
+  return getAllRegisteredEntitiesData().map(({ entityIdentifier }) => entityIdentifier);
+}
+
+export function getRegisteredModelClass(entityId: string): DataGridModelClass {
+  return getEntityClass(entityId);
+}
+
+export function getFieldsForEntityId(entityId: string): FieldData[] {
+  const entityClass = registeredEntities.get(entityId)?.classConstructor;
   if (entityClass === undefined) {
-    throw new Error(`Entity ${entityName} not found`);
+    throw new Error(`Entity ${entityId} not found`);
   }
   return resolveFieldsForEntity(entityClass);
 }
 
-export function getAllGridFieldsConfig(): Record<string, FieldDefinitionModel[]> {
-  const models = getAllRegisteredEntities();
-  return models.reduce((acc, modelClass) => {
-    const entityName = modelClass.name;
+export function getFieldsForEntityLabel(entityLabel: string): FieldData[] {
+  const entity = getAllRegisteredEntitiesData().find(
+    ({ entityLabel: label }) => label === entityLabel
+  );
+  if (entity === undefined) {
+    throw new Error(`Entity with ${entityLabel} not found`);
+  }
+  const entityClass = entity.classConstructor;
+  return resolveFieldsForEntity(entityClass);
+}
+
+export function getAllGridFieldsConfig(): Record<string, FieldData[]> {
+  const models = getAllRegisteredEntitiesData();
+  return models.reduce((acc, modelData) => {
+    const modelClass = modelData.classConstructor;
     const entityFields = getFieldsForEntity(modelClass);
     return {
       ...acc,
-      [entityName]: entityFields,
+      [modelData.entityLabel]: entityFields,
     };
   }, {});
 }
+
 export function getAllGridRulesConfig(): Record<string, SchemaDefinition[]> {
-  const models = getAllRegisteredEntities();
-  return models.reduce((acc, modelClass) => {
-    const entityName = modelClass.name;
-    const entityFields = getFieldsForEntity(modelClass);
-    const outputFields = entityFields.map(({ identifier, name, type }) => ({
+  const models = getAllRegisteredEntitiesData();
+  return models.reduce((acc, modelData) => {
+    const entityFields = getFieldsForEntity(modelData.classConstructor);
+    const outputFields = entityFields.map(({ identifier, name, type, chain }) => ({
       identifier,
       name,
       type,
+      chain,
     }));
     return {
       ...acc,
-      [entityName]: outputFields,
+      [modelData.entityLabel]: outputFields,
     };
   }, {});
 }
