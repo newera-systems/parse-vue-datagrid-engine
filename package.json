@@ -17,7 +17,7 @@
     "prebuild": "rimraf dist",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
     "build:demo": "vite build --mode development",
-    "build:decorator": "vite build --mode decorator",
+    "build:decorator": "vite build --mode decorator && vue-tsc --declaration --emitDeclarationOnly",
     "test:unit": "jest",
     "test": "yarn test:unit",
     "preview": "vite preview --mode development",
@@ -35,6 +35,11 @@
       "types": "./dist/datagrid-bvue.d.ts",
       "import": "./dist/datagrid-bvue.js",
       "require": "./dist/datagrid-bvue.umd.cjs"
+    },
+    "./model-decorator": {
+      "types": "./dist/ModelDecorator/index.d.ts",
+      "import": "./dist/model-decorator.js",
+      "require": "./dist/model-decorator.umd.cjs"
     },
     "./style.css": "./dist/style.css",
     "./dist/style.css": "./dist/style.css",

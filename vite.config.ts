@@ -36,7 +36,7 @@ const devModeConfigBuild: BuildOptions = {
 
 const decoratorModeConfigBuild: BuildOptions = {
   outDir: "dist",
-  emptyOutDir: true,
+  emptyOutDir: false,
   lib: {
     entry: resolve(__dirname, "src/ModelDecorator/index.ts"),
     name: "ModelDecorator",
