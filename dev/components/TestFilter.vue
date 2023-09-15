@@ -1,21 +1,23 @@
 <template>
-  <div class="">
-    <h2 class="h3 font-weight-normal text-muted">{{ title }}</h2>
-    <button class="btn btn-secondary ml-4 btn-sm mb-1" @click="setFilter">set a Test rule</button>
-    <RuleEngineFilter
-      v-model="filterBuild"
-      :field-list="fieldList"
-      operator="AND"
-      target="Student"
-      visible-name="School"
-    />
-    <div>
-      <h4>Generated rule code</h4>
-      <pre class="rule-code">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="h3 font-weight-normal text-muted">{{ title }}</h2>
+      <button class="btn btn-secondary ml-4 btn-sm mb-1" @click="setFilter">set a Test rule</button>
+      <RuleEngineFilter
+        v-model="filterBuild"
+        :field-list="fieldList"
+        operator="AND"
+        target="Student"
+        visible-name="School"
+      />
+      <div>
+        <h4>Generated rule code</h4>
+        <pre class="rule-code">
         <code>
             {{ JSON.stringify(filterBuild, null, 2) }}
         </code>
       </pre>
+      </div>
     </div>
   </div>
 </template>

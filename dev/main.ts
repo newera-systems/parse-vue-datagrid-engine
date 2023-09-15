@@ -1,12 +1,10 @@
 import Vue from 'vue';
 import App from './App.vue';
+import './models';
 import DataGridPlugin, {
   type DataGridOptions,
-  DataGridField,
   getAllGridFieldsConfig,
   getAllGridRulesConfig,
-  getFieldsForEntity,
-  // getAllRegisteredEntities,
 } from '../src/datagrid-bvue';
 import 'vue-select/dist/vue-select.css';
 
@@ -21,54 +19,6 @@ import 'flag-icons/css/flag-icons.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css';
-
-class Invoice {
-  @DataGridField('String')
-  id!: string;
-
-  @DataGridField('String')
-  firstName!: string;
-
-  @DataGridField('String')
-  lastName!: string;
-
-  @DataGridField('String')
-  email!: string;
-
-  @DataGridField('Lang')
-  language!: string;
-
-  @DataGridField('Number')
-  note!: number;
-
-  @DataGridField('Money')
-  total!: number;
-
-  @DataGridField('InvoiceStatus')
-  status!: string;
-
-  @DataGridField('Date')
-  createdAt!: Date;
-}
-class Student {
-  @DataGridField('String')
-  id!: string;
-
-  @DataGridField('String', { name: 'Prenom' })
-  firstName!: string | undefined;
-
-  @DataGridField('Lang', { name: 'Language' })
-  language!: string | undefined;
-
-  @DataGridField('String', { name: 'Console' })
-  console!: string | undefined;
-
-  @DataGridField('Boolean', { name: 'Sophomore' })
-  sophomore!: boolean | undefined;
-
-  @DataGridField('Pointer', { linkedEntityClass: Invoice, name: 'Invoice' })
-  invoice!: Invoice | undefined;
-}
 
 const options: DataGridOptions = {
   lang: 'fr', // default Fr
@@ -92,7 +42,8 @@ const options: DataGridOptions = {
 
 const all = getAllGridFieldsConfig();
 console.log('all fields', all);
-console.log('student fields', getFieldsForEntity(Student));
+const allRules = getAllGridRulesConfig();
+console.log('all rules', allRules);
 // const studentConfigs = getFieldsForEntity(Student);
 // const invoiceConfigs = getFieldsForEntity(Invoice);
 // console.log('studentConfigs', studentConfigs);
