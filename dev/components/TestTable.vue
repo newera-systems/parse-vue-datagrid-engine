@@ -56,6 +56,7 @@ const defaultConfig = {
   canSort: true,
 };
 export default defineComponent({
+  name: 'TestTable',
   data() {
     return {
       fields: [

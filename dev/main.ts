@@ -1,11 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import './models';
-import DataGridPlugin, {
-  type DataGridOptions,
-  getAllGridFieldsConfig,
-  getAllGridRulesConfig,
-} from '../src/datagrid-bvue';
+import DataGridPlugin, { type DataGridOptions, getAllGridRulesConfig} from '../src/datagrid-bvue';
 import 'vue-select/dist/vue-select.css';
 
 // custom components
@@ -40,16 +36,6 @@ const options: DataGridOptions = {
   ruleSchemas: getAllGridRulesConfig(),
 };
 
-const all = getAllGridFieldsConfig();
-console.log('all fields', all);
-const allRules = getAllGridRulesConfig();
-console.log('all rules', allRules);
-// const studentConfigs = getFieldsForEntity(Student);
-// const invoiceConfigs = getFieldsForEntity(Invoice);
-// console.log('studentConfigs', studentConfigs);
-// console.log('testeurConfigs', invoiceConfigs);
-// const gridRules = getAllGridRulesConfig();
-// console.log('gridRules', gridRules);
 Vue.use(DataGridPlugin, options);
 
 // eslint-disable-next-line no-new

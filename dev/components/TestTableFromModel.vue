@@ -50,6 +50,7 @@ import {
 } from '../../src/datagrid-bvue';
 
 export default defineComponent({
+  name: 'TestTableFromModel',
   data() {
     const fields = getFieldsForEntityId('Student') as FieldDefinitionWithExtra[];
     return {
