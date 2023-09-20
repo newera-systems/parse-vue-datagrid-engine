@@ -7,7 +7,11 @@ export default defineComponent({
   components: { BIconChevronRight },
   props: {
     definition: {
-      type: Object as PropType<{ name: string; chain?: string[] }>,
+      type: Object as PropType<{
+        name: string;
+        chain?: string[];
+        identifier: string;
+      }>,
       required: true,
     },
   },
@@ -20,6 +24,9 @@ export default defineComponent({
     translation() {
       return this.getTranslation(this.definition.name);
     },
+    splittedIds(): string[] {
+      return this.definition.identifier.split('.') ?? [];
+    },
   },
   methods: {
     getTranslation(key: string) {
@@ -29,6 +36,15 @@ export default defineComponent({
       }
       return key;
     },
+    getChainValue(key: string, index: number) {
+      if (index === 0 || !this.splittedIds[index]) {
+        return this.getTranslation(key.toLowerCase())
+      }
+      else if (this.splittedIds.length === 2){
+        return this.getTranslation(this.splittedIds[1]) +'@'+ this.getTranslation(this.splittedIds[0]);
+      }
+      return this.getTranslation(this.splittedIds[index]) +'@'+ this.getTranslation(key.toLowerCase());
+    },
   },
 });
 </script>
@@ -37,8 +53,10 @@ export default defineComponent({
   <span>
     <template v-if="definition.chain && definition.chain.length > 1">
       <span v-for="(text, index) in definition.chain" :key="index">
-        {{ getTranslation(text) }}
-        <BIconChevronRight class="mr-1" :variant="colors[index % colors.length]" />
+        <template v-if="(index < (definition.chain.length - 1)) || (index == 1)">
+          {{ getChainValue(text, index) }}
+          <BIconChevronRight class="mr-1" :variant="colors[index % colors.length]" />
+        </template>
       </span>
     </template>
     {{ translation }}

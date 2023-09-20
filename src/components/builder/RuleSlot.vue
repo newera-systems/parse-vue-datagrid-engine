@@ -1,7 +1,7 @@
 <template>
   <div class="w-100">
     <div>
-      <FieldNamePrinter :definition="{ name: ruleName, chain: chain }" />
+      <FieldNamePrinter :definition="{ name: ruleName, chain: chain, identifier: ruleCtrl.ruleIdentifier }" />
     </div>
     <div class="w-100">
       <component
