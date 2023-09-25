@@ -1,3 +1,17 @@
+<template>
+  <span>
+    <template v-if="definition.chain && definition.chain.length > 1">
+      <span v-for="(text, index) in definition.chain" :key="index">
+        <template v-if="(index < (definition.chain.length - 1)) || (index == 1)">
+          {{ getChainValue(text, index) }}
+          <BIconChevronRight class="mr-1" :variant="colors[index % colors.length]" />
+        </template>
+      </span>
+    </template>
+    {{ translation }}
+  </span>
+</template>
+
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { BIconChevronRight } from 'bootstrap-vue';
@@ -48,19 +62,5 @@ export default defineComponent({
   },
 });
 </script>
-
-<template>
-  <span>
-    <template v-if="definition.chain && definition.chain.length > 1">
-      <span v-for="(text, index) in definition.chain" :key="index">
-        <template v-if="(index < (definition.chain.length - 1)) || (index == 1)">
-          {{ getChainValue(text, index) }}
-          <BIconChevronRight class="mr-1" :variant="colors[index % colors.length]" />
-        </template>
-      </span>
-    </template>
-    {{ translation }}
-  </span>
-</template>
 
 <style scoped lang="scss"></style>
