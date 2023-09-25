@@ -14,6 +14,8 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "sourceMap": true,
     "baseUrl": ".",
     "outDir": "./dist",
