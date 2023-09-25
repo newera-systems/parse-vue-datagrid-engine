@@ -118,7 +118,7 @@ function resolveFieldsForEntity(
   const resolvedFields: FieldData[] = [];
   for (const field of fields) {
     const currentPrefix = prefix !== '' ? `${prefix}.${field.identifier}` : field.identifier;
-    if (field.type === 'Pointer' && field.linkedEntityClass !== undefined) {
+    if (field.type === 'Pointer' && field.linkedEntityClass != null) {
       const nestedFields = resolveFieldsForEntity(
         field.linkedEntityClass,
         currentPrefix,
