@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import './models';
-import DataGridPlugin, { type DataGridOptions, getAllGridRulesConfig} from '../src/datagrid-bvue';
+import DataGridPlugin, { type DataGridOptions, getAllGridRulesConfig } from '../src/datagrid-bvue';
 import 'vue-select/dist/vue-select.css';
 
 // custom components

@@ -95,8 +95,7 @@ export default defineComponent({
         if (a.chain !== undefined && b.chain !== undefined) {
           if (a.chain.length > b.chain?.length) {
             return 1;
-          }
-          else if (a.chain?.length < b.chain?.length) {
+          } else if (a.chain?.length < b.chain?.length) {
             return -1;
           }
         }
@@ -123,7 +122,11 @@ export default defineComponent({
       }
       return key;
     },
-    getDefinition(rule: RuleDefinitionWithChain): { name: string; chain: string[],  identifier: string } {
+    getDefinition(rule: RuleDefinitionWithChain): {
+      name: string;
+      chain: string[];
+      identifier: string;
+    } {
       return { name: rule.name, chain: rule.chain ?? [], identifier: rule.identifier };
     },
   },
