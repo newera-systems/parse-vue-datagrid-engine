@@ -2,7 +2,7 @@
   <span>
     <template v-if="definition.chain && definition.chain.length > 1">
       <span v-for="(text, index) in definition.chain" :key="index">
-        <template v-if="index < definition.chain.length - 1 || index == 1">
+        <template v-if="index < definition.chain.length - 1">
           {{ getChainValue(text, index) }}
           <BIconChevronRight class="mr-1" :variant="colors[index % colors.length]" />
         </template>
@@ -51,16 +51,11 @@ export default defineComponent({
       return key;
     },
     getChainValue(key: string, index: number) {
-      if (index === 0 || !this.splittedIds[index]) {
+      if (this.splittedIds[index] !== key.toLowerCase()) {
+        return this.getTranslation(this.splittedIds[index]);
+      } else {
         return this.getTranslation(key.toLowerCase());
-      } else if (this.splittedIds.length === 2) {
-        return (
-          this.getTranslation(this.splittedIds[1]) + '@' + this.getTranslation(this.splittedIds[0])
-        );
       }
-      return (
-        this.getTranslation(this.splittedIds[index]) + '@' + this.getTranslation(key.toLowerCase())
-      );
     },
   },
 });
