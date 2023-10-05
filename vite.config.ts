@@ -34,11 +34,40 @@ const devModeConfigBuild: BuildOptions = {
   emptyOutDir: true
 };
 
+const decoratorModeConfigBuild: BuildOptions = {
+  outDir: "dist",
+  emptyOutDir: false,
+  lib: {
+    entry: resolve(__dirname, "src/ModelDecorator/index.ts"),
+    name: "ModelDecorator",
+    formats: ["es", "umd"],
+    fileName: "model-decorator"
+  },
+  rollupOptions: {
+    external: [],
+    output: {
+      globals: {},
+      exports: "named"
+    }
+  }
+};
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
+  let buildConfig: BuildOptions;
+  switch (mode) {
+    case "development":
+        buildConfig = devModeConfigBuild;
+        break;
+    case "decorator":
+        buildConfig = decoratorModeConfigBuild;
+        break;
+    default:
+        buildConfig = libraryModeConfigBuild;
+  }
   return {
     plugins: [vue({})],
-    build: mode === "development" ? devModeConfigBuild : libraryModeConfigBuild,
+    build: buildConfig,
     resolve: {
       alias: [
         { find: "@", replacement: resolve("./src") },

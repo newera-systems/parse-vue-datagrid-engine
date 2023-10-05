@@ -23,7 +23,7 @@
       v-model="modalVisible"
       :rule="filterBuild"
       :use-editor="useEditor"
-      target="Invoice"
+      target="Student"
       @update:rule="
         filterEdited => {
           filterBuild = filterEdited;

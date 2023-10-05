@@ -99,8 +99,8 @@ import {
 } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import modalTranslation from '@/translation/modal';
-import { OperatorDefinition, QueryBuilderConfig, RuleDefinition } from 'query-builder-vue';
-import { RuleEngineConfig } from '@/rule/RuleElementCreator';
+import { OperatorDefinition, QueryBuilderConfig } from 'query-builder-vue';
+import { RuleDefinitionWithChain, RuleEngineConfig } from '@/rule/RuleElementCreator';
 import ActionTab from '@components/builder/ActionTab.vue';
 import QueryBuilderSection from '@components/builder/QueryBuilderSection.vue';
 
@@ -165,43 +165,6 @@ export default defineComponent({
   },
   data: function () {
     const random = Math.random().toString(36).substr(2, 9);
-    const builderConfig: QueryBuilderConfig = {
-      operators: [
-        {
-          identifier: GroupOperator.AND,
-          name: 'AND',
-        },
-        {
-          identifier: GroupOperator.OR,
-          name: 'OR',
-        },
-      ] as OperatorDefinition[],
-      rules: [],
-      colors: [
-        '#f44336',
-        '#e91e63',
-        '#9c27b0',
-        '#673ab7',
-        '#3f51b5',
-        '#2196f3',
-        '#03a9f4',
-        '#00bcd4',
-        '#009688',
-        '#4caf50',
-        '#8bc34a',
-        '#cddc39',
-        '#ffeb3b',
-        '#ffc107',
-        '#ff9800',
-        '#ff5722',
-        '#795548',
-        '#9e9e9e',
-        '#607d8b',
-      ],
-      dragging: {
-        animation: 250,
-      },
-    };
     const initRule: FilterRuleInterface = {
       name: '',
       target: this.target,
@@ -214,7 +177,6 @@ export default defineComponent({
     return {
       id: `rule-creator-${random}`,
       localRule: this.rule ?? initRule,
-      builderConfig,
     };
   },
   computed: {
@@ -261,8 +223,45 @@ export default defineComponent({
       }
       return '';
     },
-    rulesDefinitions(): RuleDefinition[] {
+    rulesDefinitions(): RuleDefinitionWithChain[] {
       return this.engine?.rules ?? [];
+    },
+    builderConfig(): QueryBuilderConfig {
+      return {
+        operators: [
+          {
+            identifier: GroupOperator.AND,
+            name: 'AND',
+          },
+          {
+            identifier: GroupOperator.OR,
+            name: 'OR',
+          },
+        ] as OperatorDefinition[],
+        rules: this.rulesDefinitions,
+        colors: [
+          '#f44336',
+          '#e91e63',
+          '#9c27b0',
+          '#673ab7',
+          '#3f51b5',
+          '#2196f3',
+          '#03a9f4',
+          '#00bcd4',
+          '#009688',
+          '#4caf50',
+          '#8bc34a',
+          '#cddc39',
+          '#ffeb3b',
+          '#ffc107',
+          '#ff9800',
+          '#ff5722',
+          '#795548',
+          '#9e9e9e',
+          '#607d8b',
+        ],
+        dragging: { animation: 250 },
+      };
     },
     allowedIdentifier(): string[] {
       return this.rulesDefinitions.map(rule => rule.identifier);
@@ -341,13 +340,6 @@ export default defineComponent({
       immediate: true,
     },
     target() {},
-    rulesDefinitions: {
-      handler(val) {
-        this.builderConfig.rules = val;
-      },
-      immediate: true,
-      deep: true,
-    },
     visible: {
       handler(newValue) {
         if (newValue) {
@@ -355,6 +347,7 @@ export default defineComponent({
         }
       },
     },
+    builderConfig(value) {},
   },
 });
 </script>

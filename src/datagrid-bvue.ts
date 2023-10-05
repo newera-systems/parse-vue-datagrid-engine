@@ -43,6 +43,7 @@ export interface FieldDefinition {
   config: GridFieldOptions;
   type: FieldType;
   targetClass?: string;
+  chain?: string[];
 }
 
 export interface FieldDefinitionWithExtra extends FieldDefinition {
@@ -304,3 +305,4 @@ if (typeof window !== 'undefined' && window.Vue !== undefined && window.Vue.use 
 
 export default DataGridPlugin;
 export * from './namedExports';
+export * from '@/ModelDecorator/index';

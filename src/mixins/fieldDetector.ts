@@ -13,6 +13,10 @@ export default defineComponent({
       type: Array as PropType<FieldDefinitionWithExtra[]>,
       default: () => [],
     },
+    showAction: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -61,6 +65,19 @@ export default defineComponent({
         found.config.canEdit = false;
         found.config.canFilter = false;
         found.config.canSort = false;
+      } else if (this.showAction) {
+        fields.unshift({
+          identifier: '#action',
+          name: '#',
+          config: {
+            canView: false,
+            canRead: true,
+            canEdit: false,
+            canFilter: false,
+            canSort: false,
+          },
+          type: FieldType.String,
+        });
       }
     },
     _transformToValidDefinition(fields: any[]) {

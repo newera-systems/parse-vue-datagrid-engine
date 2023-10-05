@@ -1,15 +1,12 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h2 class="card-title font-weight-normal text-muted">DataGridTable Component</h2>
-      <p class="card-text font-weight-light">
-        This table show case only the DataGridTable component. The fields are hardcoded. <br />
-        The data is provided by a function that simulate a server call, and the modification handler
-        is also hardcoded.
-      </p>
-      <p class="card-text font-weight-light">
-        It is possible to use the same component with a model, see the next example. This allow to
-        have a dynamic table and provide a rule creator with a filter.
+      <h2 class="card-title h3 font-weight-normal text-muted">
+        DataGridTable Component From Model
+      </h2>
+      <p clss=" card-text font-weight-light">
+        This table is using the same data as the previous one, but the fields are generated from the
+        model.
       </p>
       <DataGridTable
         :fields="fields"
@@ -17,9 +14,11 @@
         :modification-handler="modificationHandler"
         :pagination-entries="items.length"
         :show-filter.sync="showFilter"
-        name="Players"
+        name="Players v2"
         responsive
+        target="Student"
         @goToEditor="goToItemEditor"
+        show-action
       >
         <template #action="{ index }"> slot {{ index }}</template>
       </DataGridTable>
@@ -43,78 +42,19 @@
 import { defineComponent } from 'vue';
 import {
   DataGridModifiedCell,
-  FieldDefinitionWithExtra,
-  FieldType,
   ProviderContext,
+  getFieldsForEntityId,
+  // eslint-disable-next-line no-unused-vars
+  getFieldsForEntityLabel, // possible to use this one too
+  FieldDefinitionWithExtra,
 } from '../../src/datagrid-bvue';
 
-const defaultConfig = {
-  canView: true,
-  canRead: true,
-  canEdit: false,
-  canFilter: true,
-  canSort: true,
-};
 export default defineComponent({
-  name: 'TestTable',
+  name: 'TestTableFromModel',
   data() {
+    const fields = getFieldsForEntityId('Student') as FieldDefinitionWithExtra[];
     return {
-      fields: [
-        {
-          identifier: '#action',
-          name: 'Actions',
-          config: { ...defaultConfig },
-          type: FieldType.String,
-        },
-        {
-          identifier: 'firstName',
-          name: 'First Name',
-          config: { ...defaultConfig },
-          type: FieldType.String,
-        },
-        {
-          identifier: 'email',
-          name: 'Email',
-          config: { ...defaultConfig, canEdit: true },
-          type: FieldType.String,
-        },
-        {
-          identifier: 'console',
-          name: 'console',
-          config: { ...defaultConfig },
-          type: FieldType.String,
-        },
-        {
-          identifier: 'note',
-          name: 'Note',
-          config: { ...defaultConfig },
-          type: FieldType.Percent,
-        },
-        {
-          identifier: 'account',
-          name: 'Facture',
-          config: { ...defaultConfig },
-          type: FieldType.Money,
-        },
-        {
-          identifier: 'lang',
-          name: 'Langue',
-          config: { ...defaultConfig },
-          type: FieldType.Lang,
-        },
-        {
-          identifier: 'status',
-          name: 'Status',
-          config: { ...defaultConfig, canEdit: true },
-          type: 'InvoiceStatus',
-        },
-        {
-          identifier: 'isRegistered',
-          name: 'Is registered',
-          config: { ...defaultConfig },
-          type: FieldType.Boolean,
-        },
-      ] as FieldDefinitionWithExtra[],
+      fields,
       items: [
         {
           id: Math.random().toString(36).substr(2, 9),
@@ -189,12 +129,10 @@ export default defineComponent({
       showFilterResultCode: false,
     };
   },
-  computed: {},
   methods: {
     provider(ctx: ProviderContext, cb) {
       if (ctx.FilterRule) {
         this.generatedRuleCode = JSON.stringify(ctx.FilterRule, null, 2);
-        // console.log('FilterRule', ctx.FilterRule)
       }
       const begin = (ctx.currentPage - 1) * ctx.perPage;
       const end = begin + ctx.perPage;

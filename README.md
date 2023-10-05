@@ -1,8 +1,8 @@
 <h1 align='center'>
-  Parse - DatagridBvue
+  DatagridBvue
 </h1>
 <h4 align='center'>
-  v0.1.1
+  <img src="https://img.shields.io/badge/version-0.2.0-blue.svg?cacheSeconds=2592000" />
 </h4>
 <h5 align='center'>
 
@@ -16,7 +16,8 @@
 <p align='center'>
   <a href='#datagrid-table'>Datagrid Table</a> |
   <a href='#rule-engine-filter'>Rule engine Filter</a> |
-  <a href='#modal-rule-creator'>Datagrid Rule Creator Modal</a>
+  <a href='#modal-rule-creator'>Datagrid Rule Creator Modal</a> |
+  <a href="#model-decorators">Model decorators</a>
 </p>
 
 ![DataGrid](./.github/screenshot/datagrid_table.png)
@@ -33,6 +34,29 @@ sorting, various style options, events, and asynchronous data.
 
 - [x] Bootstrap is 4.6.0 recommended
 
+## Table of Contents
+- [Installation](#installation)
+- [Features](#features)
+- [Usage](#usage)
+  - [Usage - Demo folder](#demo-folder)
+  - [Datagrid Table](#datagrid-table)
+  - [Rule engine Filter](#rule-engine-filter)
+  - [Datagrid Rule Creator Modal](#modal-rule-creator)
+  - [Model Decorators](#model-decorators)
+
+## Installation
+
+### Install with npm
+```shell
+npm install datagrid-bvue
+```
+
+### Install with yarn
+```shell
+yarn add datagrid-bvue
+```
+
+
 ## Features
 
 Available components:
@@ -40,6 +64,7 @@ Available components:
 - [DataGridTable](#datagrid-table)
 - [DataGridFilter](#rule-engine-filter)
 - [RuleEngineCreatorModal](#modal-rule-creator)
+- [Decorators](#model-decorators)
 
 Available features:
 
@@ -51,19 +76,9 @@ Available features:
 - Custom field types
 - Custom rules components
 - Rules schemas
+- Decorators for models and fields
 - Customizable style
 - i18n translation (en, fr)
-
-## Installation
-
-### Install with npm
-```shell
-npm install datagrid-bvue
-```
-### Install with yarn
-```shell
-yarn add datagrid-bvue
-```
 
 ### Demo folder
 
@@ -645,3 +660,73 @@ export default defineComponent({
 })
 </script>
 ```
+
+### Model decorators
+DatagridBvue offers powerful model decorators to streamline the setup of your grid data and configurations.
+
+`@DataGridModel()`
+Marks the class as a model for the data grid system.
+`@DataGridField(type: string, options?: FieldOptions)`
+
+Usage:
+```typescript
+
+@DataGridModel()
+export class Discount {
+  @DataGridField('String')
+  id!: string;
+
+  @DataGridField('String')
+  name!: string;
+
+  @DataGridField('Number')
+  value!: number;
+}
+
+@DataGridModel()
+export class Invoice {
+  @DataGridField('Money')
+  total!: number;
+
+  @DataGridField('InvoiceStatus')
+  status!: string;
+
+  @DataGridField('Date')
+  createdAt!: unknown;
+
+  @DataGridField('Pointer', { linkedEntityClass: Discount })
+  discount!: Discount | undefined;
+}
+
+@DataGridModel()
+class Student {
+    @DataGridField()
+    id: string;
+    
+    @DataGridField()
+    firstName: string;
+    
+    @DataGridField()
+    lastName: string;
+    
+    @DataGridField('Pointer', { linkedEntityClass: Invoice })
+    invoice!: Invoice | undefined;
+}
+
+```
+
+Utility:
+ - `getAllGridRulesConfig`() - Returns a record object where keys are entity labels and values are an array of schema definitions for those entities.
+Can be used to setup the ruleSchemas option for the plugin.
+  ```typescript
+    const options: DataGridOptions = {
+        ...
+        ruleSchemas: getAllGridRulesConfig(),
+    }
+  ```
+- `getFieldsForEntity`(entityClass: DataGridModelClass) - Fetches the fields for a given entity class.
+- `getAllRegisteredEntitiesData` - Fetches all the registered entities data.
+- `getAllRegisteredModelIdentifiers` - Fetches the identifiers for all registered entity models.
+- `getFieldsForEntityId`(entityId: string) - Fetches the fields for a given entity id.
+- `getFieldsForEntityLabel`(entityLabel: string) - Fetches the fields for a given entity label.
+- `getAllGridFieldsConfig`() - Returns a record object where keys are entity labels and values are an array of field data for those entities.

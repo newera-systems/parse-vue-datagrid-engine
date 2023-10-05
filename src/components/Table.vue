@@ -37,9 +37,7 @@
           <b-button id="RefreshButtonDataGrid" variant="outline-primary" @click="_updatedContext">
             <BIconArrowClockwise width="24" />
           </b-button>
-          <b-button id="data-grid-toolbox-button" variant="outline-primary">
-            <BIconGearWideConnected width="24" />
-          </b-button>
+          <ToolbarConfig v-model="localFieldsDef" :existing-fields="existingFields" />
         </b-button-group>
       </b-button-toolbar>
       <b-table
@@ -96,20 +94,12 @@
         :entries="localTotalEntries"
         :per-page.sync="context.perPage"
       />
-      <b-popover
-        custom-class="table-config-popover"
-        target="data-grid-toolbox-button"
-        triggers="focus"
-      >
-        <template #title>{{ $t('DataGrid.configuration') }}</template>
-        <ToolbarConfig v-model="localFieldsDef" :existing-fields="existingFields" />
-      </b-popover>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import Vue, { Component, defineComponent, PropType } from 'vue';
+import Vue, { Component, PropType } from 'vue';
 import {
   BButton,
   BButtonGroup,
@@ -118,11 +108,9 @@ import {
   BIconArrowClockwise,
   BIconCircleFill,
   BIconFunnel,
-  BIconGearWideConnected,
   BIconPencilSquare,
   BIconUiChecks,
   BInputGroup,
-  BPopover,
   BTable,
   BvTableFieldArray,
 } from 'bootstrap-vue';
@@ -171,8 +159,6 @@ export default Vue.extend({
     BIconUiChecks,
     BIconFunnel,
     BIconArrowClockwise,
-    BIconGearWideConnected,
-    BPopover,
     ToolbarConfig,
   },
   props: {
@@ -199,6 +185,10 @@ export default Vue.extend({
     showFilter: {
       type: Boolean,
       default: () => false,
+    },
+    showAction: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -359,10 +349,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style scoped>
-.popover.table-config-popover {
-  min-width: 450px;
-  max-width: 700px !important;
-}
-</style>

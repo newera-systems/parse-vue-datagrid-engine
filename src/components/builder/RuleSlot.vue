@@ -1,7 +1,9 @@
 <template>
   <div class="w-100">
     <div>
-      <span>{{ ruleName }}</span>
+      <FieldNamePrinter
+        :definition="{ name: ruleName, chain: chain, identifier: ruleCtrl.ruleIdentifier }"
+      />
     </div>
     <div class="w-100">
       <component
@@ -14,35 +16,31 @@
 </template>
 
 <script lang="ts">
-import { RuleDefinition, RuleSlotProps } from 'query-builder-vue';
+import { RuleSlotProps } from 'query-builder-vue';
 
 import { defineComponent, PropType } from 'vue';
+import FieldNamePrinter from '@components/FieldNamePrinter.vue';
+import { RuleDefinitionWithChain } from '@/rule/RuleElementCreator';
 
 export default defineComponent({
   name: 'RuleSlot-Builders',
+  components: { FieldNamePrinter },
   props: {
     ruleCtrl: {
       type: Object as PropType<RuleSlotProps>,
       required: true,
     },
     rules: {
-      type: Array as PropType<RuleDefinition[]>,
+      type: Array as PropType<RuleDefinitionWithChain[]>,
       required: true,
     },
   },
   computed: {
     ruleName(): string {
-      const name = this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.name;
-      return name ? this.getTranslation(name) : '??';
+      return this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.name ?? '??';
     },
-  },
-  methods: {
-    getTranslation(key: string): string {
-      // @ts-expect-error DataGrid defined when using plugin
-      if (this?.$DataGrid?.i18n) {
-        return this.$t(key).toString() ?? key;
-      }
-      return key;
+    chain(): string[] {
+      return this.rules.find(r => r.identifier === this.ruleCtrl.ruleIdentifier)?.chain ?? [];
     },
   },
 });

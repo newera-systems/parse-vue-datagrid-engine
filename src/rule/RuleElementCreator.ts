@@ -7,19 +7,26 @@ import LangRule from '@/rule/RuleInputs/LangRule.vue';
 import DateRule from '@/rule/RuleInputs/DateRule.vue';
 import BooleanRule from '@/rule/RuleInputs/BooleanRule.vue';
 import { GroupOperator, type RuleCompTypes } from '@/datagrid-bvue';
+import OtherRule from '@/rule/RuleInputs/OtherRule.vue';
 
 export interface SchemaDefinition {
   identifier: string;
   name: string;
   type: RuleCompTypes | string;
+  chain?: string[];
 }
 
 export type SchemaList = Record<string, SchemaDefinition[]>;
+
+export interface RuleDefinitionWithChain extends RuleDefinition {
+  chain?: string[];
+}
 
 export const componentsList: Record<RuleCompTypes | string, Component> = {
   Boolean: BooleanRule,
   String: StringRule,
   Number: NumberRule,
+  Percent: NumberRule,
   Money: MoneyRule,
   Lang: LangRule,
   Date: DateRule,
@@ -27,7 +34,7 @@ export const componentsList: Record<RuleCompTypes | string, Component> = {
 
 export class RuleEngineConfig {
   public draggable: boolean;
-  public rules: RuleDefinition[];
+  public rules: RuleDefinitionWithChain[];
   private readonly target: string;
   private readonly schemas: SchemaList;
 
@@ -69,10 +76,11 @@ export class RuleEngineConfig {
     }
     for (const rule of data) {
       this.rules.push({
-        component: componentsList[rule.type],
+        component: componentsList[rule.type] ?? OtherRule,
         identifier: rule.identifier,
         name: rule.name,
         initialValue: null,
+        chain: rule.chain,
       });
     }
   }

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
-import DataGridPlugin, { type DataGridOptions, RuleCompTypes } from '../src/datagrid-bvue';
+import './models';
+import DataGridPlugin, { type DataGridOptions, getAllGridRulesConfig } from '../src/datagrid-bvue';
 import 'vue-select/dist/vue-select.css';
 
 // custom components
@@ -32,30 +33,7 @@ const options: DataGridOptions = {
     InvoiceStatus: InvoiceStatusRule,
   },
   // only elements inside the schema are available for filtering
-  ruleSchemas: {
-    Student: [
-      { identifier: 'id', name: 'id', type: RuleCompTypes.String },
-      { identifier: 'firstName', name: 'Prenom', type: RuleCompTypes.String },
-      { identifier: 'language', name: 'Langue', type: RuleCompTypes.Lang },
-      { identifier: 'console', name: 'Console', type: RuleCompTypes.String },
-      { identifier: 'sophomore', name: 'Sophomore', type: RuleCompTypes.Boolean },
-    ],
-    Invoice: [
-      { identifier: 'id', name: 'id', type: RuleCompTypes.String },
-      {
-        identifier: 'firstName',
-        name: 'firstName',
-        type: RuleCompTypes.String,
-      },
-      { identifier: 'lastName', name: 'lastName', type: RuleCompTypes.String },
-      { identifier: 'email', name: 'email', type: RuleCompTypes.String },
-      { identifier: 'language', name: 'language', type: RuleCompTypes.Lang },
-      { identifier: 'note', name: 'note', type: RuleCompTypes.Number },
-      { identifier: 'total', name: 'total', type: RuleCompTypes.Money },
-      { identifier: 'status', name: 'status', type: 'InvoiceStatus' },
-      { identifier: 'createdAt', name: 'createdAt', type: RuleCompTypes.Date },
-    ],
-  },
+  ruleSchemas: getAllGridRulesConfig(),
 };
 
 Vue.use(DataGridPlugin, options);

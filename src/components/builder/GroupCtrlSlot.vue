@@ -7,12 +7,12 @@
             {{ $t('Rule.selectId') }}
           </b-dropdown-header>
           <BDropdownItem
-            v-for="rule in groupCtrl.rules"
+            v-for="rule in orderedRules"
             :key="rule.identifier"
             :variant="selectedRule === rule.identifier ? 'primary' : 'dark'"
             @click="setRule(rule.identifier)"
           >
-            {{ getTranslation(rule.name) }}
+            <FieldNamePrinter :definition="getDefinition(rule)" />
           </BDropdownItem>
         </BDropdown>
         <BButton
@@ -51,12 +51,15 @@ import {
 } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import modalTranslation from '@/translation/modal';
+import FieldNamePrinter from '@components/FieldNamePrinter.vue';
+import { RuleDefinitionWithChain } from '@/rule/RuleElementCreator';
 
 Vue.use(VueI18n);
 export default defineComponent({
   name: 'group-ctrl-slot',
   i18n: new VueI18n(modalTranslation),
   components: {
+    FieldNamePrinter,
     BButton,
     BButtonGroup,
     BButtonToolbar,
@@ -86,6 +89,19 @@ export default defineComponent({
       const name = this.groupCtrl.rules.find(rule => rule.identifier === this.selectedRule)?.name;
       return name ? this.getTranslation(name) : this.selectedRule;
     },
+    orderedRules(): RuleDefinitionWithChain[] {
+      const rules = [...this.groupCtrl.rules] as RuleDefinitionWithChain[];
+      return rules.sort((a, b) => {
+        if (a.chain !== undefined && b.chain !== undefined) {
+          if (a.chain.length > b.chain?.length) {
+            return 1;
+          } else if (a.chain?.length < b.chain?.length) {
+            return -1;
+          }
+        }
+        return a.identifier.localeCompare(b.identifier);
+      });
+    },
   },
   methods: {
     setRule(rule: string) {
@@ -105,6 +121,13 @@ export default defineComponent({
         return this.$t(key).toString() ?? key;
       }
       return key;
+    },
+    getDefinition(rule: RuleDefinitionWithChain): {
+      name: string;
+      chain: string[];
+      identifier: string;
+    } {
+      return { name: rule.name, chain: rule.chain ?? [], identifier: rule.identifier };
     },
   },
 });

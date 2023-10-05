@@ -1,6 +1,6 @@
 {
   "name": "datagrid-bvue",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "DataGrid based on bootstrap vue",
   "keywords": [
     "datagrid",
@@ -15,8 +15,9 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "rimraf dist",
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "build": "vite build && vue-tsc",
     "build:demo": "vite build --mode development",
+    "build:decorator": "vite build --mode decorator && vue-tsc",
     "test:unit": "jest",
     "test": "yarn test:unit",
     "preview": "vite preview --mode development",
@@ -34,6 +35,11 @@
       "types": "./dist/datagrid-bvue.d.ts",
       "import": "./dist/datagrid-bvue.js",
       "require": "./dist/datagrid-bvue.umd.cjs"
+    },
+    "./model-decorator": {
+      "types": "./dist/ModelDecorator/index.d.ts",
+      "import": "./dist/model-decorator.js",
+      "require": "./dist/model-decorator.umd.cjs"
     },
     "./style.css": "./dist/style.css",
     "./dist/style.css": "./dist/style.css",
@@ -55,6 +61,7 @@
     "flag-icons": "^6.6.6",
     "lodash": "^4.17.21",
     "query-builder-vue": "^1.2.0",
+    "reflect-metadata": "^0.1.13",
     "ts-money": "^0.4.8",
     "vue-i18n": "^8",
     "vue-select": "^3.20.0",
