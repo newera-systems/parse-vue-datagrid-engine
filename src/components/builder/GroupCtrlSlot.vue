@@ -92,12 +92,16 @@ export default defineComponent({
     orderedRules(): RuleDefinitionWithChain[] {
       const rules = [...this.groupCtrl.rules] as RuleDefinitionWithChain[];
       return rules.sort((a, b) => {
-        if (a.chain !== undefined && b.chain !== undefined) {
-          if (a.chain.length > b.chain?.length) {
-            return 1;
-          } else if (a.chain?.length < b.chain?.length) {
-            return -1;
+        const aChain = a.chain || [];
+        const bChain = b.chain || [];
+        for (let i = 0; i < Math.min(aChain.length, bChain.length); i++) {
+          const chainComparison = aChain[i].localeCompare(bChain[i]);
+          if (chainComparison !== 0) {
+            return chainComparison;
           }
+        }
+        if (aChain.length !== bChain.length) {
+          return aChain.length - bChain.length;
         }
         return a.identifier.localeCompare(b.identifier);
       });
