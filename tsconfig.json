@@ -25,13 +25,13 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@filter/*": [
-        "src/filter/*"
+        "./src/filter/*"
       ],
       "@components/*": [
-        "src/components/*"
+        "./src/components/*"
       ]
     },
     "lib": [

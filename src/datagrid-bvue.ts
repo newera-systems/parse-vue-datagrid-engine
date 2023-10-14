@@ -1,12 +1,12 @@
 import { type Component } from 'vue';
 import { type PluginObject } from 'vue/types/plugin';
 import DataGridTable from './components/Table.vue';
-import RuleEngineFilter from '@components/RuleEngineFilter.vue';
-import RuleEditorModal from '@components/RuleEditorModal.vue';
-import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
-import { componentsList, RuleEngineConfig, type SchemaList } from '@/rule/RuleElementCreator';
+import RuleEngineFilter from './components/RuleEngineFilter.vue';
+import RuleEditorModal from './components/RuleEditorModal.vue';
+import { editorComponentsList, viewerComponentsList } from './editFields/config';
+import { componentsList, RuleEngineConfig, type SchemaList } from './rule/RuleElementCreator';
 import { type Money } from 'ts-money';
-import { type Language } from '@/fieldsData';
+import { type Language } from './fieldsData';
 
 export interface GridFieldOptions {
   canView: boolean;
@@ -305,4 +305,4 @@ if (typeof window !== 'undefined' && window.Vue !== undefined && window.Vue.use 
 
 export default DataGridPlugin;
 export * from './namedExports';
-export * from '@/ModelDecorator/index';
+export * from './ModelDecorator/index';
