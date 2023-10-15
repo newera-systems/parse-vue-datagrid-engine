@@ -4,7 +4,12 @@
       <b-input-group-prepend>
         <OperatorDropdown v-model="operator" :options="operatorList" />
       </b-input-group-prepend>
-      <b-form-input v-model="content" autocomplete="off" trim />
+      <b-form-input
+        v-model="content"
+        :disabled="operator === 'empty' || operator === 'notEmpty'"
+        autocomplete="off"
+        trim
+      />
     </b-input-group>
     <p v-show="operator === 'matches'" class="m-0 p-0">
       Format:
@@ -30,6 +35,11 @@ import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
 
 export default defineComponent({
   name: 'StringRule',
+  computed: {
+    EngineSubOperators() {
+      return EngineSubOperators;
+    },
+  },
   mixins: [fieldInput],
   components: {
     BFormGroup,

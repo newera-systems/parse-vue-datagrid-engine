@@ -114,6 +114,8 @@ export enum EngineSubOperators {
   ContainsAll = 'containsAll',
   Before = 'before',
   After = 'after',
+  Empty = 'empty',
+  NotEmpty = 'notEmpty',
 }
 
 export enum SimpleRuleType {
@@ -144,6 +146,8 @@ export const StringOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.StartsWith,
   EngineSubOperators.EndsWith,
   EngineSubOperators.Matches,
+  EngineSubOperators.Empty,
+  EngineSubOperators.NotEmpty,
 ];
 export const NumberOperatorOptions: EngineSubOperators[] = [
   EngineSubOperators.EqualTo,
