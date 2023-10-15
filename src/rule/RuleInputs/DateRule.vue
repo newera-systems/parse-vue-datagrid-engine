@@ -43,9 +43,9 @@ import {
   EngineRuleData,
   EngineSubOperators,
   SimpleRuleType,
-} from '@/datagrid-bvue';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
-import { Language } from '@/fieldsData';
+} from '../../datagrid-bvue';
+import OperatorDropdown from './OperatorDropdown.vue';
+import { Language } from '../../fieldsData';
 
 export default defineComponent({
   name: 'DateRule',

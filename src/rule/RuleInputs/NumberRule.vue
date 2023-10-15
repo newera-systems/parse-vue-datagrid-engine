@@ -17,8 +17,8 @@ import {
   EngineSubOperators,
   NumberOperatorOptions,
   SimpleRuleType,
-} from '@/datagrid-bvue';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+} from '../../datagrid-bvue';
+import OperatorDropdown from '../../rule/RuleInputs/OperatorDropdown.vue';
 
 export default defineComponent({
   name: 'NumberRule',

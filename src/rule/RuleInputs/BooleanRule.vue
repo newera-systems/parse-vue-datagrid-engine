@@ -24,9 +24,9 @@ import {
   EngineRuleData,
   EngineSubOperators,
   SimpleRuleType,
-} from '@/datagrid-bvue';
-import fieldInput from '@/mixins/RuleFieldInput';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+} from '../../datagrid-bvue';
+import fieldInput from '../../mixins/RuleFieldInput';
+import OperatorDropdown from './OperatorDropdown.vue';
 
 export default defineComponent({
   name: 'BooleanRule',

@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { BFormGroup, BFormInput, BInputGroup, BInputGroupPrepend, BIconCone } from 'bootstrap-vue';
-import { EngineRuleData, SimpleRuleType } from '@/datagrid-bvue';
+import { EngineRuleData, SimpleRuleType } from '../../datagrid-bvue';
 
 export default defineComponent({
   name: 'OtherRule',

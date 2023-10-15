@@ -34,7 +34,7 @@ import {
   EngineSubOperators,
   MoneyOperatorOptions,
   SimpleRuleType,
-} from '@/datagrid-bvue';
+} from '../../datagrid-bvue';
 import {
   BDropdown,
   BDropdownItem,
@@ -44,8 +44,8 @@ import {
   BInputGroupAppend,
   BInputGroupPrepend,
 } from 'bootstrap-vue';
-import fieldInput from '@/mixins/RuleFieldInput';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
+import fieldInput from '../../mixins/RuleFieldInput';
+import OperatorDropdown from './OperatorDropdown.vue';
 
 export default defineComponent({
   name: 'MoneyRule',
