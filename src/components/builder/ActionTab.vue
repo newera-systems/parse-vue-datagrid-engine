@@ -37,7 +37,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { BCol, BForm, BFormGroup, BFormSelect, BFormTextarea, BRow } from 'bootstrap-vue';
-import { RuleActions, RuleGroupAction } from '@/datagrid-bvue';
+import { RuleActions, RuleGroupAction } from '../../datagrid-bvue';
 
 export default defineComponent({
   components: { BFormTextarea, BFormSelect, BFormGroup, BForm, BCol, BRow },

@@ -18,10 +18,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import QueryBuilder, { QueryBuilderConfig } from 'query-builder-vue';
-import { EngineRuleGroup, GroupOperator } from '@/datagrid-bvue';
-import RuleSlot from '@components/builder/RuleSlot.vue';
-import GroupCtrlSlot from '@components/builder/GroupCtrlSlot.vue';
-import GroupOperatorSlot from '@components/builder/GroupOperatorSlot.vue';
+import { EngineRuleGroup, GroupOperator } from '../../datagrid-bvue';
+import RuleSlot from '../../components/builder/RuleSlot.vue';
+import GroupCtrlSlot from '../../components/builder/GroupCtrlSlot.vue';
+import GroupOperatorSlot from '../../components/builder/GroupOperatorSlot.vue';
 
 export default defineComponent({
   name: 'QueryBuilderSection',

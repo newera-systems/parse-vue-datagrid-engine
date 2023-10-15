@@ -100,9 +100,9 @@ import {
 import VueI18n from 'vue-i18n';
 import modalTranslation from '@/translation/modal';
 import { OperatorDefinition, QueryBuilderConfig } from 'query-builder-vue';
-import { RuleDefinitionWithChain, RuleEngineConfig } from '@/rule/RuleElementCreator';
-import ActionTab from '@components/builder/ActionTab.vue';
-import QueryBuilderSection from '@components/builder/QueryBuilderSection.vue';
+import { RuleDefinitionWithChain, RuleEngineConfig } from '../rule/RuleElementCreator';
+import ActionTab from '../components/builder/ActionTab.vue';
+import QueryBuilderSection from '../components/builder/QueryBuilderSection.vue';
 
 export default defineComponent({
   name: 'RuleEditorModal',

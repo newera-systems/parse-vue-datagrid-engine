@@ -57,9 +57,9 @@ import {
   BIconChevronRight,
 } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import filterTranslate from '@/translation/filter';
-import { Language } from '@/fieldsData';
-import FieldNamePrinter from '@components/FieldNamePrinter.vue';
+import filterTranslate from '../translation/filter';
+import { Language } from '../fieldsData';
+import FieldNamePrinter from '../components/FieldNamePrinter.vue';
 
 export type RuleDataObject =
   | EngineRuleData<string, SimpleRuleType.Date>

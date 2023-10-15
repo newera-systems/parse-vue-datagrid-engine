@@ -114,7 +114,7 @@ import {
   BTable,
   BvTableFieldArray,
 } from 'bootstrap-vue';
-import ToolbarConfig from '@components/ToolbarConfig.vue';
+import ToolbarConfig from '../components/ToolbarConfig.vue';
 import {
   DataGridModifiedCell,
   FieldDefinition,
@@ -124,15 +124,15 @@ import {
   GroupOperator,
   ModificationHandler,
   ProviderContext,
-} from '@/datagrid-bvue';
-import provider from '@/mixins/provider';
-import paginatorMixin from '@/mixins/paginator';
-import EditableCells from '@components/EditableCells.vue';
-import fieldDetector from '@/mixins/fieldDetector';
-import tableStyling from '@/mixins/tableStyling';
-import { editorComponentsList, viewerComponentsList } from '@/editFields/config';
-import RuleEngineFilter from '@components/RuleEngineFilter.vue';
-import tableTranslate from '@/translation/table';
+} from '../datagrid-bvue';
+import provider from '../mixins/provider';
+import paginatorMixin from '../mixins/paginator';
+import EditableCells from '../components/EditableCells.vue';
+import fieldDetector from '../mixins/fieldDetector';
+import tableStyling from '../mixins/tableStyling';
+import { editorComponentsList, viewerComponentsList } from '../editFields/config';
+import RuleEngineFilter from '../components/RuleEngineFilter.vue';
+import tableTranslate from '../translation/table';
 import VueI18n from 'vue-i18n';
 
 function defaultModificationHandler(data: DataGridModifiedCell) {

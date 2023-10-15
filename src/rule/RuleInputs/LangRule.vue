@@ -24,10 +24,10 @@ import {
   EngineRuleData,
   EngineSubOperators,
   SimpleRuleType,
-} from '@/datagrid-bvue';
-import fieldInput from '@/mixins/RuleFieldInput';
-import OperatorDropdown from '@/rule/RuleInputs/OperatorDropdown.vue';
-import { Language, LOCALES } from '@/fieldsData';
+} from '../../datagrid-bvue';
+import fieldInput from '../../mixins/RuleFieldInput';
+import OperatorDropdown from './OperatorDropdown.vue';
+import { Language, LOCALES } from '../../fieldsData';
 
 export default defineComponent({
   name: 'LangRule',
