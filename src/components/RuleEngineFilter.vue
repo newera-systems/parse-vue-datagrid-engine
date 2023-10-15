@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import Vue, { defineComponent, PropType } from 'vue';
-import RuleFilterInput from '@/rule/RuleFilterInput.vue';
+import RuleFilterInput from '../rule/RuleFilterInput.vue';
 import {
   EngineRuleGroup,
   EngineSimpleRule,
@@ -27,10 +27,10 @@ import {
   GroupOperator,
   IDataGridPrototype,
   RuleActions,
-} from '@/datagrid-bvue';
-import { RuleDefinitionWithChain, RuleEngineConfig } from '@/rule/RuleElementCreator';
+} from '../datagrid-bvue';
+import { RuleDefinitionWithChain, RuleEngineConfig } from '../rule/RuleElementCreator';
 import VueI18n from 'vue-i18n';
-import filterTranslate from '@/translation/filter';
+import filterTranslate from '../translation/filter';
 
 Vue.use(VueI18n);
 export default defineComponent({

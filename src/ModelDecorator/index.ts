@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import type { SchemaDefinition } from '@/rule/RuleElementCreator';
+import type { SchemaDefinition } from '../rule/RuleElementCreator';
 
 export interface GridOptions {
   canView: boolean;

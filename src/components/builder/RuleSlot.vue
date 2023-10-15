@@ -19,8 +19,8 @@
 import { RuleSlotProps } from 'query-builder-vue';
 
 import { defineComponent, PropType } from 'vue';
-import FieldNamePrinter from '@components/FieldNamePrinter.vue';
-import { RuleDefinitionWithChain } from '@/rule/RuleElementCreator';
+import FieldNamePrinter from '../../components/FieldNamePrinter.vue';
+import { RuleDefinitionWithChain } from '../../rule/RuleElementCreator';
 
 export default defineComponent({
   name: 'RuleSlot-Builders',

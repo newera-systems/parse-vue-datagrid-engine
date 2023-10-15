@@ -99,9 +99,9 @@ import {
   BButton,
 } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import tableTranslate from '@/translation/table';
+import tableTranslate from '../translation/table';
 import _ from 'lodash';
-import FieldNamePrinter from '@components/FieldNamePrinter.vue';
+import FieldNamePrinter from './FieldNamePrinter.vue';
 
 Vue.use(VueI18n);
 export default defineComponent({

@@ -50,9 +50,9 @@ import {
   BIconPlusSquare,
 } from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import modalTranslation from '@/translation/modal';
-import FieldNamePrinter from '@components/FieldNamePrinter.vue';
-import { RuleDefinitionWithChain } from '@/rule/RuleElementCreator';
+import modalTranslation from '../../translation/modal';
+import FieldNamePrinter from '../../components/FieldNamePrinter.vue';
+import { RuleDefinitionWithChain } from '../../rule/RuleElementCreator';
 
 Vue.use(VueI18n);
 export default defineComponent({
