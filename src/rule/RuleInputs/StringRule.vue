@@ -7,7 +7,6 @@
       <b-form-input
         v-model="content"
         :disabled="operator === 'empty' || operator === 'notEmpty'"
-        type=""
         autocomplete="off"
         trim
       />
