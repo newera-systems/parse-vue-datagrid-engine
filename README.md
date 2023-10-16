@@ -2,7 +2,7 @@
   DatagridBvue
 </h1>
 <h4 align='center'>
-  <img src="https://img.shields.io/badge/version-0.2.0-blue.svg?cacheSeconds=2592000" />
+  <img src="https://img.shields.io/badge/version-0.2.2-blue.svg?cacheSeconds=2592000" />
 </h4>
 <h5 align='center'>
 
